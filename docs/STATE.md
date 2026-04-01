@@ -9,16 +9,16 @@
 Das lokale Intelligence-, IP-, Modul-, Script- und Wissensverdichtungs-System von StrategAIze. Es verarbeitet Erkenntnisse aus Onboarding, Delivery, Vertrieb, Marktbeobachtung und internen Ideen, verdichtet sie zu Mustern und Chancen, überführt sie in wiederverwendbare Kataloge und erzeugt daraus gezielt Assets, Produktideen und wissensplattformfähige Outputs.
 
 ## Current State
-- High-Level State: requirements
-- Current Focus: Discovery abgeschlossen — V1-Scope mit 10 Modulen definiert, 5 technische Grundsatzentscheidungen getroffen. Nächster Schritt: vollständiges PRD via /requirements.
-- Current Phase: Requirements
+- High-Level State: architecture
+- Current Focus: Requirements abgeschlossen — Vollständiges PRD mit 10 Features, Objektmodell, Constraints und Success Criteria. Nächster Schritt: /architecture.
+- Current Phase: Architecture
 
 ## Immediate Next Steps
-1. /requirements — Vollständiges PRD auf Basis der Discovery erstellen
-2. /architecture — Technische Architektur definieren
+1. /architecture — Technische Architektur definieren (SQLite-Schema, Next.js-Struktur, Claude-Integration, API-Design)
+2. /slice-planning — V1 in implementierbare Slices aufteilen
 
 ## Active Scope
-V1 Intelligence Studio MVP: Insight Inbox, Insight Analyzer, Pattern & Signal Clustering (Basis), Improvement Engine, Opportunity & Product Catalog, Decision & Action Board, Content & Asset Transformer (Grundtypen), Brand & Output Control, Modules & Script Builder (Basis), Knowledge Packaging Engine (Basis).
+V1 Intelligence Studio MVP mit 10 Features: Insight Inbox, Insight Analyzer, Pattern & Signal Clustering (Basis), Improvement Engine, Opportunity & Product Catalog, Decision & Action Board, Content & Asset Transformer (Grundtypen), Brand & Output Control, Modules & Script Builder (Basis), Knowledge Packaging Engine (Basis).
 
 ## Blockers
 - aktuell keine
@@ -27,8 +27,9 @@ V1 Intelligence Studio MVP: Insight Inbox, Insight Analyzer, Pattern & Signal Cl
 - none yet
 
 ## Notes
-- System 4 in der StrategAIze-Gesamtarchitektur (querliegende Lern- und Produktionsschicht über System 1-3)
-- Primärnutzer: Gründer, ggf. 1 interne Person — kein Multiuser-System
-- Lokal-first: Next.js lokal + SQLite + Claude Code Agent Tool (Max-Subscription)
+- System 4 in der StrategAIze-Gesamtarchitektur
+- Primärnutzer: Gründer — kein Multiuser-System
+- Tech: Next.js lokal + SQLite + Claude Code Agent Tool (Max-Subscription)
 - DSGVO-Schnitt: Rohdaten lokal, nur abstrahierte Insights an Claude
-- Discovery-Report: /reports/RPT-001.md
+- 10 Features definiert, 11 Backlog-Items (10 Features + 1 Infrastruktur)
+- Discovery: RPT-001 / Requirements: RPT-002
