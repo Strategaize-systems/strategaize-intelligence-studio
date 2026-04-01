@@ -24,3 +24,23 @@
 - Status: accepted
 - Reason: Claude Code verarbeitet Daten auf Anthropic-Servern (USA), nicht lokal. Max-Subscription-Daten werden nicht fürs Training verwendet, verlassen aber den Rechner. Kundenbezogene Rohdaten (Transkripte, E-Mails) sind DSGVO-relevant.
 - Consequence: System-Design trennt Rohdaten (lokal in SQLite) von abstrahierten Insights (dürfen an Claude gehen). Kundendaten werden vor KI-Verarbeitung anonymisiert/pseudonymisiert oder nur als bereits abstrahierte Erkenntnisse verarbeitet. Dieser Schnitt wird in der Architektur verankert.
+
+## DEC-006 — better-sqlite3 statt ORM (Prisma/Drizzle)
+- Status: accepted
+- Reason: Kein ORM-Overhead für Single-User-App. Direktes SQL gibt maximale Kontrolle. Synchrones API von better-sqlite3 passt zu Server Actions. Kein Connection-Pool nötig.
+- Consequence: SQL wird direkt geschrieben. TypeScript-Typen manuell definiert in lib/types.ts. Schema-Migrations als SQL-Dateien in sql/migrations/.
+
+## DEC-007 — Claude Code CLI statt API für KI-Aufrufe
+- Status: accepted
+- Reason: Max-Subscription erlaubt CLI-Nutzung ohne API-Kosten. CLI-Aufruf über child_process.execFile ist einfach und zuverlässig. Latenz (~2-5s pro Aufruf) ist für Single-User akzeptabel.
+- Consequence: Jeder KI-Aufruf geht über den claude CLI-Befehl. Keine Streaming-Unterstützung in V1. Batch-Analyse ist sequentiell.
+
+## DEC-008 — Server Actions statt REST API
+- Status: accepted
+- Reason: Next.js Server Actions sind typsicher, boilerplate-arm und für Single-User lokale App ideal. Kein externer API-Consumer geplant.
+- Consequence: Alle Datenmutationen über Server Actions. Keine separaten REST-Endpoints. Route Handlers nur für komplexe Queries wenn nötig.
+
+## DEC-009 — Prompt Templates als Flat Markdown Files
+- Status: accepted
+- Reason: Einfach, lesbar, direkt editierbar ohne Framework-Dependency. Prompt-Iteration über Dateisystem statt Datenbank.
+- Consequence: Alle Prompt-Templates liegen in prompts/ als .md-Dateien. Variablen werden über {{placeholder}}-Syntax ersetzt. Keine Prompt-Versionierung in V1.

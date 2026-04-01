@@ -9,16 +9,16 @@
 Das lokale Intelligence-, IP-, Modul-, Script- und Wissensverdichtungs-System von StrategAIze. Es verarbeitet Erkenntnisse aus Onboarding, Delivery, Vertrieb, Marktbeobachtung und internen Ideen, verdichtet sie zu Mustern und Chancen, überführt sie in wiederverwendbare Kataloge und erzeugt daraus gezielt Assets, Produktideen und wissensplattformfähige Outputs.
 
 ## Current State
-- High-Level State: architecture
-- Current Focus: Requirements abgeschlossen — Vollständiges PRD mit 10 Features, Objektmodell, Constraints und Success Criteria. Nächster Schritt: /architecture.
-- Current Phase: Architecture
+- High-Level State: slice-planning
+- Current Focus: Architektur abgeschlossen — SQLite-Schema (11 Tabellen + 2 Junction + FTS5), Next.js App-Struktur, Claude CLI Integration, DSGVO-Filter definiert. Nächster Schritt: /slice-planning.
+- Current Phase: Slice Planning
 
 ## Immediate Next Steps
-1. /architecture — Technische Architektur definieren (SQLite-Schema, Next.js-Struktur, Claude-Integration, API-Design)
-2. /slice-planning — V1 in implementierbare Slices aufteilen
+1. /slice-planning — V1 in implementierbare Slices aufteilen
+2. /frontend + /backend — Implementation starten (nach Slice Planning)
 
 ## Active Scope
-V1 Intelligence Studio MVP mit 10 Features: Insight Inbox, Insight Analyzer, Pattern & Signal Clustering (Basis), Improvement Engine, Opportunity & Product Catalog, Decision & Action Board, Content & Asset Transformer (Grundtypen), Brand & Output Control, Modules & Script Builder (Basis), Knowledge Packaging Engine (Basis).
+V1 Intelligence Studio MVP: 10 Features, 11 DB-Tabellen, Next.js + SQLite + Claude CLI. Tech-Stack und Datenmodell sind definiert.
 
 ## Blockers
 - aktuell keine
@@ -28,8 +28,7 @@ V1 Intelligence Studio MVP mit 10 Features: Insight Inbox, Insight Analyzer, Pat
 
 ## Notes
 - System 4 in der StrategAIze-Gesamtarchitektur
-- Primärnutzer: Gründer — kein Multiuser-System
-- Tech: Next.js lokal + SQLite + Claude Code Agent Tool (Max-Subscription)
-- DSGVO-Schnitt: Rohdaten lokal, nur abstrahierte Insights an Claude
-- 10 Features definiert, 11 Backlog-Items (10 Features + 1 Infrastruktur)
-- Discovery: RPT-001 / Requirements: RPT-002
+- Tech: Next.js 14+ App Router, better-sqlite3, Claude Code CLI, Tailwind + shadcn/ui
+- 9 technische Entscheidungen dokumentiert (DEC-001 bis DEC-009)
+- DSGVO-Schnitt über buildSafePrompt in lib/ai.ts
+- Reports: RPT-001 (Discovery), RPT-002 (Requirements), RPT-003 (Architecture)
