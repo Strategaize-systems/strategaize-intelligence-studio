@@ -3,8 +3,8 @@
     {
       "id": "v1",
       "name": "V1",
-      "status": "planned",
-      "summary": "Intelligence Studio MVP — Insight Inbox, Analyzer, Pattern-Erkennung, Improvement Engine, Opportunity Catalog, Decision Board, Content Transformer, Brand Control, Module Builder (Basis), Knowledge Packaging (Basis)",
+      "status": "active",
+      "summary": "Intelligence Studio MVP — 10 Features, 11 Slices. Insight Inbox, Analyzer, Pattern Clustering, Improvement Engine, Opportunity Catalog, Decision Board, Content Transformer, Brand Control, Module Builder, Knowledge Packaging.",
       "order": 1
     },
     {
