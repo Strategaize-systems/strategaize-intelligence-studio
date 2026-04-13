@@ -9,17 +9,16 @@
 Zentrale Decision-to-Execution Engine von StrategAIze. Sammelt Erkenntnisse aus allen Systemen, verdichtet sie zu Mustern und Chancen, bewertet und priorisiert strukturiert, übersetzt Entscheidungen in typisierte Folgeobjekte und löst Folgearbeit in System 1, 2 und 3 aus. System 4 im StrategAIze-Ökosystem.
 
 ## Current State
-- High-Level State: requirements
-- Current Focus: Requirements-Update abgeschlossen. PRD, 12 Feature-Specs, Backlog und Roadmap aktualisiert. Nächster Schritt: Architecture-Update.
-- Current Phase: Requirements (Revision abgeschlossen)
+- High-Level State: architecture
+- Current Focus: Architecture-Update abgeschlossen. 3 neue Tabellen, erweiterte Enums, 4 neue Prompt-Templates. Nächster Schritt: Slice Planning.
+- Current Phase: Architecture (Revision abgeschlossen)
 
 ## Immediate Next Steps
-1. /architecture — Architektur aktualisieren: 3 neue Tabellen (experiments, research_tasks, action_triggers), erweiterte Enums, neue Prompt-Templates
-2. /slice-planning — Slice-Schnitt komplett neu (von 11 auf ~14 Slices)
-3. SLC-001 — Implementation starten (nach Architecture + Slice Planning)
+1. /slice-planning — V1 in ~14 implementierbare Slices aufteilen
+2. SLC-001 — Implementation starten (nach Slice Planning)
 
 ## Active Scope
-V1 Intelligence Studio MVP (Decision-to-Execution Engine): 12 Features (7 unverändert, 3 geschärft, 2 neu), ~14 DB-Tabellen, ~14 Slices geplant. Kein Code implementiert.
+V1 Intelligence Studio MVP (Decision-to-Execution Engine): 12 Features, 14 Core-Tabellen + 2 Junction + 1 Singleton + 2 FTS, ~14 Slices geplant. Kein Code implementiert.
 
 ## Blockers
 - aktuell keine
@@ -30,7 +29,5 @@ V1 Intelligence Studio MVP (Decision-to-Execution Engine): 12 Features (7 unver�
 ## Notes
 - System 4 in der StrategAIze-Gesamtarchitektur
 - Tech: Next.js 14+ App Router, better-sqlite3, Claude Code CLI, Tailwind + shadcn/ui
-- 9 technische Entscheidungen (DEC-001 bis DEC-009) bleiben gültig
-- Discovery Update (RPT-005): Strategische Revision vom 13.04.2026
-- Requirements Update: PRD, Features, Backlog, Roadmap aktualisiert am 13.04.2026
-- Reports: RPT-001 bis RPT-005 (Discovery, Requirements, Architecture, Slice Planning, Discovery Update)
+- 9 technische Entscheidungen (DEC-001 bis DEC-009) + 2 neue Tradeoff-Entscheidungen (inline Bewertung, Action Triggers als eigene Tabelle)
+- Reports: RPT-001 bis RPT-007
