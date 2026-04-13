@@ -47,7 +47,7 @@
       "priority": "high",
       "status": "open",
       "version": "V1",
-      "description": "Strategische Bewertung von Opportunities mit Pflicht-Schema (11 Dimensionen: 6 Pflicht, 5 optional in V1). Kill-Kriterien, Testbedarf, Monetarisierungslogik.",
+      "description": "Strategische Bewertung von Opportunities mit Pflicht-Schema (11 Dimensionen: 6 Pflicht, 5 optional). Kill-Kriterien, Testbedarf, Monetarisierungslogik.",
       "createdAt": "2026-04-13"
     },
     {
@@ -57,7 +57,7 @@
       "priority": "high",
       "status": "open",
       "version": "V1",
-      "description": "Board-Ansicht für ausstehende Entscheidungen. Entscheidungen erzeugen typisierte Action Triggers mit Zielsystem und Status. Zentrale Decision-to-Execution-Brücke.",
+      "description": "Board-Ansicht für ausstehende Entscheidungen. Entscheidungen erzeugen typisierte Action Triggers mit Zielsystem und Status.",
       "createdAt": "2026-04-13"
     },
     {
@@ -87,7 +87,7 @@
       "priority": "high",
       "status": "open",
       "version": "V1",
-      "description": "13 Draft-Typen für alle Systeme: Fragebögen, Flows, Kataloge, Delivery-Scripts, Kampagnenlogiken, Onboarding-Drafts, Präsentationen. Zielsystem-Zuordnung.",
+      "description": "13 Draft-Typen für alle Systeme mit Zielsystem-Zuordnung und KI-gestützter Generierung",
       "createdAt": "2026-04-13"
     },
     {
@@ -107,7 +107,7 @@
       "priority": "high",
       "status": "open",
       "version": "V1",
-      "description": "Datenbankschema für alle 14 Tabellen inkl. experiments, research_tasks, action_triggers. Next.js-Projektsetup, grundlegende Navigation.",
+      "description": "Datenbankschema für alle 17 Tabellen inkl. experiments, research_tasks, action_triggers. Next.js-Projektsetup, grundlegende Navigation.",
       "createdAt": "2026-04-13"
     },
     {
@@ -117,7 +117,7 @@
       "priority": "high",
       "status": "open",
       "version": "V1",
-      "description": "Strukturierte Experiments mit Hypothese, Zielgruppe, Kanal, Kill-Kriterien, Erfolgssignale. CRUD + KI-Vorschlag + Abschluss-Workflow mit Folgeentscheidung.",
+      "description": "Strukturierte Experiments mit Hypothese, Zielgruppe, Kanal, Kill-Kriterien, Erfolgssignale. CRUD + KI-Vorschlag + Abschluss-Workflow.",
       "createdAt": "2026-04-13"
     },
     {
@@ -127,7 +127,17 @@
       "priority": "high",
       "status": "open",
       "version": "V1",
-      "description": "6 Research-Typen: Zielgruppen, Operator-Profile, Multiplikatoren, Testmärkte, Outreach-Packs, Listenbriefings. Nur Design/Briefing, kein CRM/Versand.",
+      "description": "6 Research-Typen mit KI-Briefing. Nur Design/Briefing, kein CRM/Versand.",
+      "createdAt": "2026-04-13"
+    },
+    {
+      "id": "BL-014",
+      "title": "Dashboard & Integration — Übersicht und Vernetzung",
+      "type": "feature",
+      "priority": "medium",
+      "status": "open",
+      "version": "V1",
+      "description": "Dashboard-Statistiken, Cross-Objekt-Verlinkungen, Gesamtnavigation mit Breadcrumbs, FTS-Volltextsuche",
       "createdAt": "2026-04-13"
     }
   ]
