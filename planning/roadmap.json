@@ -4,21 +4,21 @@
       "id": "v1",
       "name": "V1",
       "status": "active",
-      "summary": "Intelligence Studio MVP — 10 Features, 11 Slices. Insight Inbox, Analyzer, Pattern Clustering, Improvement Engine, Opportunity Catalog, Decision Board, Content Transformer, Brand Control, Module Builder, Knowledge Packaging.",
+      "summary": "Intelligence Studio MVP — Decision-to-Execution Engine. 12 Features, ~14 Slices. Insight Inbox, Analyzer, Pattern Clustering, Improvement Engine, Opportunity & Venture Evaluation, Decision & Trigger Board, Content Transformer, Brand Control, Modules/Flows/Build Drafts, Knowledge Packaging, Experiment Manager, Research & Market Prep.",
       "order": 1
     },
     {
       "id": "v1-1",
       "name": "V1.1",
       "status": "planned",
-      "summary": "Reuse & Similarity Finder, stärkere Clusterlogik, Priorisierung, Content-Ableitungen, Präsentations-/One-Pager-Logik, Modulvergleichslogik, Fragenkatalog-Verbesserungsschleifen",
+      "summary": "Verdichtung & Vergleichbarkeit: Similarity/Reuse Finder, stärkere Priorisierung, KI-Entscheidungsempfehlungen, bessere Clusterlogik, One-Pager/Präsentationslogik, Katalog-Verbesserungsschleifen, Test-/Experiment-Vergleichbarkeit, alle 11 Bewertungsdimensionen Pflicht",
       "order": 2
     },
     {
       "id": "v2",
       "name": "V2",
       "status": "planned",
-      "summary": "Research-Anreicherung, halbautomatische Zufuhr aus System 2+3, Cross-Project-Auswertung, Branchen-Layer, reifer Produktkatalog, Automation-Ideen-Mapping, Knowledge-Packaging-Standards",
+      "summary": "Vernetzung & Anreicherung: Halbautomatische Zufuhr aus S2/S3, automatische Trigger-Weiterleitung, Research-Anreicherung, Cross-Project-Auswertung, Branchen-Layer, reifer Venture-Katalog, Automation-Ideen-Mapping, RAG-/Knowledge-Base-Andockpunkte",
       "order": 3
     }
   ]

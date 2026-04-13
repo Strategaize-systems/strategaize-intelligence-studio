@@ -42,33 +42,33 @@
     },
     {
       "id": "BL-005",
-      "title": "Opportunity & Product Catalog — Strategischer Chancenkatalog",
+      "title": "Opportunity & Venture Evaluation — Strategisches Bewertungssystem",
       "type": "feature",
       "priority": "high",
       "status": "open",
       "version": "V1",
-      "description": "Katalogisierung von Produkt-, Automatisierungs- und Angebotsideen mit Reifegrad, Verlinkung und Filtern",
-      "createdAt": "2026-04-01"
+      "description": "Strategische Bewertung von Opportunities mit Pflicht-Schema (11 Dimensionen: 6 Pflicht, 5 optional in V1). Kill-Kriterien, Testbedarf, Monetarisierungslogik.",
+      "createdAt": "2026-04-13"
     },
     {
       "id": "BL-006",
-      "title": "Decision & Action Board — Entscheidungsdisziplinierung",
+      "title": "Decision & Trigger Board — Entscheidungs- und Action-Trigger-Orchestrierung",
       "type": "feature",
       "priority": "high",
       "status": "open",
       "version": "V1",
-      "description": "Board-Ansicht für ausstehende Entscheidungen mit Folgeaktions-Erzeugung und Wiedervorlage",
-      "createdAt": "2026-04-01"
+      "description": "Board-Ansicht für ausstehende Entscheidungen. Entscheidungen erzeugen typisierte Action Triggers mit Zielsystem und Status. Zentrale Decision-to-Execution-Brücke.",
+      "createdAt": "2026-04-13"
     },
     {
       "id": "BL-007",
-      "title": "Content & Asset Transformer — Grundtypen",
+      "title": "Content & Asset Transformer — 6 Grundtypen",
       "type": "feature",
       "priority": "high",
       "status": "open",
       "version": "V1",
-      "description": "KI-gestützte Asset-Generierung für Blog, LinkedIn-Post, One-Pager und Produktnotiz mit Brand-Kontext",
-      "createdAt": "2026-04-01"
+      "description": "KI-gestützte Asset-Generierung für Blog, LinkedIn-Post, One-Pager, Produktnotiz, E-Mail-Vorlage und Landingpage-Briefing mit Brand-Kontext",
+      "createdAt": "2026-04-13"
     },
     {
       "id": "BL-008",
@@ -77,18 +77,18 @@
       "priority": "high",
       "status": "open",
       "version": "V1",
-      "description": "Brand-Konfiguration in UI, Integration bei Asset-Generierung und Tone Check",
+      "description": "Brand-Konfiguration in UI mit 6 Vorlagen-Typen, Integration bei Asset-Generierung und Tone Check",
       "createdAt": "2026-04-01"
     },
     {
       "id": "BL-009",
-      "title": "Modules & Script Builder — Basis-Baukasten",
+      "title": "Modules, Flows & Build Drafts — Strukturierte Build-Artefakte",
       "type": "feature",
-      "priority": "medium",
+      "priority": "high",
       "status": "open",
       "version": "V1",
-      "description": "Strukturierte Entwürfe für Module, Scripts, Fragebögen mit Templates und KI-Generierung",
-      "createdAt": "2026-04-01"
+      "description": "13 Draft-Typen für alle Systeme: Fragebögen, Flows, Kataloge, Delivery-Scripts, Kampagnenlogiken, Onboarding-Drafts, Präsentationen. Zielsystem-Zuordnung.",
+      "createdAt": "2026-04-13"
     },
     {
       "id": "BL-010",
@@ -107,8 +107,28 @@
       "priority": "high",
       "status": "open",
       "version": "V1",
-      "description": "Datenbankschema für alle Objekttypen, Next.js-Projektsetup, grundlegende API-Routes",
-      "createdAt": "2026-04-01"
+      "description": "Datenbankschema für alle 14 Tabellen inkl. experiments, research_tasks, action_triggers. Next.js-Projektsetup, grundlegende Navigation.",
+      "createdAt": "2026-04-13"
+    },
+    {
+      "id": "BL-012",
+      "title": "Experiment / Market Test Manager — Strukturierte Hypothesentestung",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V1",
+      "description": "Strukturierte Experiments mit Hypothese, Zielgruppe, Kanal, Kill-Kriterien, Erfolgssignale. CRUD + KI-Vorschlag + Abschluss-Workflow mit Folgeentscheidung.",
+      "createdAt": "2026-04-13"
+    },
+    {
+      "id": "BL-013",
+      "title": "Research & Market Prep — Vorbereitungslogik für Marktarbeit",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V1",
+      "description": "6 Research-Typen: Zielgruppen, Operator-Profile, Multiplikatoren, Testmärkte, Outreach-Packs, Listenbriefings. Nur Design/Briefing, kein CRM/Versand.",
+      "createdAt": "2026-04-13"
     }
   ]
 }
