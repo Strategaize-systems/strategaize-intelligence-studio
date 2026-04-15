@@ -11,18 +11,25 @@ System 3 der StrategAIze-Gesamtarchitektur. Interne Intelligence-, IP-, Opportun
 Referenz: `/strategaize-dev-system/docs/PLATFORM.md`.
 
 ## Current State
-- High-Level State: requirements
-- Current Focus: Discovery abgeschlossen 2026-04-15 (RPT-001). V1-Scope auf 6 Features geschnitten (F-01 Ingest Onboarding, F-02 Ingest Business, F-03 Portfolio Monitor, F-04 Insight-Layer, F-05 Opportunity & Decision basic, F-06 Cross-Kunden-Learnings basic). Nächster Schritt: `/requirements` mit 7 offenen Entscheidungsfragen aus RPT-001 Abschnitt 9.
-- Current Phase: Requirements (Discovery abgeschlossen)
+- High-Level State: architecture
+- Current Focus: Requirements abgeschlossen 2026-04-15 (RPT-002). V1-Scope auf 7 Features geschnitten (FEAT-001..FEAT-007), PRD befüllt, Roadmap und Backlog angelegt. Alle 7 Discovery-Fragen beantwortet und eingearbeitet. Wichtiger Business-Constraint dokumentiert (kein Produkt-/Modul-Modell in Business V4). Nächster Schritt: `/architecture`.
+- Current Phase: Architecture (Requirements abgeschlossen)
 
 ## Immediate Next Steps
-1. `/requirements` starten. Pflichtlektüre:
-   - `/reports/RPT-001.md` (Discovery-Ergebnis, V1-Scope + 7 offene Fragen)
+1. `/architecture` starten. Pflichtlektüre:
+   - `/docs/PRD.md` (V1-Scope, Constraints, Non-Goals)
+   - `/features/` (7 Feature-Specs)
+   - `/planning/roadmap.json` und `/planning/backlog.json`
    - `/strategaize-dev-system/docs/PLATFORM.md`
    - `/strategaize-dev-system/.claude/rules/data-residency.md`
-   - `/docs/discovery-input.md` (weiterhin gültige Richtungsvorgaben)
-2. Im `/requirements`-Lauf: die 7 Entscheidungsfragen beantworten (Deployment, Ingest-Mechanik Onboarding, Ingest-Mechanik Business, Business-Entitäten-Scope, Modul-/Stack-Modell, Anonymisierungs-UX, Opportunity-Bewertungs-Dimensionen).
-3. Dann `/architecture` — explizit gegen PLATFORM.md und data-residency-Rule prüfen. Schema template-ready designen (auch wenn Template-Modus erst V3 aktiviert wird).
+   - `/reports/RPT-001.md` + `/reports/RPT-002.md`
+2. Im `/architecture`-Lauf zu klären:
+   - OQ-02 aus PRD: genauer Datenschnitt Business-Ingest (welche Deal-States? welche Angebote?)
+   - OQ-03: einheitliches GitHub-Repo für IS einrichten — für Coolify-Auto-Deploy
+   - Schema mit template-ready Feldern designen (`template_id` optional + Feature-Flags pro Modul), ohne V1-Aktivierung
+   - Ingest-Mechanik im Detail (Cursor-Verwaltung, Retry-Policy, Auth zwischen IS und Onboarding/Business)
+   - Bedrock-Adapter-Integration (analog Onboarding)
+3. Nach `/architecture`: `/slice-planning` — Slice-Schnitt auf Basis von BL-001..BL-008.
 
 ## Active Scope
 Keiner. V1-Planung wurde archiviert. Neuer Scope wird über Discovery + Requirements definiert.

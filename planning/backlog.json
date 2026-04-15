@@ -1,3 +1,84 @@
 {
-  "items": []
+  "items": [
+    {
+      "id": "BL-001",
+      "title": "Project Setup & Foundation",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V1",
+      "description": "Next.js 16+ Projekt initialisieren, Supabase-Setup (lokal + Hetzner), Docker-Compose via Coolify, Base-Schema mit template-ready Feldern, Auth/RBAC (analog Onboarding), Bedrock-Adapter (Provider-Adapter-Pattern), GitHub-Repo anlegen und mit Coolify verbinden. Grundlage für alle Features.",
+      "createdAt": "2026-04-15"
+    },
+    {
+      "id": "BL-002",
+      "title": "FEAT-001 Ingest-Layer Onboarding",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V1",
+      "description": "Pull-basierter KU-Import aus Onboarding-SLC-010-Export-API, inkrementell alle 10 Minuten, IS-eigene KU-Cache-Tabelle, Ingest-Log. Siehe /features/FEAT-001-ingest-onboarding.md.",
+      "createdAt": "2026-04-15"
+    },
+    {
+      "id": "BL-003",
+      "title": "FEAT-002 Ingest-Layer Business",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V1",
+      "description": "Pull-basierter Import von Kontakten/Unternehmen/Deals/Angeboten aus Business V4, fehlertolerant gegen fehlende Entitäten (Produkte, Module, Projekte existieren heute nicht). Stündlicher Cron. Siehe /features/FEAT-002-ingest-business.md.",
+      "createdAt": "2026-04-15"
+    },
+    {
+      "id": "BL-004",
+      "title": "FEAT-003 Portfolio-Monitor",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V1",
+      "description": "UI-Übersicht aller Kundenprojekte mit Filter, Suche, Detail-Ansicht mit Deployment-Karte (FEAT-007), verknüpften KUs (FEAT-004) und Opportunities (FEAT-005). Primärer IS-Einstiegspunkt. Siehe /features/FEAT-003-portfolio-monitor.md.",
+      "createdAt": "2026-04-15"
+    },
+    {
+      "id": "BL-005",
+      "title": "FEAT-004 Insight-Layer",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V1",
+      "description": "Durchsuchbare, filterbare KU-Liste mit Tag-System, manuellem Clustering, Volltext-Suche (Supabase FTS), Detail-Ansicht, Aktionen (Tag, Cluster, zu Opportunity ableiten, als Learning freigeben). Siehe /features/FEAT-004-insight-layer.md.",
+      "createdAt": "2026-04-15"
+    },
+    {
+      "id": "BL-006",
+      "title": "FEAT-005 Opportunity & Decision basic",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V1",
+      "description": "Opportunity-CRUD mit 4 Pflicht + 7 optionalen Bewertungs-Dimensionen. KI-Bewertungsvorschlag via Bedrock Sonnet. Decision-Board mit Status-Workflow und Audit-Log. Siehe /features/FEAT-005-opportunity-decision.md.",
+      "createdAt": "2026-04-15"
+    },
+    {
+      "id": "BL-007",
+      "title": "FEAT-006 Cross-Kunden-Learnings basic",
+      "type": "feature",
+      "priority": "medium",
+      "status": "open",
+      "version": "V1",
+      "description": "Zusatzfelder an KU (is_shareable + shared_text), manuelle Freigabe- und Anonymisierungs-UX, Cross-Kunden-Ansicht die nur shared_text zeigt. Siehe /features/FEAT-006-cross-kunden-learnings.md.",
+      "createdAt": "2026-04-15"
+    },
+    {
+      "id": "BL-008",
+      "title": "FEAT-007 Customer Deployment Registry",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V1",
+      "description": "Pro Kunde Deployment-Entität (Typ, Hoster, Host-Referenz, Zugang-Referenz, aktive Module, Code-Version). Update-Rollout-Ansicht mit Filter nach Version. Keine Secrets im IS. Siehe /features/FEAT-007-deployment-registry.md.",
+      "createdAt": "2026-04-15"
+    }
+  ]
 }

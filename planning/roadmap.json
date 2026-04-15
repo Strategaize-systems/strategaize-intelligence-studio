@@ -1,3 +1,32 @@
 {
-  "versions": []
+  "versions": [
+    {
+      "id": "v1",
+      "name": "V1",
+      "status": "active",
+      "summary": "Foundation + Portfolio Monitor — 7 Features: Ingest-Layer Onboarding (Pull aus KU-Export), Ingest-Layer Business (Pull fehlertolerant), Portfolio-Monitor (UI-Übersicht), Insight-Layer (KU-Liste mit Tags/Clustering/Volltext), Opportunity & Decision basic (4 Pflicht- + 7 optionale Dimensionen, KI-Bewertung via Bedrock, Decision-Board), Cross-Kunden-Learnings basic (manuelle Freigabe + Anonymisierung), Customer Deployment Registry (Deployment-Typ, Server, Module, Version, Update-Rollout-Ansicht).",
+      "order": 1
+    },
+    {
+      "id": "v2",
+      "name": "V2",
+      "status": "planned",
+      "summary": "Intelligence + Production: KI-Auto-Clustering von KUs, Pattern-Erkennung, Improvement-Engine mit automatischer Rückspielung nach Onboarding und Business, Knowledge-Packaging-Engine (SOPs, FAQs, Wissensbausteine), Content-Transformer (Assets), Brand-Control, Experiment-Manager (strukturierte Hypothesentestung), Auto-Anonymisierung für Cross-Kunden-Learnings via Bedrock, JSON-Export-API als Partner-Schnittstelle.",
+      "order": 2
+    },
+    {
+      "id": "v3",
+      "name": "V3",
+      "status": "planned",
+      "summary": "External & Partners: Template-Produkt-Modus für externe Kundeneinsätze (Multi-Instanz, Template-Konfiguration), echte Partner-API mit Auth und Rate-Limiting (Voice via SMAO, RAG-Anbieter-Vermittlung), Research & Market Prep.",
+      "order": 3
+    },
+    {
+      "id": "v4",
+      "name": "V4+",
+      "status": "planned",
+      "summary": "Reife-Features: Modules/Flows/Build-Drafts (13 Draft-Typen — konzeptuell neu denken), Branchen-Layer, Cross-Project-Auswertung, Anomalie-Flagging, Process-Mining-Connector.",
+      "order": 4
+    }
+  ]
 }
