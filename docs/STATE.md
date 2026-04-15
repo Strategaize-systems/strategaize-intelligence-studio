@@ -11,17 +11,18 @@ System 3 der StrategAIze-Gesamtarchitektur. Interne Intelligence-, IP-, Opportun
 Referenz: `/strategaize-dev-system/docs/PLATFORM.md`.
 
 ## Current State
-- High-Level State: discovery
-- Current Focus: Re-Discovery auf Basis der aktualisierten Gesamtarchitektur (2026-04-15). Vorherige V1-Planung (12 Features, 14 Slices, 77 Micro-Tasks) wurde vollständig archiviert und ist überholt. Neu zu entscheiden: Scope, Tech-Stack (insb. LLM-Provider), Deployment-Modell, Integrationspunkte zu Onboarding-Plattform und Business System.
-- Current Phase: Re-Discovery
+- High-Level State: requirements
+- Current Focus: Discovery abgeschlossen 2026-04-15 (RPT-001). V1-Scope auf 6 Features geschnitten (F-01 Ingest Onboarding, F-02 Ingest Business, F-03 Portfolio Monitor, F-04 Insight-Layer, F-05 Opportunity & Decision basic, F-06 Cross-Kunden-Learnings basic). Nächster Schritt: `/requirements` mit 7 offenen Entscheidungsfragen aus RPT-001 Abschnitt 9.
+- Current Phase: Requirements (Discovery abgeschlossen)
 
 ## Immediate Next Steps
-1. `/discovery` starten. Pflichtlektüre vor Skill-Start:
+1. `/requirements` starten. Pflichtlektüre:
+   - `/reports/RPT-001.md` (Discovery-Ergebnis, V1-Scope + 7 offene Fragen)
    - `/strategaize-dev-system/docs/PLATFORM.md`
    - `/strategaize-dev-system/.claude/rules/data-residency.md`
-   - `/docs/discovery-input.md` (Richtungsvorgaben aus Re-Discovery-Runde 2026-04-15: KMU-Fokus, Template-Produkt, Kunden-Monitor, SMAO-Partner, Non-Goals)
-2. Nach Discovery: `/requirements` — V1-Scope neu schneiden, Überlappungen mit Onboarding-Verdichtung vermeiden, Non-Goals aus discovery-input.md respektieren.
-3. Dann `/architecture` — explizit gegen PLATFORM.md und data-residency-Rule prüfen. Template-/Multi-Instanz-Fähigkeit von Anfang an vorsehen.
+   - `/docs/discovery-input.md` (weiterhin gültige Richtungsvorgaben)
+2. Im `/requirements`-Lauf: die 7 Entscheidungsfragen beantworten (Deployment, Ingest-Mechanik Onboarding, Ingest-Mechanik Business, Business-Entitäten-Scope, Modul-/Stack-Modell, Anonymisierungs-UX, Opportunity-Bewertungs-Dimensionen).
+3. Dann `/architecture` — explizit gegen PLATFORM.md und data-residency-Rule prüfen. Schema template-ready designen (auch wenn Template-Modus erst V3 aktiviert wird).
 
 ## Active Scope
 Keiner. V1-Planung wurde archiviert. Neuer Scope wird über Discovery + Requirements definiert.
