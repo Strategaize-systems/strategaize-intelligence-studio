@@ -16,10 +16,12 @@ Referenz: `/strategaize-dev-system/docs/PLATFORM.md`.
 - Current Phase: Re-Discovery
 
 ## Immediate Next Steps
-1. User-Ideen für erweiterten Discovery-Scope einsammeln (vor Skill-Start)
-2. `/discovery` starten mit neuem Kontext: System 3 der Gesamtarchitektur, Inputs aus Onboarding + Business, LLM = AWS Bedrock Frankfurt (verbindlich laut Data-Residency-Rule)
-3. Nach Discovery: `/requirements` — V1-Scope neu schneiden, Überlappungen mit Onboarding-Verdichtung vermeiden
-4. Dann `/architecture` — explizit gegen PLATFORM.md und data-residency-Rule prüfen
+1. `/discovery` starten. Pflichtlektüre vor Skill-Start:
+   - `/strategaize-dev-system/docs/PLATFORM.md`
+   - `/strategaize-dev-system/.claude/rules/data-residency.md`
+   - `/docs/discovery-input.md` (Richtungsvorgaben aus Re-Discovery-Runde 2026-04-15: KMU-Fokus, Template-Produkt, Kunden-Monitor, SMAO-Partner, Non-Goals)
+2. Nach Discovery: `/requirements` — V1-Scope neu schneiden, Überlappungen mit Onboarding-Verdichtung vermeiden, Non-Goals aus discovery-input.md respektieren.
+3. Dann `/architecture` — explizit gegen PLATFORM.md und data-residency-Rule prüfen. Template-/Multi-Instanz-Fähigkeit von Anfang an vorsehen.
 
 ## Active Scope
 Keiner. V1-Planung wurde archiviert. Neuer Scope wird über Discovery + Requirements definiert.
