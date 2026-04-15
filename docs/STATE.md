@@ -6,20 +6,23 @@
 - Delivery Mode: internal-tool
 
 ## Purpose
-Zentrale Decision-to-Execution Engine von StrategAIze. Sammelt Erkenntnisse aus allen Systemen, verdichtet sie zu Mustern und Chancen, bewertet und priorisiert strukturiert, übersetzt Entscheidungen in typisierte Folgeobjekte und löst Folgearbeit in System 1, 2 und 3 aus. System 4 im StrategAIze-Ökosystem.
+System 3 der StrategAIze-Gesamtarchitektur. Interne Intelligence-, IP-, Opportunity- und Produktionsschicht. Sammelt Erkenntnisse aus Onboarding-Plattform (System 1) und Business Development System (System 2), verdichtet sie, priorisiert Chancen, erzeugt neue Module, Assets und Verbesserungen und übersetzt Entscheidungen in konkrete Folgearbeit — inklusive KI-, Automatisierungs- und Produktentscheidungen.
+
+Referenz: `/strategaize-dev-system/docs/PLATFORM.md`.
 
 ## Current State
-- High-Level State: slice-planning
-- Current Focus: Slice Planning abgeschlossen. 14 Slices mit Micro-Tasks definiert. Nächster Schritt: Implementation SLC-001.
-- Current Phase: Slice Planning (abgeschlossen)
+- High-Level State: discovery
+- Current Focus: Re-Discovery auf Basis der aktualisierten Gesamtarchitektur (2026-04-15). Vorherige V1-Planung (12 Features, 14 Slices, 77 Micro-Tasks) wurde vollständig archiviert und ist überholt. Neu zu entscheiden: Scope, Tech-Stack (insb. LLM-Provider), Deployment-Modell, Integrationspunkte zu Onboarding-Plattform und Business System.
+- Current Phase: Re-Discovery
 
 ## Immediate Next Steps
-1. SLC-001 — Project Setup & Foundation (Next.js, SQLite, Schema, Layout)
-2. SLC-002 — Insight Inbox (CRUD, Import, Listenansicht)
-3. SLC-003 — Insight Analyzer (Claude-Integration, Analyse-UI)
+1. User-Ideen für erweiterten Discovery-Scope einsammeln (vor Skill-Start)
+2. `/discovery` starten mit neuem Kontext: System 3 der Gesamtarchitektur, Inputs aus Onboarding + Business, LLM = AWS Bedrock Frankfurt (verbindlich laut Data-Residency-Rule)
+3. Nach Discovery: `/requirements` — V1-Scope neu schneiden, Überlappungen mit Onboarding-Verdichtung vermeiden
+4. Dann `/architecture` — explizit gegen PLATFORM.md und data-residency-Rule prüfen
 
 ## Active Scope
-V1 Intelligence Studio MVP (Decision-to-Execution Engine): 12 Features, 14 Slices, 17 physische Tabellen + 2 FTS. Kein Code implementiert. Signalkette → Bewertungskette → Entscheidungskette → Produktionskette → Integration.
+Keiner. V1-Planung wurde archiviert. Neuer Scope wird über Discovery + Requirements definiert.
 
 ## Blockers
 - aktuell keine
@@ -28,8 +31,12 @@ V1 Intelligence Studio MVP (Decision-to-Execution Engine): 12 Features, 14 Slice
 - none yet
 
 ## Notes
-- System 4 in der StrategAIze-Gesamtarchitektur
-- Tech: Next.js 14+ App Router, better-sqlite3, Claude Code CLI, Tailwind + shadcn/ui
-- 9 technische Entscheidungen (DEC-001 bis DEC-009) + 2 Tradeoff-Entscheidungen
-- Slice-Reihenfolge: Signalkette (SLC-001–005) → Bewertung (SLC-006) → Entscheidung (SLC-007) → Produktion (SLC-008–013) → Integration (SLC-014)
-- Reports: RPT-001 bis RPT-008
+- Alte V1-Planung unter `/docs/archive/`, `/reports/archive/v1-planning/`, `/features/archive/v1-original/`, `/slices/archive/v1-original/`, `/planning/archive/`.
+- Gründe für Re-Discovery:
+  1. Systemrolle neu: IS ist **System 3** (nicht System 4). Gesamtarchitektur hat drei aktive Systeme.
+  2. LLM-Entscheidung neu: Bedrock Frankfurt verbindlich, Claude Code CLI/Max nur noch für Dev-Workflow zulässig. Siehe `.claude/rules/data-residency.md` im Dev System.
+  3. Input-Quellen neu definiert: Knowledge Units aus Onboarding + Signale aus Business (Verlustmuster, Einwände, Gesprächssignale). Alte „Insight Inbox" war manuell-first — passt nicht mehr.
+  4. Output-Rückflüsse neu: Flüsse 4+5 der Gesamtarchitektur (IS → Onboarding-Fragenkataloge/Templates, IS → Business-Argumente/Bausteine) lösen alte „Action Triggers"-Logik ab.
+  5. Alte Lokal-first-Entscheidung (DEC-001) kollidiert mit den Hetzner-basierten Datenquellen; Deployment-Modell ist offen.
+- Gesamtarchitektur-Referenz: `/strategaize-dev-system/docs/PLATFORM.md`.
+- Hosting-/Provider-Referenz: `/strategaize-dev-system/.claude/rules/data-residency.md`.

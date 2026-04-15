@@ -1,0 +1,144 @@
+{
+  "items": [
+    {
+      "id": "BL-001",
+      "title": "Insight Inbox — Strukturierter Eingangskorb für Rohsignale",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V1",
+      "description": "Manuelles Erstellen und Datei-Import von Inbox-Einträgen mit Pflichtfeldern, Status-Workflow und Listenansicht",
+      "createdAt": "2026-04-01"
+    },
+    {
+      "id": "BL-002",
+      "title": "Insight Analyzer — KI-gestützte Klassifizierung",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V1",
+      "description": "Einzel- und Batch-Analyse von Inbox-Einträgen durch Claude mit Klassifizierung, Relevanzbewertung und Bereichszuordnung",
+      "createdAt": "2026-04-01"
+    },
+    {
+      "id": "BL-003",
+      "title": "Pattern & Signal Clustering — Mustererkennung (Basis)",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V1",
+      "description": "Manuelles und KI-gestütztes Clustering von Insights zu Patterns mit n:m-Beziehungen",
+      "createdAt": "2026-04-01"
+    },
+    {
+      "id": "BL-004",
+      "title": "Improvement Engine — Verbesserungsvorschläge ableiten",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V1",
+      "description": "Konkrete Improvements für Fragen, Skills, Methodik, Angebote mit Zielbereichen und Status-Workflow",
+      "createdAt": "2026-04-01"
+    },
+    {
+      "id": "BL-005",
+      "title": "Opportunity & Venture Evaluation — Strategisches Bewertungssystem",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V1",
+      "description": "Strategische Bewertung von Opportunities mit Pflicht-Schema (11 Dimensionen: 6 Pflicht, 5 optional). Kill-Kriterien, Testbedarf, Monetarisierungslogik.",
+      "createdAt": "2026-04-13"
+    },
+    {
+      "id": "BL-006",
+      "title": "Decision & Trigger Board — Entscheidungs- und Action-Trigger-Orchestrierung",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V1",
+      "description": "Board-Ansicht für ausstehende Entscheidungen. Entscheidungen erzeugen typisierte Action Triggers mit Zielsystem und Status.",
+      "createdAt": "2026-04-13"
+    },
+    {
+      "id": "BL-007",
+      "title": "Content & Asset Transformer — 6 Grundtypen",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V1",
+      "description": "KI-gestützte Asset-Generierung für Blog, LinkedIn-Post, One-Pager, Produktnotiz, E-Mail-Vorlage und Landingpage-Briefing mit Brand-Kontext",
+      "createdAt": "2026-04-13"
+    },
+    {
+      "id": "BL-008",
+      "title": "Brand & Output Control — Markenkonsistenz",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V1",
+      "description": "Brand-Konfiguration in UI mit 6 Vorlagen-Typen, Integration bei Asset-Generierung und Tone Check",
+      "createdAt": "2026-04-01"
+    },
+    {
+      "id": "BL-009",
+      "title": "Modules, Flows & Build Drafts — Strukturierte Build-Artefakte",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V1",
+      "description": "13 Draft-Typen für alle Systeme mit Zielsystem-Zuordnung und KI-gestützter Generierung",
+      "createdAt": "2026-04-13"
+    },
+    {
+      "id": "BL-010",
+      "title": "Knowledge Packaging Engine — Basis-Wissensverdichtung",
+      "type": "feature",
+      "priority": "medium",
+      "status": "open",
+      "version": "V1",
+      "description": "Markdown-basierte Wissensartefakte (SOP, FAQ, Wissensbaustein) mit Strukturvorgaben und Export",
+      "createdAt": "2026-04-01"
+    },
+    {
+      "id": "BL-011",
+      "title": "SQLite-Datenbankschema und Projekt-Grundstruktur",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V1",
+      "description": "Datenbankschema für alle 17 Tabellen inkl. experiments, research_tasks, action_triggers. Next.js-Projektsetup, grundlegende Navigation.",
+      "createdAt": "2026-04-13"
+    },
+    {
+      "id": "BL-012",
+      "title": "Experiment / Market Test Manager — Strukturierte Hypothesentestung",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V1",
+      "description": "Strukturierte Experiments mit Hypothese, Zielgruppe, Kanal, Kill-Kriterien, Erfolgssignale. CRUD + KI-Vorschlag + Abschluss-Workflow.",
+      "createdAt": "2026-04-13"
+    },
+    {
+      "id": "BL-013",
+      "title": "Research & Market Prep — Vorbereitungslogik für Marktarbeit",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V1",
+      "description": "6 Research-Typen mit KI-Briefing. Nur Design/Briefing, kein CRM/Versand.",
+      "createdAt": "2026-04-13"
+    },
+    {
+      "id": "BL-014",
+      "title": "Dashboard & Integration — Übersicht und Vernetzung",
+      "type": "feature",
+      "priority": "medium",
+      "status": "open",
+      "version": "V1",
+      "description": "Dashboard-Statistiken, Cross-Objekt-Verlinkungen, Gesamtnavigation mit Breadcrumbs, FTS-Volltextsuche",
+      "createdAt": "2026-04-13"
+    }
+  ]
+}
