@@ -11,44 +11,31 @@ System 3 der StrategAIze-Gesamtarchitektur. Interne Intelligence-, IP-, Opportun
 Referenz: `/strategaize-dev-system/docs/PLATFORM.md`.
 
 ## Current State
-- High-Level State: architecture
-- Current Focus: Requirements V2 abgeschlossen 2026-04-16 (RPT-004). V2-Scope (Brand + Content), V3-Scope (Campaign, Segment, Lead-Recherche, Scoring, Handoff) detailliert spezifiziert mit 7 neuen Features (FEAT-008..014). V1 bleibt unverändert. V4–V7 als „geplante Folgeversionen" benannt, ohne Feature-Detail. 4 OQs (OQ-V2-01..04) in einer Zwischenrunde entschieden und in Architektur-Festlegungen übernommen. Nächster Schritt: `/architecture` — erweitert auf V1–V7 denken.
-- Current Phase: Architecture (Requirements V2 abgeschlossen)
+- High-Level State: slice-planning
+- Current Focus: Architecture V2 abgeschlossen 2026-04-16 (RPT-005). ARCHITECTURE.md komplett neu geschrieben, V1 detailliert mit 17 Tabellen, V2-V3 konzeptionell mit schema-ready Feldern, V4-V7 grobe Richtung. 12 neue DECs (DEC-008..019), MIG-001 Initial Schema Baseline definiert, MIG-002..007 als geplant. Style Guide V2 als Design-System-Pfeiler verbindlich ab Tag 1 (DEC-017), Style-Guide-Datei physisch ins IS-Repo kopiert. GitHub-Repo-Anlage (OQ-A2 A) steht noch in dieser Session an. Nächster Skill-Schritt: `/slice-planning`.
+- Current Phase: Slice Planning (Architecture abgeschlossen)
 
 ## Immediate Next Steps
-1. `/architecture` starten. Pflichtlektüre:
-   - `/docs/PRD.md` (V1–V7-Scope, Constraints, Non-Goals, Architektur-Festlegungen aus OQ-V2-01..04)
-   - `/docs/discovery-input-v2.md` (Scope-Erweiterung + Gründer-Fixpunkte)
-   - `/docs/discovery-input.md` (V1-Richtungsvorgaben)
-   - `/reports/RPT-001.md` (Discovery V1)
-   - `/reports/RPT-002.md` (Requirements V1)
-   - `/reports/RPT-003.md` (Discovery V2)
-   - `/reports/RPT-004.md` (Requirements V2 — diese Runde)
-   - `/features/` (14 Feature-Specs V1 + V2 + V3)
-   - `/planning/roadmap.json` (V1–V8+)
+1. GitHub-Repo `rbellaerts/strategaize-intelligence-studio` anlegen + alle lokalen Commits pushen (DEC-018).
+2. `/slice-planning` starten mit Slice-Vorschlag aus ARCHITECTURE.md Abschnitt 12.2 (SLC-001 Project Setup → SLC-010 V1 Gesamt-QA). Pflichtlektüre:
+   - `/docs/ARCHITECTURE.md` (V1 detailliert, V2-V7 konzeptionell, Frontend-Architektur, Adapter-Pattern)
+   - `/docs/DECISIONS.md` (DEC-001..019)
+   - `/docs/MIGRATIONS.md` (MIG-001..007)
+   - `/docs/STYLE_GUIDE_V2.md` (Design-System-Grundlage)
+   - `/docs/PRD.md` (V1-V7-Scope)
+   - `/features/FEAT-001..014.md` (Feature-Specs)
    - `/planning/backlog.json` (BL-001..020)
-   - `/strategaize-dev-system/docs/PLATFORM.md`
-   - `/strategaize-dev-system/.claude/rules/data-residency.md`
-2. `/architecture` muss in V1–V7 denken, nicht nur V1. Konkret zu klären (siehe PRD Abschnitt „Open Questions"):
-   - OQ-A1: Datenschnitt Business-Ingest V1 (aus V1)
-   - OQ-A2: GitHub-Repo für IS einrichten (aus V1)
-   - OQ-A3: Tracking-Event-Schema V5 (einheitlich vs. hybrid)
-   - OQ-A4: Worker-Layer-Architektur (gemeinsam vs. pro Modul, Empfehlung gemeinsam)
-   - OQ-A5: Clay-Integration-Tiefe V3 (CSV-Minimum vs. Webhook/API-Pull)
-   - OQ-A6: LinkedIn-Publishing-API-Realität V4 (App-Review-Aufwand, Fallback)
-   - OQ-A7: Multi-Instanz-Architektur (Single-Codebase + Feature-Flags empfohlen)
-   - OQ-A8: E-Mail-Provider-Auswahl V4
-   - OQ-A9: Asset-Generierung synchron vs. asynchron
-3. Zusätzliche Business-Roadmap-Abstimmung: Qualified-Lead-Inbox-Entität in Business V4.x/V5 einplanen (BL-016).
-4. Nach `/architecture`: `/slice-planning` — Slice-Schnitt auf Basis BL-001..BL-020.
+3. Vor V3-Slice-Planning (nicht in dieser Session): Business-Roadmap-Abstimmung zu Qualified-Lead-Inbox (BL-016, ISSUE-001, OQ-BD1).
+4. Vor V4-Slice-Planning (nicht in dieser Session): LinkedIn Creator-API Realitätscheck (OQ-A6).
 
 ## Active Scope
-V1: Fundament + Learning & Pattern Intelligence (FEAT-001..007) — Requirements abgeschlossen, Architecture offen.
-V2: Content, Brand & Asset Production (FEAT-008, FEAT-009) — Requirements abgeschlossen 2026-04-16.
-V3: Campaign & Lead Intelligence (FEAT-010..014) — Requirements abgeschlossen 2026-04-16.
-V4–V8+: als „geplante Folgeversionen" in Roadmap und PRD benannt, ohne Feature-Level-Detail. Feature-Spezifikation in späteren `/requirements`-Läufen.
+V1: Fundament + Learning & Pattern Intelligence (FEAT-001..007) — Requirements + Architecture abgeschlossen, Slice-Planning offen.
+V2: Content, Brand & Asset Production (FEAT-008, FEAT-009) — Requirements + Architecture (konzeptionell) abgeschlossen 2026-04-16.
+V3: Campaign & Lead Intelligence (FEAT-010..014) — Requirements + Architecture (konzeptionell) abgeschlossen 2026-04-16.
+V4–V7: Architectural Direction in ARCHITECTURE.md skizziert, Feature-Spezifikation in späteren `/requirements`-Läufen.
+V8+: Template-Modus, SMAO-API, Auto-Anonymisierung, KI-Auto-Priorisierung, Deal-Attribution.
 
-Gesamtarchitektur: 6 Funktionsbereiche über V1–V7. Gründer-Fixpunkte 2026-04-16: V1..Vn = Bau-Reihenfolge, nicht Scope-Amputation; Business = reine Lead-Abarbeitung; IS macht alles Vorgelagerte.
+Gesamtarchitektur: 6 Funktionsbereiche über V1–V7. Gründer-Fixpunkte 2026-04-16: V1..Vn = Bau-Reihenfolge, nicht Scope-Amputation; Business = reine Lead-Abarbeitung; IS macht alles Vorgelagerte. Style Guide V2 verbindlich ab Tag 1 (DEC-017).
 
 ## Blockers
 - aktuell keine
@@ -58,11 +45,7 @@ Gesamtarchitektur: 6 Funktionsbereiche über V1–V7. Gründer-Fixpunkte 2026-04
 
 ## Notes
 - Alte V1-Planung unter `/docs/archive/`, `/reports/archive/v1-planning/`, `/features/archive/v1-original/`, `/slices/archive/v1-original/`, `/planning/archive/`.
-- Gründe für Re-Discovery:
-  1. Systemrolle neu: IS ist **System 3** (nicht System 4). Gesamtarchitektur hat drei aktive Systeme.
-  2. LLM-Entscheidung neu: Bedrock Frankfurt verbindlich, Claude Code CLI/Max nur noch für Dev-Workflow zulässig. Siehe `.claude/rules/data-residency.md` im Dev System.
-  3. Input-Quellen neu definiert: Knowledge Units aus Onboarding + Signale aus Business (Verlustmuster, Einwände, Gesprächssignale). Alte „Insight Inbox" war manuell-first — passt nicht mehr.
-  4. Output-Rückflüsse neu: Flüsse 4+5 der Gesamtarchitektur (IS → Onboarding-Fragenkataloge/Templates, IS → Business-Argumente/Bausteine) lösen alte „Action Triggers"-Logik ab.
-  5. Alte Lokal-first-Entscheidung (DEC-001) kollidiert mit den Hetzner-basierten Datenquellen; Deployment-Modell ist offen.
 - Gesamtarchitektur-Referenz: `/strategaize-dev-system/docs/PLATFORM.md`.
 - Hosting-/Provider-Referenz: `/strategaize-dev-system/.claude/rules/data-residency.md`.
+- Worker-/Queue-Muster: übernommen aus `/strategaize-onboarding-plattform/` (`ai_jobs` + `SKIP LOCKED` Pattern).
+- Design-System: StrategAIze Style Guide V2 im Dev-System (`strategaize-dev-system/STRATEGAIZE_STYLE_GUIDE_V2.md`), physische Kopie im IS-Repo (`/docs/STYLE_GUIDE_V2.md`).
