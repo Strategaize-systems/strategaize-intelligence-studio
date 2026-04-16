@@ -107,6 +107,31 @@ Systematisches Testen neuer Ideen:
 - Steuerung von Content-Produktion, Kampagnen, Lead-Generierung
 - Rückführung von Learnings in: Onboarding-Plattform, Business Development, Produkt-/Modul-Logik
 
+### 3.6 Distribution & Tracking *(neu — Ergänzung 2026-04-16)*
+**Status:** neu, nicht im Archiv, nicht im ursprünglichen Brief. Kommt aus Gründer-Ergänzung 2026-04-16 als logische Fortsetzung von 3.2 (Assets erzeugen) + 3.3 (Kampagnen steuern).
+
+**Leitprinzip:** *„Ich will nicht fünf oder sechs Tracking-Cockpits öffnen müssen — wir holen die Rohdaten zurück und machen unsere eigene Übersicht."*
+
+**Zwei Teile:**
+
+**3.6a Publishing / Distribution**
+- Ausspielung von Assets und Kampagnen-Inhalten an die gewählten Kanäle (LinkedIn, andere Social-/Content-Plattformen, E-Mail, ggf. Paid-Channels)
+- Kanal-Adapter-Pattern — pro Kanal ein Adapter, kein Hard-Wiring
+- Scheduling, Queue, Kanal-spezifische Format-Anpassung
+- Welche Kanäle genau in V1 aktiv sind, bleibt offen — aber Datenmodell und Adapter-Struktur müssen von Anfang an vorgesehen sein
+
+**3.6b Tracking / Zentrales Performance-Cockpit**
+- Rohdaten-Rückfluss aus den Kanälen (Impressions, Clicks, Engagement, Conversions, wo verfügbar)
+- Konsolidierte IS-eigene Übersicht: ein Cockpit über alle Kanäle, nicht N-Kanal-Konsolen
+- **Keine Abhängigkeit** von externen Analytics-Produkten als Primär-UI
+- Tracking muss **vorbereitet** sein (Schema, Adapter, Datenfluss), Ausbau-Tiefe iterativ über spätere Versionen
+- Verknüpfung: Tracking-Daten hängen an Kampagne, Asset und (wo möglich) Lead — damit 3.3 Lead-Scoring und 3.5 Orchestration wirklich performance-basiert entscheiden können
+
+**Wichtig — Abgrenzung:**
+- IS postet **aus IS heraus** an Kanäle. Kein manuelles Cross-Posting-Tool.
+- IS **konsumiert** Tracking-Rohdaten der Kanäle, ist **nicht** Ersatz für Google Analytics / Platform-Analytics — sondern die **konsolidierte Schicht darüber**.
+- Physische Kanäle (Brief, Paket) aus 3.3 High-Attention Outreach laufen **nicht** über 3.6. Dort bleibt Versand offline.
+
 ---
 
 ## 4. Spezieller Kampagnentyp: High-Attention Outreach
@@ -121,7 +146,11 @@ Explizit als definierter Kampagnentyp innerhalb 3.3:
 
 **Ziel:** Zugang zu Entscheidern, schnelle Qualifizierung von Interesse.
 
-**Folge für IS:** Kampagnen-Datenmodell muss sowohl digitale (Outbound-E-Mail, LinkedIn) als auch physische Zustellwege (Brief, Paket), inklusive Follow-up-Kaskaden, abbilden können.
+**Folge für IS (fixiert 2026-04-16):** Kampagnen-Datenmodell bildet digitale (E-Mail, LinkedIn, weitere) + physische Zustellwege (Brief, Paket) in einem Modell ab. Für physische Zustellung:
+- IS **bereitet vor** (Adress-Liste, personalisierter Brief-Content, Kurier-/Post-Hinweis, Follow-up-Call-Zeitpunkt)
+- IS **trackt nicht** die physische Zustellung selbst (keine Paket-Tracking-Adapter, kein Zustell-Status-Polling)
+- Die physische Zustellung bleibt **offline**; IS erfasst nur „verschickt am X" als manuelles Status-Update und den nachgelagerten Follow-up-Call-Ausgang
+- Kein Drittzusteller-API-Adapter in V1+ geplant
 
 ---
 
@@ -139,6 +168,8 @@ Explizit als definierter Kampagnentyp innerhalb 3.3:
 | Campaign & Lead Intelligence | **war ausgeschlossen** (FEAT-012 Grenzlinie: "gehört zu System 3") | **3.3 (neu)** | **FEHLT** ❌ |
 | High-Attention Outreach | *(nicht im Archiv)* | expliziter Kampagnentyp in 3.3 | **FEHLT** ❌ |
 | Orchestration & Decision Layer | verteilt in FEAT-005 (Opportunity), FEAT-006 (Decision Board) | 3.5 (eigenständig) | teilweise in FEAT-005 🟡 |
+| **Distribution / Publishing** | *(nicht im Archiv)* | **3.6a (neu, 2026-04-16)** | **FEHLT** ❌ |
+| **Tracking / Performance-Cockpit** | *(nicht im Archiv)* | **3.6b (neu, 2026-04-16)** | **FEHLT** ❌ |
 | Knowledge Packaging (API für SMAO) | FEAT-010 (Knowledge Packaging) | implizit (SMAO in v1 input) | **FEHLT** ❌ |
 | Modules/Flows Build-Drafts | FEAT-009 | nicht explizit genannt | **FEHLT** 🟡 |
 
@@ -165,9 +196,15 @@ Wissen erfassen, strukturieren, validieren, verdichten. Alle Capture-Modi. Rohda
 Wissen + Markt + Signale → **ICP, Segmente, Kampagnen-Design, Lead-Recherche, Enrichment, Lead-Scoring, Content-/Asset-Produktion, Hypothesen-Tests, Idea-Validation, Priorisierung und Entscheidungen**. Orchestriert den gesamten Pre-Sales- und Produktions-Zyklus.
 
 ### Business Development System (System 2)
-Qualifizierte Leads bearbeiten, Gespräche führen, Deals steuern, Revenue abschließen, Verlust-/Einwandsignale zurückgeben. **Reine Execution-Schicht.**
+**Fixiert 2026-04-16:** Reine Lead-Abarbeitungs-Plattform. Leads aus **beliebiger Quelle** kommen rein (IS-Kampagnen, SMAO-Voice-Partner, eingehende Anfragen, manuelle Ergänzungen) und werden dort abgearbeitet. Gespräche, Deals, Revenue-Abschluss, Verlust-/Einwandsignale zurückspielen — mehr nicht.
 
-**Zwingend:** Keine Vermischung dieser Rollen. Insbesondere kein Kampagnen-Design im Business System, kein Deal-Management in IS.
+Business System ist **nicht**:
+- Kampagnen-Designer
+- Lead-Recherche-Tool
+- Content-/Asset-Produktion
+- Tracking-/Analytics-Cockpit
+
+**Zwingend:** Keine Vermischung dieser Rollen. Insbesondere kein Kampagnen-Design im Business System, kein Deal-Management in IS, keine Publishing-/Tracking-Funktionen im Business System.
 
 ---
 
@@ -186,6 +223,9 @@ Ergänzung zur PLATFORM.md:
 | **6** | **Extern (Clay et al.) → IS** | **Enrichment-Daten, Firmensignale, Trigger** | **NEU (3.3)** |
 | **7** | **IS → extern (SMAO, Partner)** | **Wissens-API aus KUs + Templates (Knowledge Packaging)** | bestehend, Scope unklar |
 | **8** | **IS → Business** | **Content-/Asset-Pakete zur Nutzung im Vertrieb** | **NEU (3.2)** |
+| **9** | **IS → externe Kanäle** | **Publishing (LinkedIn, Social, E-Mail, ggf. Paid)** | **NEU (3.6a)** |
+| **10** | **externe Kanäle → IS** | **Tracking-Rohdaten (Impressions, Clicks, Engagement, Conversions)** | **NEU (3.6b)** |
+| **11** | **SMAO-Voice → Business** | **Qualifizierte Lead-Rückflüsse aus Voice-Abschlüssen** | bestehend |
 
 OQ-02 (Business-Ingest-Datenschnitt) aus V1 bleibt offen und wird in Discovery V2 geschärft — jetzt zusätzlich mit der Frage, wie Leads **rückwärts** sauber in Business landen (Fluss 5b).
 
@@ -197,7 +237,9 @@ OQ-02 (Business-Ingest-Datenschnitt) aus V1 bleibt offen und wird in Discovery V
 - **SMAO** (Voice-Partner): bleibt wie in v1 definiert. IS liefert Wissens-API aus verdichteten KUs + Templates. Lead-Rückfluss von SMAO → Business.
 - **Enterprise-RAG** (Glean, Kontexta, Sinequa, ZYON): bleibt Vermittlungs-Layer.
 - **LLM**: Bedrock eu-central-1 (DEC-002 verbindlich).
-- **Physische Zustellung** (Brief, Paket für 3.4 High-Attention Outreach): Drittdienstleister via Adapter. IS verwaltet nur das Kampagnen-Objekt, nicht den Versand selbst.
+- **Physische Zustellung** (Brief, Paket für 3.4 High-Attention Outreach): **offline**, kein Adapter, kein Tracking. IS bereitet nur Content + Adress-Liste + Versand-Hinweis vor.
+- **Publishing-Kanäle** (LinkedIn, weitere Social-/Content-Plattformen, E-Mail, ggf. Paid): jeder Kanal über eigenen Adapter. Auswahl und V1-Scope offen.
+- **Tracking / Platform-Analytics**: native Analytics der Kanäle werden **nicht als UI** genutzt. IS zieht deren Rohdaten (via APIs, wo verfügbar) und baut ein eigenes konsolidiertes Performance-Cockpit. Keine Abhängigkeit von Google Analytics oder Single-Platform-Dashboards als Primäransicht.
 
 ---
 
@@ -217,18 +259,21 @@ OQ-02 (Business-Ingest-Datenschnitt) aus V1 bleibt offen und wird in Discovery V
 
 ## 10. Offene Fragen für /discovery V2
 
-Neu / geschärft gegenüber v1:
+Neu / geschärft gegenüber v1 (Stand 2026-04-16):
 
-- **V1-Scope:** welche der 5 Funktionsbereiche gehören in V1, welche in V2+? Kandidaten V1-Kern bleiben: 3.1 + Ingest + Portfolio. Kandidaten V2+: 3.2 Content, 3.4 Validation. **Offen strategisch:** 3.3 Campaign & Lead Intelligence — wenn das die primäre Lead-Quelle werden soll, gehört mindestens ein Minimum-Slice in V1, sonst ist Business leer.
+- **V1-Scope vs. später:** *entschärft* durch Gründer-Festlegung — IS wird komplett in einem Rutsch gebaut (Reihenfolge optimieren, aber keine Funktionsbereich-Amputation). Reihenfolgen-Frage bleibt relevant, Scope-Ausschluss-Frage nicht mehr.
 - **Knowledge Packaging (API für SMAO/Partner):** IS oder Onboarding? (alte OQ aus v1, jetzt relevanter)
-- **Campaign-Objekt-Modell:** wie werden digitale + physische Kampagnen in einem Modell sauber abgebildet, ohne zwei getrennte Silos zu bauen?
+- **Campaign-Objekt-Modell:** wie werden digitale + physische Kampagnen in **einem** Modell sauber abgebildet, ohne zwei getrennte Silos zu bauen? Zusätzlich: wie greift das Campaign-Modell ins Publishing-Modell (3.6a)?
 - **Lead-Übergabe-Mechanik:** welche Felder + welchen Kampagnen-Kontext übergibt IS an Business beim Fluss 5b? Mapping auf Business-Contact/Deal?
-- **Clay-Adapter:** wie tief integrieren wir Clay in V1/V2? Webhook + Pull? Nur CSV-Import?
+- **Clay-Adapter:** wie tief integrieren wir Clay? Webhook + Pull? Nur CSV-Import? Zusammenspiel mit 3.6b Tracking-Adaptern (eigener Adapter-Pattern-Standard)?
 - **Brand Guidelines als Kontext:** wie wird das Brand-Profil strukturiert, damit Content-Generierung deterministisch mit Markenstimme arbeitet?
 - **Idea-Testing → Kampagne → Business-Lead:** ist das ein einziger Workflow (Experiment führt zu Kampagne führt zu Lead) oder getrennt?
 - **Orchestration-Layer:** eigenständiges Modul mit eigenem UI (Decision Board) oder durchgängiges Prinzip ohne eigene Oberfläche?
 - **Priorisierungs-Logik:** manuell / regelbasiert / KI-gestützt? Scoring-Mechanik?
-- **Multi-Instanz für Kunden:** bleiben alle 5 Bereiche bei einer Kunden-Einsetzbarkeit erhalten, oder werden 3.3/3.4 rein intern?
+- **Multi-Instanz für Kunden:** bleiben alle 6 Bereiche bei einer Kunden-Einsetzbarkeit erhalten, oder werden 3.3/3.4/3.6 rein intern?
+- **Publishing-Kanäle (3.6a) Start-Set:** welche Kanäle sind der erste sinnvolle Wurf? LinkedIn + E-Mail als Minimum? Wie generisch ist der Adapter-Pattern?
+- **Tracking (3.6b) Datenmodell:** einheitliches Event-Schema über alle Kanäle, oder Kanal-spezifisch? Wie tief ist Attribution (Kampagne → Asset → Lead → Deal) sinnvoll abbildbar?
+- **Scheduling / Queue / Fehler-Retry** für Publishing: eigener Worker oder bestehende Infrastruktur (Onboarding-Worker-Muster)?
 
 ---
 
@@ -236,5 +281,44 @@ Neu / geschärft gegenüber v1:
 
 1. `/discovery` V2 läuft gegen diesen Input + `discovery-input.md` + PLATFORM.md + data-residency.md.
 2. Ergebnis: RPT-003 (Discovery V2 Report) + aktualisierte `/docs/PRD.md`.
-3. Anschließend `/requirements` V2 — integriert bestehende FEAT-001..007 und ergänzt um neue Features für Modul 3.2, 3.3, 3.4, 3.5.
+3. Anschließend `/requirements` V2 — integriert bestehende FEAT-001..007 und ergänzt um neue Features für Modul 3.2, 3.3, 3.4, 3.5, 3.6.
 4. Archivierte Feature-Specs (FEAT-007 Content Transformer, FEAT-008 Brand Control, FEAT-011 Experiment, FEAT-012 Research) werden als Referenz gelesen, nicht 1:1 übernommen — Scope und Grenzen haben sich verändert.
+
+---
+
+## 12. Fixpunkte Gründer 2026-04-16 (verbindlich für /discovery)
+
+Folgendes ist nach der Rückmeldung des Gründers am 2026-04-16 **fixiert** und steht in `/discovery` nicht mehr zur Debatte:
+
+1. **Grenzlinien-Verschiebung IS ↔ Business ist gewollt und vollständig.**
+   - IS übernimmt alles Vorgelagerte: ICP, Segmentierung, Lead-Recherche, Enrichment, Lead-Scoring, Kampagnen-Design, Kampagnen-Orchestrierung, Publishing, Performance-Tracking.
+   - Business = reine Lead-Abarbeitungs-Plattform. Leads aus jeder Quelle rein, dort abarbeiten. Nichts darüber hinaus.
+
+2. **High-Attention Outreach: Vorbereitung ja, Tracking nein.**
+   - IS bereitet Brief-Content, Adress-Listen, Follow-up-Call-Zeitpunkte vor.
+   - Physische Zustellung bleibt offline. Kein Paket-Tracking, kein Drittzusteller-API-Adapter.
+   - IS erfasst nur manuellen Status „verschickt am X" + Follow-up-Call-Ergebnis.
+
+3. **V1-Scope-Diskussion zurückgestellt.**
+   - Die Software wird so lange gebaut, bis alle relevanten Funktionsbereiche operativ sind.
+   - `/discovery` und `/requirements` schneiden daher **nicht entlang V1-Amputationen**, sondern entlang **sinnvoller Bau-Reihenfolge**.
+   - Versions-Nummerierung (V1/V2/V3) dient der Reihenfolge, nicht dem Scope-Cut.
+
+4. **Archiv-Rückholung ist vollständig akzeptiert.**
+   - Alle im Archiv steckenden Funktionsbereiche (Content, Brand, Experiment, Research) fließen zurück.
+   - Einzelne archivierte Feature-Specs dienen als Referenz, nicht als Copy-Paste-Vorlage.
+   - FEAT-001..FEAT-007 bleiben als Fundament erhalten, nichts wird gestrichen.
+
+5. **Publishing + Tracking ist Pflichtbestandteil (3.6).**
+   - IS postet aus sich heraus an ausgewählte Kanäle (LinkedIn + weitere tbd).
+   - IS holt Tracking-Rohdaten der Kanäle zurück.
+   - IS baut ein **einziges konsolidiertes Performance-Cockpit** — keine Abhängigkeit von 5 oder 6 externen Analytics-Konsolen.
+   - Mindestanforderung: Schema + Adapter-Struktur **vorbereitet**, Ausbau-Tiefe iterativ.
+
+6. **Nicht weiter zu debattieren in /discovery:**
+   - ob Business Kampagnen-Funktionen bekommt (nein)
+   - ob physische Zustellung im IS getrackt wird (nein)
+   - ob Content-/Brand-/Experiment-Schichten überhaupt ins IS gehören (ja, fixiert)
+   - ob Publishing-/Tracking-Layer kommt (ja, fixiert)
+
+`/discovery` konzentriert sich auf: **Modulstruktur, Objekte, Flüsse, Entscheidungslogiken, Abgrenzungen, Reihenfolge** — nicht auf Scope-Grundsatzfragen.
