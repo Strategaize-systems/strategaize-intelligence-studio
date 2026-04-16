@@ -11,28 +11,34 @@ System 3 der StrategAIze-Gesamtarchitektur. Interne Intelligence-, IP-, Opportun
 Referenz: `/strategaize-dev-system/docs/PLATFORM.md`.
 
 ## Current State
-- High-Level State: architecture
-- Current Focus: Requirements abgeschlossen 2026-04-15 (RPT-002). V1-Scope auf 7 Features geschnitten (FEAT-001..FEAT-007), PRD befüllt, Roadmap und Backlog angelegt. Alle 7 Discovery-Fragen beantwortet und eingearbeitet. Wichtiger Business-Constraint dokumentiert (kein Produkt-/Modul-Modell in Business V4). Nächster Schritt: `/architecture`.
-- Current Phase: Architecture (Requirements abgeschlossen)
+- High-Level State: discovery
+- Current Focus: Discovery V2 abgeschlossen 2026-04-16 (RPT-003). Scope-Erweiterung um 5 neue Funktionsbereiche (Content/Brand, Campaign/Lead, Validation, Orchestration, Publishing/Tracking). V1-Planung (FEAT-001..007) bleibt unverändert als Fundament. Versions-Reihenfolge V1–V7 vorgeschlagen. Gründer-Fixpunkte 2026-04-16 in discovery-input-v2.md fixiert. Nächster Schritt: `/requirements` V2 nach Klärung von 4 OQs.
+- Current Phase: Discovery V2 abgeschlossen, vor `/requirements` V2
 
 ## Immediate Next Steps
-1. `/architecture` starten. Pflichtlektüre:
-   - `/docs/PRD.md` (V1-Scope, Constraints, Non-Goals)
-   - `/features/` (7 Feature-Specs)
-   - `/planning/roadmap.json` und `/planning/backlog.json`
+1. 4 kritische OQs vor `/requirements` V2 klären (siehe RPT-003 Abschnitt 9):
+   - OQ-V2-01: Campaign-Objektmodell digital + physisch
+   - OQ-V2-02: Lead-Übergabe-Mechanik IS → Business (Fluss 5b)
+   - OQ-V2-03: Brand-Profil-Struktur
+   - OQ-V2-04: Orchestration mit eigenem UI vs. durchgängiges Prinzip
+2. `/requirements` V2 starten. Pflichtlektüre:
+   - `/docs/PRD.md` (aktueller V1-Scope)
+   - `/docs/discovery-input-v2.md` (Scope-Erweiterung + Gründer-Fixpunkte)
+   - `/docs/discovery-input.md` (V1-Richtungsvorgaben, bleiben gültig)
+   - `/reports/RPT-003.md` (Discovery V2 Report)
+   - `/features/` (7 bestehende V1-Specs)
+   - `/features/archive/v1-original/` (Referenz für Content, Brand, Experiment, Research)
    - `/strategaize-dev-system/docs/PLATFORM.md`
    - `/strategaize-dev-system/.claude/rules/data-residency.md`
-   - `/reports/RPT-001.md` + `/reports/RPT-002.md`
-2. Im `/architecture`-Lauf zu klären:
-   - OQ-02 aus PRD: genauer Datenschnitt Business-Ingest (welche Deal-States? welche Angebote?)
-   - OQ-03: einheitliches GitHub-Repo für IS einrichten — für Coolify-Auto-Deploy
-   - Schema mit template-ready Feldern designen (`template_id` optional + Feature-Flags pro Modul), ohne V1-Aktivierung
-   - Ingest-Mechanik im Detail (Cursor-Verwaltung, Retry-Policy, Auth zwischen IS und Onboarding/Business)
-   - Bedrock-Adapter-Integration (analog Onboarding)
-3. Nach `/architecture`: `/slice-planning` — Slice-Schnitt auf Basis von BL-001..BL-008.
+3. `/requirements` V2 Fokus:
+   - V1 unverändert lassen (FEAT-001..007)
+   - V2 neu spezifizieren: Brand-Profil + Content-Asset-Production
+   - V3 neu spezifizieren: Campaign, Segment, Lead-Recherche, Enrichment, Lead-Scoring, Fluss 5b
+   - V4–V7 im PRD als „geplante Folgeversionen" benennen, ohne Feature-Detail
+4. Danach `/architecture` erweitert auf V1–V7 denken (Schema-, Adapter-, Worker-Entscheidungen für Langfrist-Tauglichkeit).
 
 ## Active Scope
-Keiner. V1-Planung wurde archiviert. Neuer Scope wird über Discovery + Requirements definiert.
+V1-Requirements vom 2026-04-15 bleiben gültig als Fundament (FEAT-001..007: Ingest, Portfolio, Insight, Opportunity/Decision, Cross-Kunden-Learnings, Deployment Registry). Discovery V2 vom 2026-04-16 erweitert den Gesamt-Scope auf 6 Funktionsbereiche über V1–V7 Versions-Reihenfolge. `/requirements` V2 steht an.
 
 ## Blockers
 - aktuell keine
