@@ -199,6 +199,16 @@
       "version": "V7",
       "description": "In späterer Requirements-Runde zu spezifizieren: Hybrid-Cockpit (Priority-Felder in Listen + Top-5-Dashboard), manuelle Flags, Learning-Rückflüsse. KI-Auto-Priorisierung = V8+.",
       "createdAt": "2026-04-16"
+    },
+    {
+      "id": "BL-021",
+      "title": "Design-System-Grundstock (Style Guide V2)",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V1",
+      "description": "Umsetzung StrategAIze Style Guide V2 als verbindliche Komponenten-Bibliothek (Header, KPICard, FilterBar, Voice/AI-Buttons, StatusBadge, ContentCard, DeutschlandKarte, Modal, Form-Komponenten) + Tailwind-Theme + 5 Layout-Templates + Design-System-Showcase-Seite. Vorbedingung für alle Feature-UIs (DEC-017). Entspricht SLC-002.",
+      "createdAt": "2026-04-16"
     }
   ]
 }

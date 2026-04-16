@@ -12,26 +12,25 @@ Referenz: `/strategaize-dev-system/docs/PLATFORM.md`.
 
 ## Current State
 - High-Level State: slice-planning
-- Current Focus: Architecture V2 abgeschlossen 2026-04-16 (RPT-005). ARCHITECTURE.md komplett neu geschrieben, V1 detailliert mit 17 Tabellen, V2-V3 konzeptionell mit schema-ready Feldern, V4-V7 grobe Richtung. 12 neue DECs (DEC-008..019), MIG-001 Initial Schema Baseline definiert, MIG-002..007 als geplant. Style Guide V2 als Design-System-Pfeiler verbindlich ab Tag 1 (DEC-017), Style-Guide-Datei physisch ins IS-Repo kopiert. GitHub-Repo-Anlage (OQ-A2 A) steht noch in dieser Session an. Nächster Skill-Schritt: `/slice-planning`.
-- Current Phase: Slice Planning (Architecture abgeschlossen)
+- Current Focus: Slice-Planning V1 abgeschlossen 2026-04-16 (RPT-006). 10 Slices SLC-001..SLC-010 spezifiziert mit Micro-Task-Decomposition, AC, Dependencies, Risks, Worktree-Empfehlung. BL-021 Design-System-Grundstock als neuer Backlog-Eintrag formalisiert. Nächster Skill-Schritt: `/backend` für SLC-001 Project Setup & Foundation.
+- Current Phase: Slice-Planning abgeschlossen — bereit für Implementation-Start
 
 ## Immediate Next Steps
-1. ✅ GitHub-Repo `Strategaize-systems/strategaize-intelligence-studio` angelegt + Push erledigt (DEC-018, 2026-04-16).
-2. `/slice-planning` starten mit Slice-Vorschlag aus ARCHITECTURE.md Abschnitt 12.2 (SLC-001 Project Setup → SLC-010 V1 Gesamt-QA). Pflichtlektüre:
-   - `/docs/ARCHITECTURE.md` (V1 detailliert, V2-V7 konzeptionell, Frontend-Architektur, Adapter-Pattern)
-   - `/docs/DECISIONS.md` (DEC-001..019)
-   - `/docs/MIGRATIONS.md` (MIG-001..007)
-   - `/docs/STYLE_GUIDE_V2.md` (Design-System-Grundlage)
-   - `/docs/PRD.md` (V1-V7-Scope)
-   - `/features/FEAT-001..014.md` (Feature-Specs)
-   - `/planning/backlog.json` (BL-001..020)
-3. Vor V3-Slice-Planning (nicht in dieser Session): Business-Roadmap-Abstimmung zu Qualified-Lead-Inbox (BL-016, ISSUE-001, OQ-BD1).
-4. Vor V4-Slice-Planning (nicht in dieser Session): LinkedIn Creator-API Realitätscheck (OQ-A6).
+1. `/backend` für SLC-001 Project Setup & Foundation (Blocker für alle folgenden Slices). Pflichtlektüre:
+   - `/slices/SLC-001-project-setup.md` (Micro-Tasks MT-1..MT-6)
+   - `/docs/ARCHITECTURE.md` Abschnitt 3–6 + 9 (Komponenten + Data Flow + Security)
+   - `/docs/MIGRATIONS.md` MIG-001 (17 Tabellen + RLS)
+   - `/docs/DECISIONS.md` DEC-008, DEC-009, DEC-017..019
+   - `/strategaize-onboarding-plattform/` Worker-Pattern-Referenz
+2. Nach SLC-001 Abschluss: `/qa` (mandatory per CLAUDE.md).
+3. Danach SLC-002 Design-System-Grundstock mit `/frontend`.
+4. Vor V3-Slice-Planning (später, separate Session): Business-Roadmap-Abstimmung zu Qualified-Lead-Inbox (BL-016, ISSUE-001, OQ-BD1).
+5. Vor V4-Slice-Planning (später, separate Session): LinkedIn Creator-API-Realitätscheck (OQ-A6).
 
 ## Active Scope
-V1: Fundament + Learning & Pattern Intelligence (FEAT-001..007) — Requirements + Architecture abgeschlossen, Slice-Planning offen.
-V2: Content, Brand & Asset Production (FEAT-008, FEAT-009) — Requirements + Architecture (konzeptionell) abgeschlossen 2026-04-16.
-V3: Campaign & Lead Intelligence (FEAT-010..014) — Requirements + Architecture (konzeptionell) abgeschlossen 2026-04-16.
+V1: Fundament + Learning & Pattern Intelligence (FEAT-001..007) — Requirements + Architecture + Slice-Planning abgeschlossen. 10 Slices SLC-001..SLC-010 planned.
+V2: Content, Brand & Asset Production (FEAT-008, FEAT-009) — Requirements + Architecture (konzeptionell) abgeschlossen 2026-04-16. Slice-Planning folgt nach V1-Deploy.
+V3: Campaign & Lead Intelligence (FEAT-010..014) — Requirements + Architecture (konzeptionell) abgeschlossen 2026-04-16. Slice-Planning nach Business-Abstimmung + V2-Abschluss.
 V4–V7: Architectural Direction in ARCHITECTURE.md skizziert, Feature-Spezifikation in späteren `/requirements`-Läufen.
 V8+: Template-Modus, SMAO-API, Auto-Anonymisierung, KI-Auto-Priorisierung, Deal-Attribution.
 
@@ -44,6 +43,7 @@ Gesamtarchitektur: 6 Funktionsbereiche über V1–V7. Gründer-Fixpunkte 2026-04
 - none yet
 
 ## Notes
+- Slice-Index: `/slices/INDEX.md` (10 V1-Slices).
 - Alte V1-Planung unter `/docs/archive/`, `/reports/archive/v1-planning/`, `/features/archive/v1-original/`, `/slices/archive/v1-original/`, `/planning/archive/`.
 - Gesamtarchitektur-Referenz: `/strategaize-dev-system/docs/PLATFORM.md`.
 - Hosting-/Provider-Referenz: `/strategaize-dev-system/.claude/rules/data-residency.md`.
