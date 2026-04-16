@@ -27,7 +27,7 @@
       "priority": "high",
       "status": "open",
       "version": "V1",
-      "description": "Pull-basierter Import von Kontakten/Unternehmen/Deals/Angeboten aus Business V4, fehlertolerant gegen fehlende Entitäten (Produkte, Module, Projekte existieren heute nicht). Stündlicher Cron. Siehe /features/FEAT-002-ingest-business.md.",
+      "description": "Pull-basierter Import von Kontakten/Unternehmen/Deals/Angeboten aus Business V4, fehlertolerant gegen fehlende Entitäten. Stündlicher Cron. Siehe /features/FEAT-002-ingest-business.md.",
       "createdAt": "2026-04-15"
     },
     {
@@ -37,7 +37,7 @@
       "priority": "high",
       "status": "open",
       "version": "V1",
-      "description": "UI-Übersicht aller Kundenprojekte mit Filter, Suche, Detail-Ansicht mit Deployment-Karte (FEAT-007), verknüpften KUs (FEAT-004) und Opportunities (FEAT-005). Primärer IS-Einstiegspunkt. Siehe /features/FEAT-003-portfolio-monitor.md.",
+      "description": "UI-Übersicht aller Kundenprojekte mit Filter, Suche, Detail-Ansicht mit Deployment-Karte, verknüpften KUs und Opportunities. Primärer IS-Einstiegspunkt. Siehe /features/FEAT-003-portfolio-monitor.md.",
       "createdAt": "2026-04-15"
     },
     {
@@ -47,7 +47,7 @@
       "priority": "high",
       "status": "open",
       "version": "V1",
-      "description": "Durchsuchbare, filterbare KU-Liste mit Tag-System, manuellem Clustering, Volltext-Suche (Supabase FTS), Detail-Ansicht, Aktionen (Tag, Cluster, zu Opportunity ableiten, als Learning freigeben). Siehe /features/FEAT-004-insight-layer.md.",
+      "description": "Durchsuchbare, filterbare KU-Liste mit Tag-System, manuellem Clustering, Volltext-Suche, Detail-Ansicht, Aktionen. Siehe /features/FEAT-004-insight-layer.md.",
       "createdAt": "2026-04-15"
     },
     {
@@ -67,7 +67,7 @@
       "priority": "medium",
       "status": "open",
       "version": "V1",
-      "description": "Zusatzfelder an KU (is_shareable + shared_text), manuelle Freigabe- und Anonymisierungs-UX, Cross-Kunden-Ansicht die nur shared_text zeigt. Siehe /features/FEAT-006-cross-kunden-learnings.md.",
+      "description": "Zusatzfelder an KU (is_shareable + shared_text), manuelle Freigabe- und Anonymisierungs-UX, Cross-Kunden-Ansicht. Siehe /features/FEAT-006-cross-kunden-learnings.md.",
       "createdAt": "2026-04-15"
     },
     {
@@ -77,8 +77,128 @@
       "priority": "high",
       "status": "open",
       "version": "V1",
-      "description": "Pro Kunde Deployment-Entität (Typ, Hoster, Host-Referenz, Zugang-Referenz, aktive Module, Code-Version). Update-Rollout-Ansicht mit Filter nach Version. Keine Secrets im IS. Siehe /features/FEAT-007-deployment-registry.md.",
+      "description": "Pro Kunde Deployment-Entität (Typ, Hoster, Host-Referenz, Zugang-Referenz, aktive Module, Code-Version). Update-Rollout-Ansicht. Keine Secrets im IS. Siehe /features/FEAT-007-deployment-registry.md.",
       "createdAt": "2026-04-15"
+    },
+    {
+      "id": "BL-009",
+      "title": "FEAT-008 Brand Profile",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V2",
+      "description": "Singleton-Brand-Profil (StrategAIze-Eigen) mit strukturierten Feldern: Tonalität, Do's, Don'ts, Struktur-Templates pro Output-Typ, 3–5 Beispiel-Assets als few-shot-Examples. LLM-Kontext-Grundlage für FEAT-009. Siehe /features/FEAT-008-brand-profile.md.",
+      "createdAt": "2026-04-16"
+    },
+    {
+      "id": "BL-010",
+      "title": "FEAT-009 Content Asset Production",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V2",
+      "description": "Asset-Request-Workflow, KI-Generierung via Bedrock mit Brand-Profil-Kontext, 6 Output-Typen (Blogpost, LinkedIn-Post, One-Pager, E-Mail-Vorlage, Case Card, Landingpage-Briefing), Asset-Bibliothek mit Filter, Versionierung, Status-Workflow, Markdown-Export. Siehe /features/FEAT-009-content-asset-production.md.",
+      "createdAt": "2026-04-16"
+    },
+    {
+      "id": "BL-011",
+      "title": "FEAT-010 ICP & Segment",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V3",
+      "description": "ICP-Entität (firmografisch, strukturell, Trigger-Signale) + Segment-Entität (gefilterte ICP-Instanz mit Business-Kontakten + externen Leads als Mitgliedern). Segment-Definition-Builder. Siehe /features/FEAT-010-icp-segment.md.",
+      "createdAt": "2026-04-16"
+    },
+    {
+      "id": "BL-012",
+      "title": "FEAT-011 Campaign Management",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V3",
+      "description": "Parent-Campaign + Channel-Segmente + Variant-Ebene für A/B. Kampagnentypen inkl. High-Attention-Outreach (physischer Brief + Call). Status-Workflow, Kampagnen-Wizard, hierarchische Detail-Ansicht. Siehe /features/FEAT-011-campaign-management.md.",
+      "createdAt": "2026-04-16"
+    },
+    {
+      "id": "BL-013",
+      "title": "FEAT-012 Lead Research & Enrichment",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V3",
+      "description": "Lead-Entität, Research-Task (6 Research-Typen aus archiviertem FEAT-012), Clay-CSV-Import-Adapter, manuelle Lead-Ergänzung, Duplikat-Erkennung. Siehe /features/FEAT-012-lead-research-enrichment.md.",
+      "createdAt": "2026-04-16"
+    },
+    {
+      "id": "BL-014",
+      "title": "FEAT-013 Lead Scoring",
+      "type": "feature",
+      "priority": "medium",
+      "status": "open",
+      "version": "V3",
+      "description": "Regelbasiertes Lead-Scoring mit konfigurierbaren Regeln (Feld/Operator/Wert/Punkte/Kategorie), Disqualifier-Logik, Threshold-Config global + Override pro Segment/Kampagne, Score-Histogramm. KI-Scoring = V5+. Siehe /features/FEAT-013-lead-scoring.md.",
+      "createdAt": "2026-04-16"
+    },
+    {
+      "id": "BL-015",
+      "title": "FEAT-014 Qualified Lead Handoff",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V3",
+      "description": "Fluss 5b: Handoff-Event-Entität, API-Push an Business Qualified-Lead-Inbox (sobald Business diese liefert), CSV-Export als Übergang, manueller Handoff, Status-Sync aus Business. Siehe /features/FEAT-014-qualified-lead-handoff.md.",
+      "createdAt": "2026-04-16"
+    },
+    {
+      "id": "BL-016",
+      "title": "Business-Roadmap-Abstimmung: Qualified Lead Inbox",
+      "type": "improvement",
+      "priority": "high",
+      "status": "open",
+      "version": "V3",
+      "description": "Business V4.x/V5 muss eine Qualified-Lead-Inbox-Entität als neues Feature erhalten. FEAT-014 ist davon abhängig. Vor V3-Slice-Planning: Business-Roadmap-Abstimmung (Auth-Modell, JSON-Payload, Webhook/Poll-Status-Sync).",
+      "createdAt": "2026-04-16"
+    },
+    {
+      "id": "BL-017",
+      "title": "V4 Publishing / Distribution — Feature-Spezifikation",
+      "type": "feature",
+      "priority": "medium",
+      "status": "open",
+      "version": "V4",
+      "description": "In späterer Requirements-Runde zu spezifizieren: Kanal-Adapter-Framework (LinkedIn + E-Mail), Scheduling/Queue, Format-Anpassung, Publish-Status. LinkedIn-API-Realität (Creator-API, App-Review) vorher evaluieren.",
+      "createdAt": "2026-04-16"
+    },
+    {
+      "id": "BL-018",
+      "title": "V5 Tracking / Performance-Cockpit — Feature-Spezifikation",
+      "type": "feature",
+      "priority": "medium",
+      "status": "open",
+      "version": "V5",
+      "description": "In späterer Requirements-Runde zu spezifizieren: einheitliches Event-Schema, Rohdaten-Pull, konsolidiertes Kampagnen-Cockpit, A/B-Auswertung operativ, KI-Scoring als Ersatz für regelbasiertes Scoring.",
+      "createdAt": "2026-04-16"
+    },
+    {
+      "id": "BL-019",
+      "title": "V6 Validation & Idea Testing — Feature-Spezifikation",
+      "type": "feature",
+      "priority": "medium",
+      "status": "open",
+      "version": "V6",
+      "description": "In späterer Requirements-Runde zu spezifizieren: Experiment-Entität (Hypothese, Kill-Kriterien), KI-Vorschlag von Experiment-Designs aus Opportunities, Research-Task-Erweiterung mit strukturierten Ergebnis-Dokumentationen.",
+      "createdAt": "2026-04-16"
+    },
+    {
+      "id": "BL-020",
+      "title": "V7 Orchestration & Decision Layer — Feature-Spezifikation",
+      "type": "feature",
+      "priority": "low",
+      "status": "open",
+      "version": "V7",
+      "description": "In späterer Requirements-Runde zu spezifizieren: Hybrid-Cockpit (Priority-Felder in Listen + Top-5-Dashboard), manuelle Flags, Learning-Rückflüsse. KI-Auto-Priorisierung = V8+.",
+      "createdAt": "2026-04-16"
     }
   ]
 }

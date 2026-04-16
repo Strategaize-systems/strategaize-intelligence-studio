@@ -11,34 +11,44 @@ System 3 der StrategAIze-Gesamtarchitektur. Interne Intelligence-, IP-, Opportun
 Referenz: `/strategaize-dev-system/docs/PLATFORM.md`.
 
 ## Current State
-- High-Level State: discovery
-- Current Focus: Discovery V2 abgeschlossen 2026-04-16 (RPT-003). Scope-Erweiterung um 5 neue Funktionsbereiche (Content/Brand, Campaign/Lead, Validation, Orchestration, Publishing/Tracking). V1-Planung (FEAT-001..007) bleibt unverändert als Fundament. Versions-Reihenfolge V1–V7 vorgeschlagen. Gründer-Fixpunkte 2026-04-16 in discovery-input-v2.md fixiert. Nächster Schritt: `/requirements` V2 nach Klärung von 4 OQs.
-- Current Phase: Discovery V2 abgeschlossen, vor `/requirements` V2
+- High-Level State: architecture
+- Current Focus: Requirements V2 abgeschlossen 2026-04-16 (RPT-004). V2-Scope (Brand + Content), V3-Scope (Campaign, Segment, Lead-Recherche, Scoring, Handoff) detailliert spezifiziert mit 7 neuen Features (FEAT-008..014). V1 bleibt unverändert. V4–V7 als „geplante Folgeversionen" benannt, ohne Feature-Detail. 4 OQs (OQ-V2-01..04) in einer Zwischenrunde entschieden und in Architektur-Festlegungen übernommen. Nächster Schritt: `/architecture` — erweitert auf V1–V7 denken.
+- Current Phase: Architecture (Requirements V2 abgeschlossen)
 
 ## Immediate Next Steps
-1. 4 kritische OQs vor `/requirements` V2 klären (siehe RPT-003 Abschnitt 9):
-   - OQ-V2-01: Campaign-Objektmodell digital + physisch
-   - OQ-V2-02: Lead-Übergabe-Mechanik IS → Business (Fluss 5b)
-   - OQ-V2-03: Brand-Profil-Struktur
-   - OQ-V2-04: Orchestration mit eigenem UI vs. durchgängiges Prinzip
-2. `/requirements` V2 starten. Pflichtlektüre:
-   - `/docs/PRD.md` (aktueller V1-Scope)
+1. `/architecture` starten. Pflichtlektüre:
+   - `/docs/PRD.md` (V1–V7-Scope, Constraints, Non-Goals, Architektur-Festlegungen aus OQ-V2-01..04)
    - `/docs/discovery-input-v2.md` (Scope-Erweiterung + Gründer-Fixpunkte)
-   - `/docs/discovery-input.md` (V1-Richtungsvorgaben, bleiben gültig)
-   - `/reports/RPT-003.md` (Discovery V2 Report)
-   - `/features/` (7 bestehende V1-Specs)
-   - `/features/archive/v1-original/` (Referenz für Content, Brand, Experiment, Research)
+   - `/docs/discovery-input.md` (V1-Richtungsvorgaben)
+   - `/reports/RPT-001.md` (Discovery V1)
+   - `/reports/RPT-002.md` (Requirements V1)
+   - `/reports/RPT-003.md` (Discovery V2)
+   - `/reports/RPT-004.md` (Requirements V2 — diese Runde)
+   - `/features/` (14 Feature-Specs V1 + V2 + V3)
+   - `/planning/roadmap.json` (V1–V8+)
+   - `/planning/backlog.json` (BL-001..020)
    - `/strategaize-dev-system/docs/PLATFORM.md`
    - `/strategaize-dev-system/.claude/rules/data-residency.md`
-3. `/requirements` V2 Fokus:
-   - V1 unverändert lassen (FEAT-001..007)
-   - V2 neu spezifizieren: Brand-Profil + Content-Asset-Production
-   - V3 neu spezifizieren: Campaign, Segment, Lead-Recherche, Enrichment, Lead-Scoring, Fluss 5b
-   - V4–V7 im PRD als „geplante Folgeversionen" benennen, ohne Feature-Detail
-4. Danach `/architecture` erweitert auf V1–V7 denken (Schema-, Adapter-, Worker-Entscheidungen für Langfrist-Tauglichkeit).
+2. `/architecture` muss in V1–V7 denken, nicht nur V1. Konkret zu klären (siehe PRD Abschnitt „Open Questions"):
+   - OQ-A1: Datenschnitt Business-Ingest V1 (aus V1)
+   - OQ-A2: GitHub-Repo für IS einrichten (aus V1)
+   - OQ-A3: Tracking-Event-Schema V5 (einheitlich vs. hybrid)
+   - OQ-A4: Worker-Layer-Architektur (gemeinsam vs. pro Modul, Empfehlung gemeinsam)
+   - OQ-A5: Clay-Integration-Tiefe V3 (CSV-Minimum vs. Webhook/API-Pull)
+   - OQ-A6: LinkedIn-Publishing-API-Realität V4 (App-Review-Aufwand, Fallback)
+   - OQ-A7: Multi-Instanz-Architektur (Single-Codebase + Feature-Flags empfohlen)
+   - OQ-A8: E-Mail-Provider-Auswahl V4
+   - OQ-A9: Asset-Generierung synchron vs. asynchron
+3. Zusätzliche Business-Roadmap-Abstimmung: Qualified-Lead-Inbox-Entität in Business V4.x/V5 einplanen (BL-016).
+4. Nach `/architecture`: `/slice-planning` — Slice-Schnitt auf Basis BL-001..BL-020.
 
 ## Active Scope
-V1-Requirements vom 2026-04-15 bleiben gültig als Fundament (FEAT-001..007: Ingest, Portfolio, Insight, Opportunity/Decision, Cross-Kunden-Learnings, Deployment Registry). Discovery V2 vom 2026-04-16 erweitert den Gesamt-Scope auf 6 Funktionsbereiche über V1–V7 Versions-Reihenfolge. `/requirements` V2 steht an.
+V1: Fundament + Learning & Pattern Intelligence (FEAT-001..007) — Requirements abgeschlossen, Architecture offen.
+V2: Content, Brand & Asset Production (FEAT-008, FEAT-009) — Requirements abgeschlossen 2026-04-16.
+V3: Campaign & Lead Intelligence (FEAT-010..014) — Requirements abgeschlossen 2026-04-16.
+V4–V8+: als „geplante Folgeversionen" in Roadmap und PRD benannt, ohne Feature-Level-Detail. Feature-Spezifikation in späteren `/requirements`-Läufen.
+
+Gesamtarchitektur: 6 Funktionsbereiche über V1–V7. Gründer-Fixpunkte 2026-04-16: V1..Vn = Bau-Reihenfolge, nicht Scope-Amputation; Business = reine Lead-Abarbeitung; IS macht alles Vorgelagerte.
 
 ## Blockers
 - aktuell keine

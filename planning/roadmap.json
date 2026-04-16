@@ -4,29 +4,57 @@
       "id": "v1",
       "name": "V1",
       "status": "active",
-      "summary": "Foundation + Portfolio Monitor — 7 Features: Ingest-Layer Onboarding (Pull aus KU-Export), Ingest-Layer Business (Pull fehlertolerant), Portfolio-Monitor (UI-Übersicht), Insight-Layer (KU-Liste mit Tags/Clustering/Volltext), Opportunity & Decision basic (4 Pflicht- + 7 optionale Dimensionen, KI-Bewertung via Bedrock, Decision-Board), Cross-Kunden-Learnings basic (manuelle Freigabe + Anonymisierung), Customer Deployment Registry (Deployment-Typ, Server, Module, Version, Update-Rollout-Ansicht).",
+      "summary": "Fundament + Learning & Pattern Intelligence — 7 Features: Ingest-Layer Onboarding, Ingest-Layer Business (fehlertolerant), Portfolio-Monitor, Insight-Layer (KU-Liste mit Tags/Clustering/Volltext), Opportunity & Decision basic (4+7 Dimensionen, KI-Bewertung), Cross-Kunden-Learnings basic (manuelle Freigabe + Anonymisierung), Customer Deployment Registry. Requirements abgeschlossen 2026-04-15, Architecture steht an.",
       "order": 1
     },
     {
       "id": "v2",
       "name": "V2",
       "status": "planned",
-      "summary": "Intelligence + Production: KI-Auto-Clustering von KUs, Pattern-Erkennung, Improvement-Engine mit automatischer Rückspielung nach Onboarding und Business, Knowledge-Packaging-Engine (SOPs, FAQs, Wissensbausteine), Content-Transformer (Assets), Brand-Control, Experiment-Manager (strukturierte Hypothesentestung), Auto-Anonymisierung für Cross-Kunden-Learnings via Bedrock, JSON-Export-API als Partner-Schnittstelle.",
+      "summary": "Content, Brand & Asset Production — FEAT-008 Brand Profile (ein StrategAIze-Eigenes, strukturiert mit 3–5 Beispiel-Assets als few-shot-Examples), FEAT-009 Content Asset Production (6 Output-Typen: Blogpost, LinkedIn-Post, One-Pager, E-Mail-Vorlage, Case Card, Landingpage-Briefing; KI-Generierung via Bedrock mit Brand-Kontext; Asset-Bibliothek mit Versionierung und Status-Workflow).",
       "order": 2
     },
     {
       "id": "v3",
       "name": "V3",
       "status": "planned",
-      "summary": "External & Partners: Template-Produkt-Modus für externe Kundeneinsätze (Multi-Instanz, Template-Konfiguration), echte Partner-API mit Auth und Rate-Limiting (Voice via SMAO, RAG-Anbieter-Vermittlung), Research & Market Prep.",
+      "summary": "Campaign & Lead Intelligence — FEAT-010 ICP & Segment, FEAT-011 Campaign Management (Parent-Campaign + Channel-Segmente + Variant-Ebene, digital + physisch, High-Attention-Outreach-Typ), FEAT-012 Lead Research & Enrichment (6 Research-Typen + Clay-CSV-Import + manuell), FEAT-013 Lead Scoring (regelbasiert, Disqualifier, Threshold-Config), FEAT-014 Qualified Lead Handoff (Fluss 5b an Business — setzt Business-seitige Qualified-Lead-Inbox voraus).",
       "order": 3
     },
     {
       "id": "v4",
-      "name": "V4+",
+      "name": "V4",
       "status": "planned",
-      "summary": "Reife-Features: Modules/Flows/Build-Drafts (13 Draft-Typen — konzeptuell neu denken), Branchen-Layer, Cross-Project-Auswertung, Anomalie-Flagging, Process-Mining-Connector.",
+      "summary": "Publishing / Distribution — Kanal-Adapter-Framework (LinkedIn + E-Mail als erste Kanäle), Scheduling, Queue, Format-Anpassung, Publish-Status-Tracking, Verknüpfung Asset → Kampagne → Channel-Segment → Publish-Event. Features werden in späterer Requirements-Runde spezifiziert.",
       "order": 4
+    },
+    {
+      "id": "v5",
+      "name": "V5",
+      "status": "planned",
+      "summary": "Tracking / Performance-Cockpit — einheitliches Event-Schema, Rohdaten-Pull pro Kanal, konsolidiertes Kampagnen-Cockpit, A/B-Auswertung operativ, KI-Scoring (ersetzt regelbasiertes Scoring aus V3). Attribution auf Kampagnen-Ebene, keine Deal-Attribution. Features werden in späterer Requirements-Runde spezifiziert.",
+      "order": 5
+    },
+    {
+      "id": "v6",
+      "name": "V6",
+      "status": "planned",
+      "summary": "Validation & Idea Testing — Experiment-Entität (Hypothese, Kill-Kriterien, Erfolgssignale, Budget, Zeitfenster), KI-Vorschlag von Experiment-Designs aus Opportunities, Research-Task-Erweiterung (6 Research-Typen), strukturierte Ergebnis-Dokumentation und Folgeentscheidung. Features werden in späterer Requirements-Runde spezifiziert.",
+      "order": 6
+    },
+    {
+      "id": "v7",
+      "name": "V7",
+      "status": "planned",
+      "summary": "Orchestration & Decision Layer — Hybrid-Cockpit (Priority-Felder in Listen + leichtgewichtiges Top-5-Dashboard), manuelle Flags, Sortierung nach Priorität, Learning-Rückflüsse an Onboarding und Business. KI-Auto-Priorisierung ist V8+.",
+      "order": 7
+    },
+    {
+      "id": "v8plus",
+      "name": "V8+",
+      "status": "planned",
+      "summary": "Spätere Verdichtung — Template-Modus für externe Kundenunternehmen (Multi-Instanz-Aktivierung), Custom-Brand-Profile pro Kunde, SMAO-Partner-API (Auth, Rate-Limiting), Auto-Anonymisierung via Bedrock, KI-Auto-Clustering, KI-Auto-Priorisierung, Deal-Ebene-Attribution, weitere Publishing-Kanäle (X, YouTube, Paid-Ads).",
+      "order": 8
     }
   ]
 }
