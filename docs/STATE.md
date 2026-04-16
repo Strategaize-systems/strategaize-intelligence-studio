@@ -16,7 +16,7 @@ Referenz: `/strategaize-dev-system/docs/PLATFORM.md`.
 - Current Phase: Slice Planning (Architecture abgeschlossen)
 
 ## Immediate Next Steps
-1. GitHub-Repo `rbellaerts/strategaize-intelligence-studio` anlegen + alle lokalen Commits pushen (DEC-018).
+1. ✅ GitHub-Repo `Strategaize-systems/strategaize-intelligence-studio` angelegt + Push erledigt (DEC-018, 2026-04-16).
 2. `/slice-planning` starten mit Slice-Vorschlag aus ARCHITECTURE.md Abschnitt 12.2 (SLC-001 Project Setup → SLC-010 V1 Gesamt-QA). Pflichtlektüre:
    - `/docs/ARCHITECTURE.md` (V1 detailliert, V2-V7 konzeptionell, Frontend-Architektur, Adapter-Pattern)
    - `/docs/DECISIONS.md` (DEC-001..019)
