@@ -209,6 +209,36 @@
       "version": "V1",
       "description": "Umsetzung StrategAIze Style Guide V2 als verbindliche Komponenten-Bibliothek (Header, KPICard, FilterBar, Voice/AI-Buttons, StatusBadge, ContentCard, DeutschlandKarte, Modal, Form-Komponenten) + Tailwind-Theme + 5 Layout-Templates + Design-System-Showcase-Seite. Vorbedingung für alle Feature-UIs (DEC-017). Entspricht SLC-002.",
       "createdAt": "2026-04-16"
+    },
+    {
+      "id": "BL-022",
+      "title": "StrategAIze Website — Claude Design + Claude Code statt One.com",
+      "type": "idea",
+      "priority": "medium",
+      "status": "open",
+      "version": null,
+      "description": "Eigene StrategAIze-Business-Website mit Claude Design (Prototyp) + Claude Code (Implementierung) bauen statt One.com AI Builder (100 EUR/Monat). Basis: Style Guide V2 + Extended Style Guide als Design-System-Input, Brand Colors aus bestehenden Projekten, Next.js + Tailwind + shadcn/ui Stack. Hosting auf IONOS (bereits vorhanden). Seiten: Homepage, Produkt-Übersichten (Onboarding, Business System, IS), Social Proof, CTA, Kontakt. Texte/Copy aus Codebase + PRDs generieren lassen. Voraussetzung: Produkte müssen in stabilem Zustand sein (Business V4.1+, Onboarding fertig), damit Website-Inhalte belastbar sind. One.com-Abo kündigen sobald Alternative steht.",
+      "createdAt": "2026-04-22"
+    },
+    {
+      "id": "BL-023",
+      "title": "Knowledge Export als Markdown-Vault (Obsidian/Digital-Assistant-kompatibel)",
+      "type": "idea",
+      "priority": "medium",
+      "status": "open",
+      "version": "V2",
+      "description": "Export verdichteter Knowledge Units als .md-Dateien in Vault-Struktur (Ordner pro Kunde/Block/Thema). Kompatibel mit Obsidian, Notion, und jedem Markdown-fähigen System. Primäre Use Cases: (1) Kunden erhalten ihr verdichtetes Wissen als portables Paket — kein Vendor Lock-in. (2) Knowledge-Basis für digitale Assistenten / Voice-AI-Systeme (z.B. SMAO) — Markdown als universelles Wissensformat für Telefon-Assistenten, Chatbots, interne Helpdesks. (3) Berater können Wissen in eigene Tools importieren. Export-Format: Frontmatter-YAML (Tags, Kunde, Block, Datum) + Markdown-Body. Batch-Export als ZIP. Baut auf FEAT-004 Insight-Layer auf. Strategische Relevanz: universelles Wissens-Austauschformat, Differenzierungsmerkmal gegenüber geschlossenen Plattformen, Voraussetzung für SMAO-Partner-API (V8+).",
+      "createdAt": "2026-04-22"
+    },
+    {
+      "id": "BL-024",
+      "title": "Personalisierter Sales-Pitch pro Lead (Clay + Content-Kombination)",
+      "type": "idea",
+      "priority": "medium",
+      "status": "open",
+      "version": "V3",
+      "description": "Konkreter Use Case der FEAT-009 (Content Production) + FEAT-012 (Lead Research) Kombination: Aus Clay-Enrichment-Daten (Funding-Status, Hiring-Signale, Tech-Stack, Branche) automatisch personalisierten Pitch generieren — inkl. Einwandbehandlung, Follow-up-Strategie, und branchenspezifischem Ansprache-Template. Output als Content-Asset mit Status-Workflow. Ziel: Sales-Vorbereitung von 30 Min. manuellem LinkedIn-Research auf 5 Min. KI-gestützten Pitch reduzieren. Kein eigenständiges Feature, sondern Asset-Typ-Erweiterung in FEAT-009 + Research-Workflow in FEAT-012. Bei V3-Requirements als konkreten Workflow-Use-Case spezifizieren.",
+      "createdAt": "2026-04-22"
     }
   ]
 }
