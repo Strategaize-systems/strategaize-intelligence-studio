@@ -2,51 +2,74 @@
 
 ## Status
 
-**V1 Marketing Launcher Slice-Planning ist NOCH NICHT durchgelaufen.** Naechster Skill-Schritt nach Architecture: `/slice-planning V1`.
+**V1 Marketing Launcher Slice-Planning abgeschlossen 2026-04-26 (RPT-010).** 8 Slices SLC-101..108 mit Micro-Task-Decomposition + TDD-Policy + Worktree-Empfehlung spezifiziert. Pre-Implementation-Bridges (BL-027 + BL-028) als parallele Coordination-Tasks im Backlog. Naechster Skill-Schritt: `/backend SLC-101` (Foundation-Refresh + MIG-002).
 
-Geplante Slice-Anzahl: 8 (Setup + Brand Profile + Content Asset Production + ICP/Segment + Lead Research + Messaging-Variation + Campaign Lite + Lead Handoff/Performance) — siehe Memory `project_marketing_launcher_v1_scope.md`. Finaler Slice-Schnitt entsteht im `/slice-planning V1`-Lauf.
-
-## V1 Marketing Launcher Slices (planned, noch nicht spezifiziert)
+## V1 Marketing Launcher Slices
 
 | ID | Slice | Feature | Status | Priority | Created |
 |----|-------|---------|--------|----------|---------|
-| SLC-101 | Project Setup & Foundation Refresh | BL-016 | not-yet-planned | Blocker | tbd |
-| SLC-102 | FEAT-008 Brand Profile (12-Sektionen) | BL-009 / FEAT-008 | not-yet-planned | High | tbd |
-| SLC-103 | FEAT-009 Content Asset Production (7 Output-Typen) | BL-010 / FEAT-009 | not-yet-planned | High | tbd |
-| SLC-104 | FEAT-010 ICP & Segment | BL-011 / FEAT-010 | not-yet-planned | High | tbd |
-| SLC-105 | FEAT-015 Lead Research (Firecrawl + Clay-CSV) | BL-014 / FEAT-015 | not-yet-planned | High | tbd |
-| SLC-106 | FEAT-016 Messaging-Variation pro Lead | BL-015 / FEAT-016 | not-yet-planned | High | tbd |
-| SLC-107 | FEAT-011 Campaign Management LITE | BL-012 / FEAT-011 | not-yet-planned | High | tbd |
-| SLC-108 | FEAT-014 Lead Handoff (Pipeline-Push) + Performance-Capture | BL-013 / FEAT-014 | not-yet-planned | High | tbd |
+| SLC-101 | [Foundation Refresh](SLC-101-foundation-refresh.md) | Setup / BL-016 + BL-017 | planned | Blocker | 2026-04-26 |
+| SLC-102 | [Brand Profile (12-Sektionen)](SLC-102-brand-profile.md) | FEAT-008 / BL-009 | planned | High | 2026-04-26 |
+| SLC-103 | [Content Asset Production (7 Output-Typen)](SLC-103-content-asset-production.md) | FEAT-009 / BL-010 | planned | High | 2026-04-26 |
+| SLC-104 | [ICP & Segment](SLC-104-icp-segment.md) | FEAT-010 / BL-011 | planned | High | 2026-04-26 |
+| SLC-105 | [Lead Research (Firecrawl + Clay-CSV)](SLC-105-lead-research.md) | FEAT-015 / BL-014 | planned | High | 2026-04-26 |
+| SLC-106 | [Messaging-Variation pro Lead](SLC-106-messaging-variation.md) | FEAT-016 / BL-015 | planned | High | 2026-04-26 |
+| SLC-107 | [Campaign Management LITE](SLC-107-campaign-lite.md) | FEAT-011 / BL-012 | planned | High | 2026-04-26 |
+| SLC-108 | [Lead Handoff (Pipeline-Push) + Performance-Capture](SLC-108-lead-handoff-performance.md) | FEAT-014 / BL-013 | planned | High | 2026-04-26 |
 
-**Hinweis zur ID-Konvention:** Die V1-Marketing-Launcher-Slices verwenden den Praefix `SLC-1xx`, um Verwechslungen mit den deprecated alten V1-Slices (SLC-001..010, jetzt zu V6 gehoerig) zu vermeiden. Finale IDs entstehen im `/slice-planning V1`-Lauf.
+## Pre-Implementation-Bridges (parallele Coordination-Tasks)
 
-## Pre-Implementation-Verifikationen (vor SLC-105 + SLC-108)
+| Bridge | Pre-Condition fuer | Repository | Status |
+|---|---|---|---|
+| **BL-028** Firecrawl Self-Host-Setup auf Hetzner | SLC-105 (Lead Research) — Implementation kann ohne Firecrawl-Endpoint nicht testbar sein | Self-Host-Operations (Hetzner-Compose oder dedizierter Server) | open |
+| **BL-027** Business-System Coordination-Sprint (POST `/api/internal/deals` + INTERNAL_API_TOKEN) | V1-Final-Check / Go-Live (Auto-Mode des Pipeline-Push) — SLC-108 selbst ist Flag-gated und ohne BL-027 implementierbar | strategaize-business-system Repo | open |
 
-- **BL-025 Firecrawl EU-Hosting + DPA verifizieren** — vor SLC-105 (Lead Research). Risk R-01 + OQ-V1-02.
-- **BL-026 Business-Pipeline-API-Endpoint verifizieren** — vor SLC-108 (Lead Handoff). Risk R-02 + OQ-V1-03.
+**Bridge-Plan:** Beide Bridges laufen **parallel** zur V1-IS-Implementation, sind keine eigenen IS-Slices. BL-028 muss vor SLC-105-Implementation-Start abgeschlossen sein. BL-027 muss vor `/final-check V1` abgeschlossen sein.
 
-## Reihenfolge-Rationale (Vorschlag fuer /slice-planning V1)
+## Worktree-Empfehlungen
 
-- **SLC-101 Foundation Refresh zuerst:** Schema-Erweiterungen (brand_profile, asset/asset_version/asset_performance, lead/research_run, pitch/pitch_version, handoff_event, campaign mit n:m-Verknuepfungstabellen) muessen vor allen Feature-Slices stehen.
-- **SLC-102 Brand Profile vor SLC-103:** Asset-Generierung (FEAT-009) braucht Brand Profile als KI-Kontext.
-- **SLC-103 Content Asset Production vor SLC-106:** Pitch-Generation (FEAT-016) wiederverwendet Asset-Generation-Pattern.
-- **SLC-104 ICP & Segment vor SLC-105:** Lead Research filtert ueber ICP/Segment.
-- **SLC-105 Lead Research vor SLC-106:** Pitch-Generation braucht Lead-Daten.
-- **SLC-106 Messaging-Variation vor SLC-107:** Campaign Lite klammert Pitches mit ein.
-- **SLC-107 Campaign Lite vor SLC-108:** Pipeline-Push pusht Lead mit Campaign-Kontext.
-- **SLC-108 als letzter Slice:** Performance-Capture braucht alle vorherigen Slices, Pipeline-Push braucht Campaign + Lead + Pitch.
+| Slice | Worktree | Begruendung |
+|---|---|---|
+| SLC-101 | mandatory | DB-Migration, Foundation-Touch, viele Files |
+| SLC-102 | mandatory | Singleton-Constraint + JSONB-Schema-Validation, kritische Foundation |
+| SLC-103 | optional | Bedrock-Adapter-Touch + 7 Prompt-Builder, Worktree empfohlen |
+| SLC-104 | optional | Geringes Risiko |
+| SLC-105 | mandatory | Self-Host-Adapter + Cross-System-Integration |
+| SLC-106 | optional | Wiederverwendet Pattern aus SLC-103 |
+| SLC-107 | optional | Geringes Risiko |
+| SLC-108 | mandatory | Cross-System-Integration Business-API + Closed-Loop-Schluss |
 
-Pre-Implementation-Verifikationen (BL-025 + BL-026) als Vorab-Bridges in SLC-101 oder als eigene Mini-Slices.
+## TDD-Policy-Uebersicht
 
-## Worktree-Empfehlung (Vorschlag)
+V1-Delivery-Mode = **Internal-Tool**, daher Default-Empfohlen. **Pflicht-TDD** fuer:
+- Adapter-Implementations (alle 4 neuen + bedrockAdapter): `firecrawlAdapter`, `clayCsvAdapter`, `businessPipelineAdapter`, `linkedinAdsCsvAdapter`
+- RLS-Policies aller 16 neuen Tabellen (SAVEPOINT-Tests gegen Coolify-Test-DB)
+- Worker-Job-Handler (`assetGeneration`, `pitchGeneration`, `leadResearchRun`, `businessStatusPull`)
+- Singleton-Constraint Brand-Profile, Duplikat-Constraint Lead, Idempotency-Constraint Handoff
+- Bedrock-Prompt-Builder (alle 7 Asset + 2 Pitch)
+- Few-shot-Loop-Query (DEC-027, scharf in SLC-108)
+- 4-Level-Composer + Filter-Builder + Statemachine
+- Volltext-Suche, Live-Query-Executor, Markdown-Export
 
-- Empfohlen: SLC-101 (Foundation), SLC-102 (Schema-Migration), SLC-105 (Firecrawl-Adapter-Risiko), SLC-108 (Pipeline-Push-Risiko)
-- Optional: SLC-103, SLC-104, SLC-106, SLC-107
+**Empfohlen-TDD:** Server-Actions, Aggregation-Queries, Batch-Logic.
+
+**Nicht-TDD:** UI-Komponenten (Forms, Listen, Detail-Layouts). Visuelle Verifikation reicht.
+
+## Slice-Reihenfolge-Rationale
+
+- **SLC-101 zuerst:** Foundation (MIG-002, Style-Guide, Adapter-Skeletons, Worker-Enum) ist Pre-Condition fuer alle Feature-Slices.
+- **SLC-102 vor SLC-103:** Asset-Generation braucht Brand-Profile als KI-Kontext.
+- **SLC-103 vor SLC-106:** Pitch-Generation wiederverwendet Asset-Generation-Pattern (Worker-Handler, Prompt-Builder-Layout, Few-shot-Loader-Stub).
+- **SLC-104 vor SLC-105:** Lead-Research filtert ueber ICP/Segment.
+- **SLC-105 nach BL-028:** Firecrawl muss Self-Host laufen.
+- **SLC-105 vor SLC-106:** Pitch-Generation braucht Lead-Daten als Personalization-Quelle.
+- **SLC-106 vor SLC-107:** Campaign LITE klammert Pitches mit ein.
+- **SLC-107 vor SLC-108:** Pipeline-Push pusht Lead mit Campaign-Kontext, Performance-Aggregation lebt auf Campaign-Ebene.
+- **SLC-108 als letzter:** Schliesst die Schleife mit Performance-Capture-Loop + Few-shot-scharf-Schaltung. Beruehrt SLC-103-Stub und macht Closed-Loop-Differentiator aktiv.
 
 ## V6+ Slices
 
-V6 Wissensverdichtungs-Backbone (ehemals V1, FEAT-001..007) wird in einer separaten `/slice-planning`-Runde nach V5-Abschluss zugeschnitten. Feature-Spec-Grundlagen existieren bereits unter `/features/`.
+V6 Wissensverdichtungs-Backbone (ehemals V1, FEAT-001..007) wird in einer separaten `/slice-planning V6`-Runde nach V5-Abschluss zugeschnitten. Feature-Spec-Grundlagen existieren bereits unter `/features/`.
 
 V2-V5 + V7-V9+ Slice-Planning erfolgt jeweils nach den entsprechenden Requirements-Runden.
 
@@ -54,7 +77,7 @@ V2-V5 + V7-V9+ Slice-Planning erfolgt jeweils nach den entsprechenden Requiremen
 
 **Status: deprecated 2026-04-26 durch Pivot zum Marketing Launcher V1.**
 
-Die folgenden Slices wurden im alten Slice-Planning-Lauf 2026-04-16 fuer das urspruengliche V1 (Wissensverdichtungs-Backbone) spezifiziert. Sie sind durch den Pivot 2026-04-25 nicht mehr V1-Slices und passen inhaltlich zu V6 (Wissensverdichtungs-Backbone). Im V6-Slice-Planning-Lauf (spaeter) werden sie als Vorlage verwendet, ggf. neu zugeschnitten und mit neuen IDs versehen.
+Die folgenden Slices wurden im alten Slice-Planning-Lauf 2026-04-16 fuer das urspruengliche V1 (Wissensverdichtungs-Backbone) spezifiziert. Sie sind durch den Pivot 2026-04-25 nicht mehr V1-Slices und passen inhaltlich zu V6. Im V6-Slice-Planning-Lauf werden sie als Vorlage verwendet, ggf. neu zugeschnitten.
 
 | ID (alt) | Slice | Feature | Status | Priority | Created |
 |----|-------|---------|--------|----------|---------|
@@ -70,8 +93,8 @@ Die folgenden Slices wurden im alten Slice-Planning-Lauf 2026-04-16 fuer das urs
 | SLC-010 (deprecated) | [V1 Gesamt-QA + Polish](SLC-010-v1-gesamt-qa.md) | alle alten V1 | deprecated | — | 2026-04-16 |
 
 **Wichtig:**
-- Die Slice-Markdown-Dateien bleiben physisch erhalten (nicht geloescht), weil sie inhaltlich gute Spec-Vorlage fuer V6 sind.
-- SLC-002 (Design-System-Grundstock) bleibt auch fuer V1-Marketing-Launcher relevant — wird im `/slice-planning V1` als Sub-Aufgabe von SLC-101 (Foundation Refresh) wieder aufgenommen oder als eigener V1-Slice neu spezifiziert.
+- Slice-Markdown-Dateien bleiben physisch erhalten als Spec-Vorlage fuer V6.
+- SLC-002 (Design-System-Grundstock alt) ist inhaltlich in SLC-101 (Foundation Refresh) integriert.
 - Im V6-Slice-Planning werden die Slices entweder uebernommen oder neu zugeschnitten.
 
 ## Archivierte V1-Slices (aelter, vor 2026-04-16 Re-Discovery)

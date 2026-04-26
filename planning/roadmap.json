@@ -4,7 +4,7 @@
       "id": "v1",
       "name": "V1",
       "status": "active",
-      "summary": "Marketing Launcher (Closed Loop Lite) — 7 Features: FEAT-008 Brand Profile (12-Sektionen-Schema aus product-marketing-context), FEAT-009 Content Asset Production (7 Output-Typen mit Skill-Quellbezug aus copywriting/social-content/sales-enablement/cold-email/page-cro/site-architecture), FEAT-010 ICP & Segment (aus product-marketing-context Sektion 2+3), FEAT-011 Campaign LITE (Parent-Klammer ohne Channel-Segments+Variants), FEAT-014 Lead Handoff (Pipeline-Push statt Qualified-Lead-Inbox) + Performance-Capture-Loop, FEAT-015 Lead Research (Firecrawl + Clay-CSV), FEAT-016 Messaging-Variation pro Lead (4-Level-Personalization + marketing-psychology). Ist Lead-Generator fuer StrategAIze selbst — schliesst Marketing-Schleife minimal mit Pipeline-Push ans Business System.",
+      "summary": "Marketing Launcher (Closed Loop Lite) — 7 Features in 8 Slices SLC-101..108 (Slice-Planning RPT-010 abgeschlossen 2026-04-26): SLC-101 Foundation, SLC-102 Brand Profile (FEAT-008, 12-Sektionen-JSONB-Singleton), SLC-103 Content Asset Production (FEAT-009, 7 Output-Typen mit Skill-Quellbezug), SLC-104 ICP & Segment (FEAT-010), SLC-105 Lead Research (FEAT-015, Firecrawl Self-Host + Clay-CSV — depends on BL-028), SLC-106 Messaging-Variation (FEAT-016, 4-Level + Psychology-Booster), SLC-107 Campaign LITE (FEAT-011, Parent-only), SLC-108 Lead Handoff (FEAT-014, Pipeline-Push Flag-gated) + Performance-Capture-Loop + Few-shot scharf. Pre-V1-Release-Bridges: BL-027 (Business-Sprint POST /api/internal/deals) + BL-028 (Firecrawl Self-Host). Ist Lead-Generator fuer StrategAIze selbst — schliesst Marketing-Schleife minimal mit Pipeline-Push ans Business System.",
       "order": 1
     },
     {

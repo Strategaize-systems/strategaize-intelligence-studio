@@ -11,19 +11,18 @@ System 3 der StrategAIze-Gesamtarchitektur. **V1 ist der Marketing Launcher (Clo
 Referenz: `/strategaize-dev-system/docs/PLATFORM.md`.
 
 ## Current State
-- High-Level State: architecture
-- Current Focus: V1 Architecture-Addendum abgeschlossen 2026-04-26. ARCHITECTURE.md V2.1-Addendum (Sektionen A.1-A.14) + MIG-002 (16 neue V1-Tabellen) + 7 neue ADRs (DEC-023..029) + 4 Spec-Snapshots in docs/spec-references/. Pre-Implementation-Verifikationen BL-025 (Firecrawl) + BL-026 (Business-Pipeline-API) abgeschlossen mit kritischen Erkenntnissen: Firecrawl-Cloud = US-gehostet (DEC-028 Self-Host), Business-System hat keinen POST-Endpoint (DEC-029 Coordination-Sprint via BL-027). ISSUE-001 als resolved markiert (DEC-022/Pipeline-Push), ISSUE-002 + ISSUE-003 neu. Naechster Skill-Schritt: `/slice-planning V1`.
-- Current Phase: V1 Marketing Launcher Slice-Planning
+- High-Level State: slice-planning
+- Current Focus: V1 Slice-Planning abgeschlossen 2026-04-26. 8 Slice-Specs (SLC-101 Foundation, SLC-102 Brand Profile, SLC-103 Asset Production, SLC-104 ICP&Segment, SLC-105 Lead Research, SLC-106 Messaging-Variation, SLC-107 Campaign LITE, SLC-108 Lead Handoff+Performance) mit Micro-Task-Decomposition + TDD-Policy + Worktree-Empfehlung erstellt. Pre-Implementation-Bridges BL-028 (Firecrawl Self-Host vor SLC-105) + BL-027 (Business-Coordination-Sprint vor V1-Final-Check) als parallele Tasks im Backlog. RPT-010 dokumentiert. Naechster Skill-Schritt: `/backend SLC-101` (Foundation-Refresh + MIG-002 ausfuehren auf Hetzner).
+- Current Phase: V1 Marketing Launcher Implementation (SLC-101 Foundation als naechster Schritt)
 
 ## Immediate Next Steps
-1. `/slice-planning V1` — finale 8 Slices SLC-101..108 mit Micro-Task-Decomposition pro Slice. Slice-Vorschlag bereits in ARCHITECTURE.md Sektion A.13 + slices/INDEX.md.
-2. **Pre-Implementation-Bridges** (vor SLC-105 + V1-Final-Check):
-   - **BL-028** Firecrawl-Self-Host-Setup (eigener Hetzner-Container/Server mit Auth-Token + Smoke-Test) — Pre-Condition fuer SLC-105
-   - **BL-027** Business-System Coordination-Sprint (POST `/api/internal/deals` + INTERNAL_API_TOKEN) im Business-Repo — Pre-Condition fuer V1-Final-Check / Go-Live, parallel zu V1-IS-Implementation
-3. `/backend SLC-101` Foundation-Refresh: MIG-002 ausfuehren auf Hetzner, Style-Guide-V2-Component-Verzeichnis pruefen (DEC-017), Adapter-Skeletons anlegen (firecrawl, clay-csv, business-pipeline, linkedin-ads-csv).
-4. Nach jedem V1-Slice: `/qa` pflichtgemaess (CLAUDE.md).
-5. Vor `/final-check V1`: Gesamt-QA ueber alle 8 Slices + BL-027 abgeschlossen + Feature-Flag `BUSINESS_PIPELINE_PUSH_ENABLED` aktiv + 1 erfolgreicher Pipeline-Push verifiziert.
-6. Nach Final-Check: `/go-live V1` -> `/deploy V1` -> `/post-launch V1`.
+1. **Parallel-Setup BL-028** (Pre-Condition fuer SLC-105): Firecrawl-Self-Host auf Hetzner einrichten (Container im Compose oder dedizierter Server, Auth-Token, Smoke-Test). Eigene kurze Setup-Session.
+2. **Parallel-Coordination BL-027** (Pre-Condition fuer V1-Final-Check): Business-System-Sprint im strategaize-business-system Repo: POST `/api/internal/deals` + INTERNAL_API_TOKEN-Auth + Pipeline `Lead-Generierung` Stage `Neu`-Migration. Laeuft parallel zu V1-IS-Implementation.
+3. `/backend SLC-101` Foundation-Refresh: MIG-002 ausfuehren auf Hetzner gemaess `sql-migration-hetzner.md`, Style-Guide-V2-Komponenten + 5 Layouts, 4 Adapter-Skeletons, Worker-Job-Type-Enum-Erweiterung, Feature-Flag-System.
+4. Nach SLC-101: `/qa SLC-101` pflichtgemaess (CLAUDE.md), dann `/backend SLC-102` (Brand Profile).
+5. Slice-Reihenfolge: SLC-101 → SLC-102 → SLC-103 → SLC-104 → (BL-028 fertig) → SLC-105 → SLC-106 → SLC-107 → SLC-108 (Manual-Mode V1-default, Flag scharf nach BL-027).
+6. Vor `/final-check V1`: Gesamt-`/qa V1` ueber alle 8 Slices + BL-027 abgeschlossen + Feature-Flag `BUSINESS_PIPELINE_PUSH_ENABLED=true` + mind. 1 erfolgreicher Pipeline-Push verifiziert.
+7. Nach Final-Check: `/go-live V1` → `/deploy V1` → `/post-launch V1`.
 
 ## Active Scope
 **V1 (active):** Marketing Launcher Closed Loop Lite — 7 Features (FEAT-008/009/010/011/014/015/016). Requirements abgeschlossen 2026-04-26. Architektur-Addendum, Slice-Planning, Implementation, QA, Final-Check, Go-Live, Deploy, Post-Launch stehen aus.
