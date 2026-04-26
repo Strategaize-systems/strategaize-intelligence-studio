@@ -595,6 +595,299 @@ Detail-Schnitt, Micro-Tasks, Priorisierung und TDD-Policy passieren in `/slice-p
 
 ---
 
+---
+
+# Addendum V2.1 — Marketing Launcher V1 (Closed Loop Lite)
+
+## A.1 Status
+
+Version: 2.1 (Architecture V2.1-Addendum). Entstanden 2026-04-26 nach `/architecture V1` fuer den Marketing-Launcher-Pivot (RPT-009).
+
+ARCHITECTURE.md V2 (Sektionen 1-13) bleibt **Foundation und gueltig**. Dieses Addendum erweitert die Architektur um den V1-Marketing-Launcher-Scope (FEAT-008..011 + 014..016) ohne den V2-Wissensverdichtungs-Backbone-Pfad zu touchen — letzterer wandert auf V6 und behaelt die V2-Sektionen als Spec.
+
+## A.2 V1-Scope-Mapping zur Foundation
+
+| V2-Foundation-Komponente | V1-Marketing-Launcher-Nutzung | Aenderung in V2.1 |
+|---|---|---|
+| Next.js App Container | UI fuer 7 V1-Features | Routen ergaenzt (siehe A.7) |
+| Worker Container | Asset+Pitch+Lead-Research async | 3 neue Job-Types (siehe A.4) |
+| Supabase Stack | Schema-Erweiterung | MIG-002 fuegt 16 Tabellen hinzu |
+| Provider-Adapter-Layer | 4 neue Adapter | siehe A.5 |
+| Style Guide V2 Design-System | bleibt verbindlich | keine |
+| `ai_jobs` Queue | gemeinsame Queue, neue Job-Types | erweiterter Enum |
+| `ai_cost_ledger` | Cost-Tracking pro Adapter | unveraendert, neue Provider-Eintraege |
+
+## A.3 V1 Datenmodell (MIG-002)
+
+V1 ergaenzt 16 neue Tabellen ueber MIG-002. Vollstaendige Spalten-Definitionen siehe `/docs/MIGRATIONS.md` MIG-002. Tabellen-Gruppen:
+
+### A.3.1 Brand & Content (FEAT-008 + FEAT-009)
+
+- `brand_profile` — JSONB-Singleton (DEC-023): `id`, `template_id (NULL)`, `is_active`, `version`, `data (JSONB, 12-Sektionen-Schema)`, `updated_at`, `updated_by`. CHECK-Constraint `is_active=true → max 1 row` (Singleton in V1).
+- `brand_profile_changelog` — Audit-Trail: `id`, `brand_profile_id`, `version_from`, `version_to`, `jsonb_path_changed`, `old_value`, `new_value`, `changed_at`, `changed_by`.
+- `asset` — Generated Asset: `id`, `output_type` (Enum, DEC-024), `source_skill` (Enum, DEC-024), `source_object_type` (text), `source_object_id` (uuid), `current_version_id (FK pitch_version NULL)`, `status` (Enum), `template_id (NULL)`, `brand_profile_version_snapshot (int)`, `briefing_note (text)`, `tags (text[])`, `created_at`, `created_by`.
+- `asset_version` — Versions-History: `id`, `asset_id (FK)`, `version_number (int)`, `markdown_content (text)`, `metadata (JSONB)`, `is_ai_generated (bool)`, `created_at`, `created_by`.
+- `asset_performance` — Eigene Tabelle, NICHT JSONB-Spalte (DEC-026): `id`, `asset_id (FK)`, `posted_at`, `channel (text)`, `cost_eur (numeric)`, `impressions (int NULL)`, `clicks (int NULL)`, `leads_generated (int)`, `notes (text NULL)`, `template_id (NULL)`, `entered_at`, `entered_by`. 1:n erlaubt (mehrere Posts desselben Assets).
+
+### A.3.2 ICP & Segment (FEAT-010)
+
+- `icp` — Strukturierte ICP-Definition: `id`, `title`, `description`, `brand_profile_id (FK NULL)`, `target_company_type (JSONB)`, `decision_makers (text[])`, `primary_use_case (text)`, `jobs_to_be_done (text[])`, `personas (JSONB)`, `revenue_band (text NULL)`, `region_country (text)`, `trigger_signals (text[])`, `pain_points (text[] NULL)`, `budget_estimate (text NULL)`, `market_size_estimate (numeric NULL)`, `anti_persona (text NULL)`, `notes (text NULL)`, `template_id (NULL)`, `created_at`, `created_by`.
+- `segment` — Gefilterte ICP-Instanz: `id`, `title`, `icp_id (FK)`, `filter_definition (JSONB)`, `is_snapshot (bool, default false)`, `snapshot_at (timestamp NULL)`, `manual_includes (uuid[] NULL)`, `manual_excludes (uuid[] NULL)`, `template_id (NULL)`, `created_at`, `created_by`.
+- V1 Segment-Mitgliedschaft = **Live-Query** ueber `lead`-Tabelle mit JSON-Filter-Executor (kein `segment_member`-Table). Snapshot-Variante kommt mit V5 (DEC-026 Hinweis).
+
+### A.3.3 Lead Research (FEAT-015)
+
+- `lead` — Lead-Pool: `id`, `company_name (text)`, `domain (text)`, `industry (text)`, `country (text)`, `source (Enum: firecrawl|clay_csv|manual)`, `source_run_id (FK NULL)`, `status (Enum: new|qualified|pushed|acknowledged|rejected|converted|dead)`, `company_size_band (text NULL)`, `revenue_band (text NULL)`, `contact_name (text NULL)`, `contact_role (text NULL)`, `contact_email (text NULL)`, `linkedin_url (text NULL)`, `phone (text NULL)`, `trigger_signals_matched (text[])`, `enrichment_data (JSONB NULL)`, `notes (text NULL)`, `tags (text[])`, `business_deal_id (uuid NULL)`, `template_id (NULL)`, `created_at`, `created_by`. Unique-Constraint `(domain, COALESCE(contact_email, ''))` fuer Duplikat-Vermeidung.
+- `research_run` — Recherche-Lauf: `id`, `segment_id (FK)`, `provider (Enum)`, `status (Enum: pending|running|completed|failed)`, `started_at`, `completed_at (NULL)`, `leads_found (int)`, `leads_new (int)`, `leads_duplicate (int)`, `cost_eur (numeric)`, `provider_run_id (text NULL)`, `provider_query (JSONB)`, `error_message (text NULL)`, `notes (text NULL)`, `created_by`.
+
+### A.3.4 Messaging-Variation (FEAT-016)
+
+- `pitch` — Lead-spezifischer Pitch (DEC-025: separate Tabelle, kein Asset-Subtype): `id`, `lead_id (FK)`, `output_type (Enum: email|linkedin_post)`, `current_version_id (FK NULL)`, `status (Enum: entwurf|ueberarbeitet|freigegeben|gesendet|verworfen)`, `personalization_level_used (Enum: industry|company|role|individual)`, `psychology_boosters_used (text[])`, `framework_used (text NULL)`, `briefing_note (text NULL)`, `tags (text[])`, `linked_asset_id (FK NULL)`, `brand_profile_version_snapshot (int)`, `template_id (NULL)`, `created_at`, `created_by`.
+- `pitch_version` — Versions-History: `id`, `pitch_id (FK)`, `version_number (int)`, `subject (text NULL)`, `body_markdown (text)`, `metadata (JSONB)`, `is_ai_generated (bool)`, `created_at`, `created_by`.
+
+### A.3.5 Campaign LITE (FEAT-011)
+
+- `campaign` — Parent-Klammer (V1 Lite, ohne channel_segment/variant): `id`, `title (text)`, `goal (text)`, `icp_id (FK)`, `segment_id (FK)`, `start_at (timestamp)`, `end_at (timestamp)`, `success_signals (text[])`, `status (Enum: entwurf|aktiv|abgeschlossen|abgebrochen)`, `owner_id (uuid)`, `budget_estimate (numeric NULL)`, `notes (text NULL)`, `template_id (NULL)`, `created_at`, `created_by`.
+- `campaign_asset` — n:m-Verknuepfung: `campaign_id`, `asset_id`, `added_at`, PRIMARY KEY (campaign_id, asset_id).
+- `campaign_lead` — n:m-Verknuepfung: `campaign_id`, `lead_id`, `added_at`, PRIMARY KEY (campaign_id, lead_id).
+- `campaign_pitch` — n:m-Verknuepfung: `campaign_id`, `pitch_id`, `added_at`, PRIMARY KEY (campaign_id, pitch_id).
+
+### A.3.6 Lead Handoff (FEAT-014)
+
+- `handoff_event` — Pipeline-Push-Audit: `id`, `lead_id (FK)`, `campaign_id (FK)`, `pitch_id (FK NULL)`, `pushed_at (timestamp NULL)`, `mechanism (Enum: pipeline_push|manual)`, `business_deal_id (uuid NULL)`, `business_pipeline_name (text NULL)`, `business_stage_name (text NULL)`, `status (Enum: pending|pushed|failed|acknowledged|converted|rejected)`, `payload_snapshot (JSONB)`, `error_message (text NULL)`, `notes (text NULL)`, `template_id (NULL)`, `created_at`, `created_by`. Unique-Constraint `(lead_id, campaign_id)` als Idempotency-Key.
+
+### A.3.7 V1 Tabellen-Summe
+
+**16 neue Tabellen** in MIG-002 (alle mit `template_id UUID NULL`-Feld konform DEC-010):
+1. `brand_profile`
+2. `brand_profile_changelog`
+3. `asset`
+4. `asset_version`
+5. `asset_performance`
+6. `icp`
+7. `segment`
+8. `lead`
+9. `research_run`
+10. `pitch`
+11. `pitch_version`
+12. `campaign`
+13. `campaign_asset`
+14. `campaign_lead`
+15. `campaign_pitch`
+16. `handoff_event`
+
+V1 Schema-Gesamt = MIG-001 (17 Tabellen, V6-Foundation, in V1 ungenutzt aber vorhanden) + MIG-002 (16 neue V1-Tabellen) = **33 Tabellen**. RLS auf allen neuen Tabellen aktiv.
+
+## A.4 Worker-Job-Types-Erweiterung
+
+`ai_jobs.job_type` Enum bekommt 3 neue Werte (DEC-027 Impl):
+
+```sql
+ALTER TYPE ai_job_type_enum ADD VALUE 'asset_generation';
+ALTER TYPE ai_job_type_enum ADD VALUE 'pitch_generation';
+ALTER TYPE ai_job_type_enum ADD VALUE 'lead_research_run';
+```
+
+| Job-Type | Trigger | Handler-Modul | Externe-Calls |
+|---|---|---|---|
+| `asset_generation` | UI: Asset-Request submit | `worker/handlers/assetGeneration.ts` | `bedrockAdapter` |
+| `pitch_generation` | UI: "Pitch generieren" pro Lead oder Batch fuer Segment | `worker/handlers/pitchGeneration.ts` | `bedrockAdapter` |
+| `lead_research_run` | UI: "Recherchieren mit Firecrawl" pro Segment | `worker/handlers/leadResearchRun.ts` | `firecrawlAdapter` |
+
+Bestehende Job-Types aus V2-Foundation bleiben unveraendert (`ingest_onboarding`, `ingest_business`, `opportunity_scoring`, ...), werden in V1 aber **nicht aktiv** (Feature-Flag `FEATURE_KNOWLEDGE_BACKBONE_ENABLED=false`).
+
+## A.5 Provider-Adapter-Erweiterung
+
+V1 ergaenzt 4 neue Adapter im `/src/adapters/`-Verzeichnis (DEC-009-Pattern):
+
+### A.5.1 `firecrawlAdapter` (FEAT-015)
+
+- **Provider:** Self-Hosted Firecrawl auf Hetzner (DEC-028 — Cloud-Service ist US-gehostet, verletzt DEC-002+003).
+- **Endpoint:** ENV `FIRECRAWL_API_BASE_URL` (default `http://firecrawl-internal:3002` falls Compose-internal, sonst dedizierter Hetzner-Server).
+- **Auth:** Bearer-Token via `FIRECRAWL_API_KEY` (Self-Hosted-Setup setzt eigenen Token).
+- **Cost-Modell:** Self-Hosted-Fixkosten (Server) statt Pay-as-you-go. `ai_cost_ledger` traegt `cost_usd=0`, `notes='self_hosted'` ein. ENV `RESEARCH_RUN_COST_CAP_EUR` bleibt als Soft-Limit fuer Crawl-Volumen-Steuerung (Anzahl Pages × Average-Cost-Estimate).
+- **Audit:** Pro Call `audit_log`-Eintrag mit Provider, Endpoint, Modell, Zeitstempel, Request-ID.
+- **Region:** Hetzner Falkenstein/Nuernberg — gleiche Region wie restlicher IS-Stack.
+
+### A.5.2 `clayCsvAdapter` (FEAT-015)
+
+- **Funktion:** Offline-CSV-Parser, kein API-Call zur Laufzeit. User laedt CSV manuell hoch (Clay-Standard-Format).
+- **Mapping:** CSV-Spalten -> `lead`-Felder. Schema-Validierung mit Fehler-Report bei Spalten-Mismatch.
+- **Duplikat-Check:** Beim Insert auf `(domain, contact_email)` — Update statt Insert bei Match.
+- **Cost:** 0 EUR (Clay-Kosten extern). Adapter schreibt `ai_cost_ledger` nicht.
+
+### A.5.3 `businessPipelineAdapter` (FEAT-014)
+
+- **Provider:** Business-System V4+ (eigene Plattform, gleicher Hetzner-Server-Pool).
+- **Endpoint (geplant):** `POST /api/internal/deals` im Business-System — **muss erst gebaut werden** (DEC-029, BL-027 Coordination-Sprint).
+- **Auth:** `INTERNAL_API_TOKEN` Bearer (geteilte Hetzner-Coolify-Umgebung). ENV `BUSINESS_API_BASE_URL`, `BUSINESS_API_TOKEN`.
+- **Idempotency:** Header `X-Idempotency-Key: <lead_id>:<campaign_id>` (UNIQUE constraint auf `handoff_event(lead_id, campaign_id)` deckt das DB-seitig auch ab).
+- **Pipeline + Stage:** ENV `BUSINESS_PIPELINE_NAME` (default `Lead-Generierung`), `BUSINESS_STAGE_NAME` (default `Neu`).
+- **Status-Sync zurueck:** V1 = Cron-Pull (Worker-Job `business_status_pull` taeglich auf `GET /api/export/deals?pipeline=Lead-Generierung&since=<last_sync>`). V2-Erweiterung: Webhook `/api/webhooks/business/deal-status` im IS.
+- **V1-Feature-Flag:** `BUSINESS_PIPELINE_PUSH_ENABLED` (default `false` bis BL-027 Business-Sprint fertig). Bei `false` wird `mechanism=manual` verwendet, UI zeigt "Manual Markierung" + Idempotency vorbereitet.
+
+### A.5.4 `linkedinAdsCsvAdapter` (FEAT-014)
+
+- **Funktion:** Offline-CSV-Parser fuer LinkedIn-Ads-Reports.
+- **Mapping:** CSV-Spalten (impressions, clicks, spend) -> `asset_performance`-Felder. Manuelle Asset-ID-Zuordnung via UI-Mapping-Schritt (Asset-ID-Tag im Ad-Name oder Drop-Down).
+- **Cost:** 0 EUR (LinkedIn-Ads-Kosten extern).
+
+## A.6 Adapter-Verzeichnis-Layout
+
+```
+src/adapters/
+├── bedrock/
+│   ├── client.ts            # V2-Foundation, unveraendert
+│   ├── prompts/             # ggf. shared prompt utils
+│   └── types.ts
+├── firecrawl/
+│   ├── client.ts            # V1-NEU (DEC-028 self-hosted)
+│   ├── query-builder.ts     # Segment-Filter -> Firecrawl-Query
+│   └── types.ts
+├── clay-csv/
+│   ├── parser.ts            # V1-NEU
+│   ├── schema.ts
+│   └── types.ts
+├── business-pipeline/
+│   ├── client.ts            # V1-NEU (DEC-029, Feature-Flag-gated)
+│   ├── status-pull.ts       # Cron-Pull-Logic
+│   └── types.ts
+├── linkedin-ads-csv/
+│   ├── parser.ts            # V1-NEU
+│   └── types.ts
+├── onboarding/              # V6-vorbereitet, in V1 ungenutzt
+├── business/                # V6-vorbereitet, V1 nutzt nur business-pipeline-Subset
+└── shared/
+    ├── audit-logger.ts       # zentrale audit_log-Schreibung
+    └── cost-tracker.ts       # zentrale ai_cost_ledger-Schreibung
+```
+
+## A.7 V1 UI-Routen-Erweiterung
+
+Folgende Routen kommen in V1 hinzu (alle nutzen Style-Guide-V2-Layouts gemaess Sektion 7.4):
+
+| Route | FEAT | Layout |
+|---|---|---|
+| `/settings/brand` | FEAT-008 | Custom (12-Sektionen-Form-Accordion) |
+| `/icp` | FEAT-010 | Layout 3 (List-Variante) |
+| `/icp/[id]` | FEAT-010 | Custom (Detail mit "Aus Brand Profile uebernehmen") |
+| `/segments` | FEAT-010 | Layout 3 (List-Variante) |
+| `/segments/[id]` | FEAT-010 | Custom (Detail mit Filter-Builder + Lead-Liste + Research-Buttons) |
+| `/leads` | FEAT-015 | Layout 3 (List-Variante) |
+| `/leads/[id]` | FEAT-015 | Custom (Detail mit Pitch-Tab + Handoff-History) |
+| `/research-runs` | FEAT-015 | Layout 5 (Liste mit Status) |
+| `/assets` | FEAT-009 | Layout 3 (Grid mit Asset-Preview) |
+| `/assets/[id]` | FEAT-009 | Custom (Detail mit Versions + Performance-Tab) |
+| `/pitches` | FEAT-016 | Layout 3 (List-Variante, Cross-Lead) |
+| `/campaigns` | FEAT-011 | Layout 4 (Kanban ueber Status) |
+| `/campaigns/[id]` | FEAT-011 | Custom (Detail mit Asset/Lead/Pitch-Tabs + Performance-Aggregation) |
+| `/handoffs` | FEAT-014 | Layout 5 (Liste mit Status) |
+| `/handoffs/dashboard` | FEAT-014 | Layout 1 (KPI-Dashboard) |
+
+## A.8 Cron-Jobs (V1)
+
+V1 ergaenzt einen Cron-Job ueber Coolify-Cron-Trigger (Pattern aus DEC-008):
+
+| Cron | Frequenz | Endpunkt | Zweck |
+|---|---|---|---|
+| `business-status-pull` | taeglich 07:00 | `POST /api/cron/business-status-pull` | Cron erzeugt `ai_jobs`-Eintrag `business_status_pull`, Worker pollt Business-API fuer Deal-Status-Updates der letzten 30 Tage in Pipeline `Lead-Generierung` und aktualisiert `handoff_event.status`. Pre-Condition: `BUSINESS_PIPELINE_PUSH_ENABLED=true`. |
+
+V2 ergaenzt `email-status-pull` (Postmark/SES Webhooks-Fallback). V4 ergaenzt LinkedIn-Publish-Scheduling.
+
+## A.9 Aufloesung Open Questions OQ-A1..A5
+
+Detail-Begruendungen siehe `/docs/DECISIONS.md`. Hier nur Schluss-Statement pro OQ:
+
+| OQ | Aufloesung | DEC |
+|---|---|---|
+| OQ-A1 Brand-Profile-Datenmodell | JSONB-Singleton mit definiertem Schema (kein 12-Tabellen-Spread) | DEC-023 |
+| OQ-A2 Asset.source_skill | PostgreSQL-Enum (typed), 7 V1-Werte | DEC-024 |
+| OQ-A3 Lead-Pitch-Beziehung | Separate `pitch`-Tabelle, kein Asset-Subtype. Cross-Ref `pitch.linked_asset_id` | DEC-025 |
+| OQ-A4 Performance-Capture | Eigene `asset_performance`-Tabelle, NICHT JSONB-Spalte (1:n erlaubt) | DEC-026 |
+| OQ-A5 Few-shot-Mechanik | Top-N=2 pro `output_type`, sortiert nach `leads_generated / GREATEST(cost_eur, 1)` Ratio. ENV `PERFORMANCE_FEWSHOT_N=2`. | DEC-027 |
+
+Plus 2 zusaetzliche ADRs aus den Pre-Implementation-Verifikationen:
+
+| ADR | Titel | Begruendung |
+|---|---|---|
+| DEC-028 | Firecrawl-Hosting = Self-Hosted | Cloud-Service ist US-gehostet → verletzt DEC-002+003. Self-Host via Open-Source-Repo. |
+| DEC-029 | Business-Pipeline-Push-Bridge = Coordination-Sprint | Business-System hat keinen POST-Endpoint. BL-027 = Business-Sprint POST `/api/internal/deals` mit INTERNAL_API_TOKEN. V1-IS released SLC-108 mit Feature-Flag `BUSINESS_PIPELINE_PUSH_ENABLED=false` als Manual-Mode bis Business-Sprint fertig. |
+
+## A.10 Spec-Foundation Snapshot-Strategie (DEC-021 Implementation)
+
+Per DEC-021 ist `reference/corey-haines-marketing-skills/` gitignored. Zur Wahrung der Auditier- und Reproduzierbarkeit der V1-Bedrock-Prompts werden V1-relevante Spec-Auszuege in `docs/spec-references/` als committed Snapshots extrahiert.
+
+V1-Snapshots (angelegt in dieser Architektur-Runde):
+
+- `docs/spec-references/README.md` — Index + Pflege-Regel
+- `docs/spec-references/brand-profile-12-sections.md` — FEAT-008-Schema
+- `docs/spec-references/cold-email-personalization.md` — FEAT-016 4-Level-Slots + 4 Frameworks
+- `docs/spec-references/social-content-hook-formulas.md` — FEAT-009 LinkedIn-Post + FEAT-016 LinkedIn-Pitch
+- `docs/spec-references/output-type-skill-mapping.md` — FEAT-009 7-Output-Typen Mapping
+
+Bei Upstream-Update am Quell-Repo: ADR fuer Foundation-Version-Bump anlegen, Snapshots neu extrahieren, Migrations-Pfad pruefen.
+
+## A.11 V1 Feature-Flags
+
+| ENV-Variable | V1-Default | Wirkung |
+|---|---|---|
+| `FEATURE_MARKETING_LAUNCHER_ENABLED` | `true` | V1-Marketing-Launcher-Module aktiv |
+| `FEATURE_KNOWLEDGE_BACKBONE_ENABLED` | `false` | V6-Module deaktiviert (FEAT-001..007) |
+| `FEATURE_PUBLISHING_ENABLED` | `false` | V2 E-Mail / V4 LinkedIn-Publishing deaktiviert |
+| `BUSINESS_PIPELINE_PUSH_ENABLED` | `false` (initial) | DEC-029: Pipeline-Push-Adapter scharf erst nach Business-Sprint |
+| `FIRECRAWL_API_BASE_URL` | `http://firecrawl-internal:3002` | Self-Hosted-Endpoint (DEC-028) |
+| `PERFORMANCE_FEWSHOT_N` | `2` | DEC-027 Few-shot-N |
+| `RESEARCH_RUN_COST_CAP_EUR` | `5` | Cost-Soft-Limit pro Research-Run |
+
+## A.12 V1 Constraints und Tradeoffs (Update)
+
+Erganzend zu Sektion 10:
+
+- **Trade: Self-Hosted Firecrawl statt Cloud (DEC-028).** Mehr Ops-Overhead (Container-Wartung, Updates), aber DSGVO-belastbar und Fixkosten statt Pay-as-you-go. Bei Umfang > 10k Crawls/Monat klar guenstiger; bei < 1k Crawls/Monat moeglicherweise teurer als Pay-as-you-go (Server-Fixkosten ueberwiegen). V1-Volumen-Estimate: 200-500 Crawls/Monat → akzeptabler Trade-off, denn DSGVO-Konformitaet ist nicht-verhandelbar.
+- **Trade: Pipeline-Push als Coordination-Sprint (DEC-029).** V1-Marketing-Launcher kann SLC-108 ohne Business-Sprint deployen (Manual-Mode), Live-Push wird nachgeschaltet. Risk: V1-Acceptance-Criterion "mind. 1 erfolgreicher Pipeline-Push" erfordert BL-027-Abschluss vor V1-Release. Mitigation: BL-027 als Pre-V1-Release-Blocker im Backlog.
+- **Trade: Live-Query Segment-Mitgliedschaft statt Snapshot.** V1-Volumen klein (< 5k Leads), Live-Query mit JSONB-Filter performant genug. V5-Snapshot-Variante kommt mit Tracking-Voll.
+- **Trade: JSONB-Singleton fuer Brand-Profile (DEC-023).** Kein Filter-Index moeglich, aber Brand-Profile wird immer komplett gelesen (Singleton-Read pro Bedrock-Call) → kein Performance-Issue. Sektion-Erweiterung ohne Migration.
+- **Trade: Separate Pitch-Tabelle statt Asset-Subtype (DEC-025).** Doppelte Versionierungs-Mechanik (asset_version + pitch_version), aber Lead-FK + 4-Level-Snapshot-Spezifitaet rechtfertigt Trennung. Cross-Ref `pitch.linked_asset_id` fuer "Pitch wird Asset-Vorlage"-Use-Case.
+
+## A.13 V1 Slice-Empfehlung (fuer `/slice-planning V1`)
+
+Vorschlag fuer 8 V1-Slices (final entschieden in `/slice-planning V1`):
+
+| SLC | FEAT | Inhalt | Dependencies |
+|---|---|---|---|
+| SLC-101 | Foundation | Project Setup-Refresh, MIG-002, Style-Guide-Komponenten-Refresh, Adapter-Skeletons | — |
+| SLC-102 | FEAT-008 | Brand Profile (12-Sektionen-UI + Singleton-Constraint + Changelog) | SLC-101 |
+| SLC-103 | FEAT-009 | Content Asset Production (7 Output-Typen + Asset-Bibliothek + Versionierung) | SLC-102 |
+| SLC-104 | FEAT-010 | ICP & Segment (Strukturierte Form + Filter-Builder + "Aus Brand Profile") | SLC-102 |
+| SLC-105 | FEAT-015 | Lead Research (firecrawlAdapter Self-Host + clayCsvAdapter + Manual-Form + Duplikat-Check) | SLC-104 |
+| SLC-106 | FEAT-016 | Messaging-Variation (4-Level-Slots + Marketing-Psychology-Booster + Pitch-Bibliothek) | SLC-105 |
+| SLC-107 | FEAT-011 | Campaign LITE (Wizard + Detail-Aggregation) | SLC-103 + SLC-105 + SLC-106 |
+| SLC-108 | FEAT-014 | Lead Handoff Manual-Mode + Performance-Capture-Loop + Few-shot-Integration. Pipeline-Push-Adapter scharf erst nach BL-027 (Feature-Flag gated). | SLC-107 |
+
+Pre-V1-Release-Bridge:
+- **BL-027** Business-System-Coordination-Sprint (POST `/api/internal/deals` Endpoint + INTERNAL_API_TOKEN) — vor V1-Marketing-Launcher-Final-Check.
+- **BL-028** Firecrawl-Self-Host-Setup (eigener Container im Compose oder dedizierter Hetzner-Server) — vor SLC-105.
+
+## A.14 V1 Out-of-Scope-Bestaetigung (Architektur-Sicht)
+
+Ausserhalb V1-Architektur-Addendum:
+- E-Mail-Adapter (V2) — `emailAdapter` bleibt Stub
+- LinkedIn-Publishing-Adapter (V4) — `linkedinAdapter` bleibt Stub
+- Tracking-Adapter (V5) — `trackingAdapters/*` bleibt Stub
+- Knowledge-Backbone-Tabellen (V6) — MIG-001-Tabellen bleiben in DB, aber Feature-Flag aus, kein UI
+- Experiment-Entitaet (V7) — kein Schema-Anbau in MIG-002
+
+## Referenzen V2.1
+
+- Foundation: ARCHITECTURE.md V2 (Sektionen 1-13)
+- Migrations: `/docs/MIGRATIONS.md` MIG-002
+- Decisions: `/docs/DECISIONS.md` DEC-023..029
+- Spec-Snapshots: `/docs/spec-references/`
+- Known Issues: `/docs/KNOWN_ISSUES.md` ISSUE-001 (resolved), ISSUE-002, ISSUE-003
+- Reports: `/reports/RPT-009.md` (Architecture V2.1-Addendum-Report)
+
+---
+
 ## Referenzen
 
 - Gesamtarchitektur: `/strategaize-dev-system/docs/PLATFORM.md`
@@ -603,8 +896,10 @@ Detail-Schnitt, Micro-Tasks, Priorisierung und TDD-Policy passieren in `/slice-p
 - Worker-Referenz: `/strategaize-onboarding-plattform/` (Worker-Muster, `ai_jobs`-Queue)
 - Discovery V2: `/reports/RPT-003.md`
 - Requirements V2: `/reports/RPT-004.md`
+- Requirements V1 Marketing-Launcher-Pivot: `/reports/RPT-008.md`
+- Architecture V2.1-Addendum: `/reports/RPT-009.md`
 - Richtungsvorgaben: `/docs/discovery-input-v2.md`
-- PRD V1–V7: `/docs/PRD.md`
+- PRD V1 (Marketing Launcher) + V6+ Skizzen: `/docs/PRD.md`
 - Decisions: `/docs/DECISIONS.md`
 - Migrations: `/docs/MIGRATIONS.md`
 - Known Issues: `/docs/KNOWN_ISSUES.md`

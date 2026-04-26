@@ -118,3 +118,59 @@ Neue DECs werden ab `DEC-001` wieder frisch nummeriert und in `/discovery`, `/re
 - Supersedes: DEC-005
 - Reason: Strategischer Pivot 2026-04-25. Im Business System V4+ existiert bereits eine Pipeline-Funktion mit konfigurierbaren Stages. Eine separate Qualified-Lead-Inbox-Entität (DEC-005) ist redundant — Pipeline-Push in eine bestehende Pipeline „Lead-Generierung" mit Stage „Neu" erfüllt den gleichen Zweck ohne Business-seitige Feature-Erweiterung. Damit fällt die Business-Roadmap-Abhängigkeit (alte ISSUE-001 / BL-016) weg und V1-Marketing-Launcher kann den Handoff direkt scharfschalten. Auth via Internal-API-Token (gleiche Hetzner-Coolify-Umgebung, kein externes Auth-Theater). Status-Sync zurück via Webhook (Empfehlung) oder Cron-Pull (V1-pragmatisch).
 - Consequence: FEAT-014 wurde umgeschrieben (RPT-008, 2026-04-26): Pipeline-Push statt Qualified-Lead-Inbox-Push. Adapter `businessPipelineAdapter` ersetzt geplanten Qualified-Lead-Inbox-Adapter. Konfiguration via ENV: `BUSINESS_API_BASE_URL`, `BUSINESS_API_TOKEN`, `BUSINESS_PIPELINE_NAME` (default „Lead-Generierung"), `BUSINESS_STAGE_NAME` (default „Neu"). Idempotency-Key (Lead-ID + Campaign-ID). Pre-Implementation-Verifikation (BL-026): API-Endpoint im Business System für externe Deal-Erstellung ist vor SLC-108 zu verifizieren (Risk R-02 + OQ-V1-03 in PRD). DEC-005 ist auf `superseded` gesetzt — Übergangs-CSV-Export-Mechanismus aus DEC-005 entfällt, da Pipeline direkt verfügbar ist.
+
+## DEC-023 — Brand-Profile-Datenmodell V1 = JSONB-Singleton statt 12-Tabellen-Spread
+- Status: accepted
+- Reason: Architektur-Entscheidung 2026-04-26 zu OQ-A1 aus PRD V1. Brand-Profile (FEAT-008) ist ein Singleton-Objekt mit 12 Sektionen, das immer komplett gelesen wird (pro Bedrock-Call als System-Kontext). 12 separate Tabellen mit Joins fuer ein Singleton waeren ueberkomplex und erschwerten Sektion-Erweiterungen (jede neue Sektion braeuchte Migration). JSONB-Singleton mit definiertem Schema (siehe `docs/spec-references/brand-profile-12-sections.md`) eliminiert diese Komplexitaet. Nachteil "JSONB-Filter-Performance" entfaellt, weil Brand-Profile niemals nach Inhalt gefiltert wird — immer Singleton-Read.
+- Consequence: Tabelle `brand_profile` mit Spalte `data JSONB NOT NULL`, JSON-Schema-Validierung in App-Layer (Zod), Versions-Snapshot-Mechanik via `version (int)`-Spalte + komplettes JSONB-Snapshot in `brand_profile_changelog`. Sektion-Erweiterung in V2+ erfolgt ohne Migration (nur Zod-Schema-Update + ggf. UI-Update). Singleton-Constraint via Partial-Unique-Index `WHERE is_active=true`. Multi-Brand V9+ deaktiviert den Partial-Index und nutzt `template_id` als zusaetzliche Unique-Komponente.
+
+## DEC-024 — Asset.source_skill und Asset.output_type = PostgreSQL-Enum
+- Status: accepted
+- Reason: Architektur-Entscheidung 2026-04-26 zu OQ-A2 aus PRD V1. Free-Text mit App-Layer-Validierung waere fragiler — DB-Constraint via Enum garantiert Konsistenz und macht Filter-Queries einfacher. PostgreSQL erlaubt Enum-Erweiterung via `ALTER TYPE ADD VALUE` ohne Down-Time, daher Future-Proof fuer V2+ neue Output-Typen.
+- Consequence: Zwei Enums in MIG-002 angelegt:
+  - `asset_output_type_enum`: `blogpost | linkedin_post | onepager | email_template | case_card | landingpage_briefing | website_spec` (7 V1-Werte)
+  - `asset_source_skill_enum`: `copywriting | social_content | sales_enablement_onepager | sales_enablement_casecard | cold_email | copywriting_landingpage | site_architecture` (7 V1-Werte, 1:1-Mapping zum output_type)
+  Erweiterungen V2+ (z.B. `ad_creative` in V4, `video_script` in V9+) via Enum-Add-Value. Komplette Mapping-Tabelle siehe `docs/spec-references/output-type-skill-mapping.md`.
+
+## DEC-025 — Pitch als separate Tabelle, nicht Asset-Subtype
+- Status: accepted
+- Reason: Architektur-Entscheidung 2026-04-26 zu OQ-A3 aus PRD V1. Pitch (FEAT-016) und Asset (FEAT-009) teilen Aehnlichkeiten (Markdown-Content, Versionierung, Bedrock-generiert), unterscheiden sich aber in:
+  - **Pitch hat `lead_id`-FK** (Asset hat polymorphe Quell-Objekt-Referenz)
+  - **Pitch traegt 4-Level-Personalization-Snapshot** (`personalization_level_used`, `psychology_boosters_used`, `framework_used`)
+  - **Pitch-UX im Lead-Detail-Tab**, Asset-UX in Asset-Bibliothek (unterschiedliche Layout-Templates)
+  - Asset-Subtype mit nullable Lead-FK + nullable 4-Level-Felder waere schwammiges Modell — Konstrastraints und Validierungen wuerden case-by-case komplex.
+- Consequence: Separate Tabelle `pitch` + `pitch_version` mit eigenen Status-/Versions-Mechaniken. Cross-Referenz `pitch.linked_asset_id (FK NULL)` fuer Use-Case "Pitch in Asset-Bibliothek uebernehmen" — UI bietet Action, DB schreibt einen FEAT-009-Asset und setzt `pitch.linked_asset_id`. Few-shot-Loop kombiniert beide Quellen: `asset_performance` JOIN `asset` (fuer FEAT-009-Output-Typen) UND eine zukuenftige `pitch_performance` (V2+ wenn Pitch-Versand mit Tracking via E-Mail-Adapter).
+
+## DEC-026 — Performance-Capture als eigene `asset_performance`-Tabelle, NICHT JSONB-Spalte
+- Status: accepted
+- Reason: Architektur-Entscheidung 2026-04-26 zu OQ-A4 aus PRD V1. JSONB-Spalte an `asset` waere einfacher, hat aber 3 Probleme:
+  - **1:n-Faelle bestehen** — ein Asset kann mehrfach gepostet werden (LinkedIn-Personal + LinkedIn-Company + Newsletter). JSONB-Spalte koennte das nur als Array abbilden, was Reporting-Queries komplex macht.
+  - **Reporting-Queries** wie "Top-2-Performer pro Output-Typ" (Few-shot-Loop, DEC-027) sind mit dedizierter Tabelle als SQL-JOIN trivial, mit JSONB-Spalte umstaendlich (`jsonb_array_elements`).
+  - **Aggregation auf Campaign-Ebene** ueber `campaign_asset` JOIN `asset_performance` ist sauberer.
+- Consequence: Tabelle `asset_performance` mit FK auf `asset`, 1:n erlaubt. Indizes auf `(asset_id, posted_at)` und Partial-Index `(leads_generated DESC) WHERE leads_generated > 0` fuer Few-shot-Top-N-Query. Performance-Aggregation-Views (`view_campaign_performance`, `view_output_type_performance`) als On-the-fly-Queries (V1-Volumen klein). Materialized Views ab V5 wenn Tracking-Voll und Volumen waechst.
+
+## DEC-027 — Few-shot-Performance-Loop = Top-N=2 nach leads_generated/cost_eur-Ratio pro output_type
+- Status: accepted
+- Reason: Architektur-Entscheidung 2026-04-26 zu OQ-A5 aus PRD V1. Mechanik muss einfach genug fuer V1-Implementation sein, aber gut genug um den Closed-Loop-Differentiator zu liefern.
+  - Top-N=2 als Default (1 zu wenig fuer Pattern-Erkennung durch Bedrock, 5+ blaeht Prompt zu sehr auf — Cost-Effizienz bei N=2 optimal).
+  - Sortierung nach `leads_generated / GREATEST(cost_eur, 1)` Ratio: Reflektiert Cost-per-Lead (kleiner = besser, daher invertiert: leads_per_eur, groesser = besser).
+  - GREATEST mit 1 verhindert Division-by-Zero bei Organic-Posts (cost_eur=0).
+  - Klassifikation Top/Mid/Low (V1 einfach): Top = obere 25% per Ratio, Mid = mittlere 50%, Low = untere 25%. V1 nutzt nur "Top" (= Top-2). V5 Auto-Variant kann Top/Low-Kontrast nutzen.
+- Consequence: ENV `PERFORMANCE_FEWSHOT_N` (default 2) — anpassbar pro Deployment. Few-shot-Loader-Modul `src/prompts/asset/shared/few-shot-loader.ts` mit Query (siehe FEAT-014-Spec-Architektur-Hinweise). Few-shot-Snapshot wird in `asset_version.metadata.fewshot_used` (Asset-IDs + Markdown-Snippet-Hashes) gespeichert — Audit-Trail welche Beispiele in welcher Generation als Inspiration dienten. Bei `asset_performance.leads_generated = 0 OR NULL` keine Few-shot-Mitgabe (kalter Start ohne historische Daten).
+
+## DEC-028 — Firecrawl-Hosting V1 = Self-Hosted auf Hetzner, kein Cloud-Service
+- Status: accepted
+- Reason: Pre-Implementation-Verifikation (BL-025, durchgefuehrt 2026-04-26 in `/architecture V1`-Lauf): Firecrawl-Cloud-Service ist explizit US-gehostet ("Firecrawl's servers are located in the United States and this is where your data and information will be stored"). Das verletzt DEC-002 (LLM-Provider eu-central-1) und DEC-003 (EU-only Hosting) und data-residency.md-Regel — auch wenn Firecrawl GDPR-konform agiert, der Datenfluss erfolgt in US-Region. Firecrawl ist Open Source und unterstuetzt Self-Hosting explizit ("ideal for enterprises with data residency requirements"). Daher: Self-Host als V1-Default, kein Cloud-Adapter.
+- Consequence: `firecrawlAdapter` zeigt auf Self-Hosted-Endpoint (ENV `FIRECRAWL_API_BASE_URL`, default `http://firecrawl-internal:3002` als Compose-internal-Service oder dedizierter Hetzner-Server). BL-028 als Pre-Implementation-Aufgabe vor SLC-105: Firecrawl-Self-Host-Setup (Compose-Container oder eigener Server, Auth-Token konfigurieren, Smoke-Test). Cost-Modell aendert sich: Self-Host ist Server-Fixkosten statt Pay-as-you-go — bei V1-Volumen-Estimate 200-500 Crawls/Monat akzeptabler Trade-off. `ai_cost_ledger` traegt `cost_usd=0`, `notes='self_hosted'` ein. Cost-Soft-Limit `RESEARCH_RUN_COST_CAP_EUR` (default 5) bleibt fuer Crawl-Volumen-Steuerung (Anzahl-Pages × Estimate-EUR-pro-Page-Crawl). Audit-Pfad bleibt: jede Adapter-Call schreibt `audit_log`-Eintrag mit Endpoint, Zeitstempel, Request-ID. Bei Bedarf Re-Evaluation in V3 (Voll-Lead-Research-Sprint), falls Firecrawl-EU-Cloud verfuegbar wuerde.
+
+## DEC-029 — Pipeline-Push-Bridge V1 = Business-System Coordination-Sprint vor V1-Release
+- Status: accepted
+- Reason: Pre-Implementation-Verifikation (BL-026, durchgefuehrt 2026-04-26 in `/architecture V1`-Lauf): Business-System V4+ hat **keinen** POST-Endpoint fuer externe Deal-Erstellung. Es existiert nur `GET /api/export/deals` (READ-only, Auth via `EXPORT_API_KEY`). Das war nicht in den Annahmen von DEC-022 dokumentiert — DEC-022 ging davon aus, dass die Pipeline-Funktion API-fertig ist. Sie ist es nicht. Optionen evaluiert:
+  - **a) V1-IS launcht ohne Pipeline-Push (Manual-Mode-only):** Marketing-Launcher-Schleife unvollstaendig — V1-Acceptance-Criterion "mind. 1 erfolgreicher Pipeline-Push" nicht erreichbar.
+  - **b) Direct-DB-Write IS → Business-DB:** Bricht Bounded-Context, verletzt System-Trennung, kein Audit-Pfad. Verworfen.
+  - **c) Coordination-Sprint im Business-System:** Business-System bekommt einen kleinen Slice fuer `POST /api/internal/deals` mit `INTERNAL_API_TOKEN`-Auth. Parallel zu V1-IS-Implementation. **Gewaehlt.**
+- Consequence:
+  - **BL-027** (NEU) im Backlog: "Business-System Coordination-Sprint — POST `/api/internal/deals` Endpoint + INTERNAL_API_TOKEN-Auth". Im Business-System-Repo eigener Slice/Feature, parallel zu V1-IS.
+  - **V1-IS Feature-Flag `BUSINESS_PIPELINE_PUSH_ENABLED`** (default `false` initial). Adapter `businessPipelineAdapter` wird vollstaendig implementiert in SLC-108, aber per Flag deaktiviert bis BL-027 abgeschlossen. Im Manual-Mode setzt UI `mechanism=manual`, User markiert manuell als "im Business-Pipeline angelegt", Idempotency-Key wird trotzdem geschrieben (`UNIQUE (lead_id, campaign_id)`).
+  - **V1-Final-Check / Go-Live-Bedingung:** BL-027 abgeschlossen, Smoke-Test erfolgreich, Feature-Flag auf `true`. Bis dahin V1 darf nicht Released sein.
+  - **Status-Sync zurueck**: Cron-Pull (V1-pragmatisch) ueber bestehenden `GET /api/export/deals?pipeline=Lead-Generierung`-Endpoint. Webhook (V2) als optionale Erweiterung wenn Volumen wachst.

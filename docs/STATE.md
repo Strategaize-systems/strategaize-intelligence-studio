@@ -11,17 +11,19 @@ System 3 der StrategAIze-Gesamtarchitektur. **V1 ist der Marketing Launcher (Clo
 Referenz: `/strategaize-dev-system/docs/PLATFORM.md`.
 
 ## Current State
-- High-Level State: requirements
-- Current Focus: V1 Requirements abgeschlossen 2026-04-26 als Pivot zum Marketing Launcher (Closed Loop Lite). 7 V1-Features spezifiziert (FEAT-008 Brand Profile, FEAT-009 Content Asset Production, FEAT-010 ICP & Segment, FEAT-011 Campaign LITE, FEAT-014 Pipeline-Push + Performance-Capture, FEAT-015 Lead Research, FEAT-016 Messaging-Variation). Spec-Foundation = coreyhaines31/marketingskills (MIT). Naechster Skill-Schritt: `/architecture V1`.
-- Current Phase: V1 Marketing Launcher Planning
+- High-Level State: architecture
+- Current Focus: V1 Architecture-Addendum abgeschlossen 2026-04-26. ARCHITECTURE.md V2.1-Addendum (Sektionen A.1-A.14) + MIG-002 (16 neue V1-Tabellen) + 7 neue ADRs (DEC-023..029) + 4 Spec-Snapshots in docs/spec-references/. Pre-Implementation-Verifikationen BL-025 (Firecrawl) + BL-026 (Business-Pipeline-API) abgeschlossen mit kritischen Erkenntnissen: Firecrawl-Cloud = US-gehostet (DEC-028 Self-Host), Business-System hat keinen POST-Endpoint (DEC-029 Coordination-Sprint via BL-027). ISSUE-001 als resolved markiert (DEC-022/Pipeline-Push), ISSUE-002 + ISSUE-003 neu. Naechster Skill-Schritt: `/slice-planning V1`.
+- Current Phase: V1 Marketing Launcher Slice-Planning
 
 ## Immediate Next Steps
-1. `/architecture V1` — Addendum zu ARCHITECTURE.md V2 (kein Rewrite). Neue Tabellen: brand_profile (JSONB-Singleton), asset + asset_version + asset_performance (mit source_skill-Feld, 7 Output-Typen), lead + research_run (FEAT-015), pitch + pitch_version (FEAT-016), handoff_event (FEAT-014, Pipeline-Push), campaign + campaign_asset/lead/pitch (FEAT-011 LITE), erweiterte icp + segment (FEAT-010). Neue Adapter: firecrawlAdapter, clayCsvAdapter, businessPipelineAdapter, linkedinAdsCsvAdapter. Open Questions OQ-A1..A5 aus PRD klaeren.
-2. **Pre-Implementation-Verifikationen** (BL-025 + BL-026): Firecrawl EU-Hosting + DPA verifizieren (vor SLC-005). Business-Pipeline-API-Endpoint im Business System verifizieren (vor SLC-008).
-3. `/slice-planning V1` — geplant 8 Slices (Setup + Brand Profile + Content Asset Production + ICP/Segment + Lead Research + Messaging-Variation + Campaign Lite + Lead Handoff/Performance), mit Micro-Task-Decomposition pro Slice.
-4. `/backend SLC-001` Project Setup & Foundation Refresh (auch wenn Foundation bereits aus altem Slicing existiert — V1-Marketing-Launcher-Schema-Erweiterungen einarbeiten).
-5. Nach jedem V1-Slice: `/qa` pflichtgemaess (CLAUDE.md).
-6. Vor `/final-check V1`: Gesamt-QA ueber alle 8 Slices.
+1. `/slice-planning V1` — finale 8 Slices SLC-101..108 mit Micro-Task-Decomposition pro Slice. Slice-Vorschlag bereits in ARCHITECTURE.md Sektion A.13 + slices/INDEX.md.
+2. **Pre-Implementation-Bridges** (vor SLC-105 + V1-Final-Check):
+   - **BL-028** Firecrawl-Self-Host-Setup (eigener Hetzner-Container/Server mit Auth-Token + Smoke-Test) — Pre-Condition fuer SLC-105
+   - **BL-027** Business-System Coordination-Sprint (POST `/api/internal/deals` + INTERNAL_API_TOKEN) im Business-Repo — Pre-Condition fuer V1-Final-Check / Go-Live, parallel zu V1-IS-Implementation
+3. `/backend SLC-101` Foundation-Refresh: MIG-002 ausfuehren auf Hetzner, Style-Guide-V2-Component-Verzeichnis pruefen (DEC-017), Adapter-Skeletons anlegen (firecrawl, clay-csv, business-pipeline, linkedin-ads-csv).
+4. Nach jedem V1-Slice: `/qa` pflichtgemaess (CLAUDE.md).
+5. Vor `/final-check V1`: Gesamt-QA ueber alle 8 Slices + BL-027 abgeschlossen + Feature-Flag `BUSINESS_PIPELINE_PUSH_ENABLED` aktiv + 1 erfolgreicher Pipeline-Push verifiziert.
+6. Nach Final-Check: `/go-live V1` -> `/deploy V1` -> `/post-launch V1`.
 
 ## Active Scope
 **V1 (active):** Marketing Launcher Closed Loop Lite — 7 Features (FEAT-008/009/010/011/014/015/016). Requirements abgeschlossen 2026-04-26. Architektur-Addendum, Slice-Planning, Implementation, QA, Final-Check, Go-Live, Deploy, Post-Launch stehen aus.

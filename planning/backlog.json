@@ -245,9 +245,9 @@
       "title": "Firecrawl EU-Hosting + DPA verifizieren (Pre-V1-Implementation)",
       "type": "improvement",
       "priority": "high",
-      "status": "open",
+      "status": "done",
       "version": "V1",
-      "description": "Vor SLC-005 (Lead Research) muss Firecrawl-DPA-Status und Endpoint-Region geprueft werden (Risk R-01 + OQ-V1-02 im PRD). Bei Negativ-Ergebnis: Pivot auf Clay-CSV-only oder selbst gehostetes Crawl-Skript. Verifikation als ADR (DEC) oder ISSUE dokumentieren.",
+      "description": "Vor SLC-105 (Lead Research) Firecrawl-DPA-Status und Endpoint-Region geprueft (2026-04-26 in /architecture V1-Lauf). Ergebnis: Firecrawl-Cloud ist US-gehostet (Privacy Policy: 'Firecrawl's servers are located in the United States'). Verletzt DEC-002+003. Aufloesung: DEC-028 (Self-Hosted) + ISSUE-003 (Issue-Trail). Folge-Aufgabe: BL-028 (Self-Host-Setup).",
       "createdAt": "2026-04-26"
     },
     {
@@ -255,9 +255,29 @@
       "title": "Business-Pipeline-API-Endpoint verifizieren (Pre-V1-Implementation)",
       "type": "improvement",
       "priority": "high",
+      "status": "done",
+      "version": "V1",
+      "description": "Vor SLC-108 (Lead Handoff) Business-System-API-Endpoint geprueft (2026-04-26 in /architecture V1-Lauf). Ergebnis: Business-System hat KEINEN POST-Endpoint fuer externe Deal-Erstellung — nur GET /api/export/deals (READ-only). Aufloesung: DEC-029 (Coordination-Sprint) + ISSUE-002 (Issue-Trail). Folge-Aufgabe: BL-027 (Business-Sprint POST /api/internal/deals).",
+      "createdAt": "2026-04-26"
+    },
+    {
+      "id": "BL-027",
+      "title": "Business-System Coordination-Sprint: POST /api/internal/deals + INTERNAL_API_TOKEN",
+      "type": "feature",
+      "priority": "high",
       "status": "open",
       "version": "V1",
-      "description": "Vor SLC-008 (Lead Handoff) muss der API-Endpoint im Business System fuer externe Deal-Erstellung in Pipeline 'Lead-Generierung' Stage 'Neu' verifiziert werden. Auth via Internal-API-Token. Smoke-Test mit Business-Team. Risk R-02 + OQ-V1-03 im PRD.",
+      "description": "Business-System bekommt einen Slice fuer POST /api/internal/deals Endpoint mit INTERNAL_API_TOKEN-Auth. Payload: title, contact_name, contact_email, company, lead_source_data, expected_close_date, idempotency_key. Response: Deal-UUID + 201. Default-Pipeline 'Lead-Generierung' Stage 'Neu' wird per Migration angelegt. Pre-Condition fuer V1-Marketing-Launcher Final-Check / Go-Live (siehe DEC-029, ISSUE-002). Parallel zur V1-IS-Implementation.",
+      "createdAt": "2026-04-26"
+    },
+    {
+      "id": "BL-028",
+      "title": "Firecrawl Self-Host-Setup auf Hetzner",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V1",
+      "description": "Self-Hosted Firecrawl auf Hetzner einrichten (Container im Compose oder dedizierter Server). Auth-Token konfigurieren. Smoke-Test mit Sample-Crawl. ENV `FIRECRAWL_API_BASE_URL` + `FIRECRAWL_API_KEY` setzen. Pre-Condition fuer SLC-105 (Lead Research) — siehe DEC-028, ISSUE-003.",
       "createdAt": "2026-04-26"
     }
   ]
