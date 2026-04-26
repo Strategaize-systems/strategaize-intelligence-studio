@@ -1,0 +1,54 @@
+# Dependencies
+node_modules/
+.pnp/
+.pnp.js
+.pnp.cjs
+.yarn/install-state.gz
+
+# Build / Cache
+.next/
+out/
+build/
+dist/
+.turbo/
+
+# Coverage / Tests
+coverage/
+.nyc_output/
+
+# Environment / Secrets
+.env
+.env*.local
+.env.local
+.env.development.local
+.env.production.local
+"env vars_*.txt"
+
+# Editor / OS
+.vscode/
+!.vscode/settings.json.example
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Vercel / Deploy artifacts
+.vercel
+
+# Reference folder — Spec-Foundation (siehe DEC-021 + reference/SETUP.md)
+# Ungetrackt, weil externe MIT-Quelle (coreyhaines31/marketingskills).
+# Setup-Dokumentation und Spec-Extraktionen sind explizit committed (siehe Whitelist unten).
+reference/*
+!reference/SETUP.md

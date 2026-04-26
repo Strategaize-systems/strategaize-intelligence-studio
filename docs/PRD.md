@@ -1,163 +1,190 @@
 # Product Requirements Document
 
 ## Purpose
-StrategAIze Intelligence Studio — System 3 der Gesamtarchitektur. Intelligence + Produktions + Go-To-Market-Steuerungsschicht. Sammelt verdichtetes Wissen aus Onboarding-Plattform (System 1) und Signale aus Business Development System (System 2), übersetzt das in strukturierte Entscheidungen, Content, Brand-Assets, Kampagnen, qualifizierte Leads, Performance-Tracking. Spielt über eigene Kanal-Adapter aus (LinkedIn + E-Mail + mehr) und konsolidiert Tracking-Rohdaten in einem eigenen Performance-Cockpit. Wissen und Fremdsystem-Zugriff enden nach der Verdichtung — keine eigene RAG-/Chat-/Voice-Plattform.
+StrategAIze Intelligence Studio — System 3 der Gesamtarchitektur. **V1 ist der Marketing Launcher**: ein geschlossener Marketing-Funnel, der Brand-Profil + ICP + Lead Research + personalisierte Pitches + Campaign-Klammer + Pipeline-Handoff + Performance-Capture-Loop in einem operativen Werkzeug bündelt — damit StrategAIze sich selbst Leads holen kann. Spätere Versionen erweitern um Voll-Tracking, Multi-Channel-Publishing, das ursprüngliche Wissensverdichtungs-Backbone (Onboarding-Ingest, Portfolio-Monitor, Cross-Kunden-Learnings — V6) und Validation/Orchestration.
 
 Referenz Gesamtarchitektur: `/strategaize-dev-system/docs/PLATFORM.md`.
 
 ## Vision
 Ein zentrales, template-fähig konzipiertes System, das die gesamte **Schicht zwischen Wissen und Vertrieb** abdeckt:
-- verdichtetes Wissen aus Onboarding-Projekten systematisch sichtbar machen
-- daraus Content, Brand-Assets, Kampagnen und Hypothesen-Tests strukturiert erzeugen
-- qualifizierte Leads an Business übergeben
-- Performance konsolidiert tracken, ohne N externe Analytics-Konsolen zu öffnen
-- strategische Priorisierung und Entscheidungen über alle Ebenen orchestrieren
-- später als Kunden-Template einsetzbar sein
+- Marketing-Assets (7 Output-Typen) aus Brand-Profil + ICP KI-gestützt mit konsistenter Markenstimme erzeugen
+- personalisierte Pitches pro Lead mit 4-Level-Personalization generieren
+- Campaign-Klammer + Performance-Capture-Loop schließen die Marketing-Schleife
+- qualifizierte Leads via Pipeline-Push ans Business System übergeben
+- später: verdichtetes Wissen aus Onboarding-Projekten systematisch sichtbar machen (V6)
+- später: Tracking konsolidieren (V5), Multi-Channel-Publishing (V4), Validation und Orchestration (V7+)
+- später als Kunden-Template einsetzbar sein (V9+)
 
-**Leitprinzip (Gründer-Fixierung 2026-04-16):** *„Ich will nicht sechs Tracking-Cockpits öffnen müssen — wir holen die Rohdaten zurück und machen unsere eigene Übersicht."*
+**Strategischer Pivot 2026-04-25:** Die ursprüngliche V1-Planung (Wissensverdichtungs-Backbone) wurde auf V6 verschoben. Begründung: Ohne Marketing Launcher keine Interessenten → ohne Interessenten keine Kunden → ohne Kunden keine Customer-Cases → ohne Customer-Cases ist die Wissensverdichtung leerer Speicher. Der Marketing Launcher V1 ist der Lead-Generator für StrategAIze selbst, nicht für externe Kunden.
+
+**Leitprinzip Tracking-Reduktion (Gründer-Fixierung 2026-04-16, weiterhin gültig für V5):** *„Ich will nicht sechs Tracking-Cockpits öffnen müssen — wir holen die Rohdaten zurück und machen unsere eigene Übersicht."*
 
 ## Target Users
 
 ### V1–V3 (primär intern)
-- **Gründer / Strategischer Eigentümer** — Portfolio-Überblick, Opportunity-Bewertung, Content-Freigabe, Kampagnen-Steuerung, strategische Entscheidungen
-- **Beratungs-/Delivery-Team (intern, klein)** — Kundenmonitor, Deployment-Stand, Asset-Nutzung, Cross-Kunden-Learnings
-- **Marketing-/Sales-Operator (intern)** — ab V3: Kampagnen-Ausführung, Lead-Recherche, Lead-Scoring-Kuratierung
+- **Gründer / Strategischer Eigentümer** — Brand-Profil-Definition, ICP/Segment-Definition, Asset-Freigabe, Pitch-Generierung, Performance-Capture, Campaign-Steuerung
+- **Marketing-/Sales-Operator (intern, klein)** — Lead-Recherche, Asset-Bibliothek-Pflege, Pipeline-Handoff-Operativ
 
 ### V4+
-- externe Kanäle (LinkedIn, E-Mail) als Ausspielziele (V4)
+- externe Kanäle (LinkedIn, E-Mail) als Ausspielziele (V2 + V4)
 - Platform-Analytics als Tracking-Quelle (V5)
 
-### V8+
+### V6+
+- Beratungs-/Delivery-Team für Wissensverdichtung und Cross-Kunden-Learnings
+
+### V9+
 - externe Kundenunternehmen als Plattform-Nutzer (Template-Modus)
 - Voice-Partner (SMAO-ähnlich) als API-Konsument
 
 ## Problem Statement
-Wissen, Marktsignale und Umsetzungsarbeit entstehen verteilt über mehrere Systeme, Tools und Plattformen. Konkrete Probleme:
 
-1. **Fehlende zentrale Wissens-Verdichtung** — Erkenntnisse aus Onboarding-Projekten laufen heute nicht strukturiert zusammen.
-2. **Fehlender Portfolio-Überblick** — Kundenstand (Stack, Version, Module) ist nicht systematisch erfasst, Support und Rollout ad hoc.
-3. **Informelle Opportunities und Entscheidungen** — Produktentscheidungen nicht strukturiert bewertet und nicht nachvollziehbar dokumentiert.
-4. **Cross-Kunden-Learnings gehen verloren** — Erkenntnisse bleiben im Kopf, sind für spätere Projekte oder Produktverbesserungen nicht abgreifbar.
-5. **Content und Brand-Assets sind einmalig und inkonsistent** — keine systematische Wiederverwendung, keine einheitliche Markenstimme, hoher Wiederholungsaufwand.
-6. **Kampagnen-Steuerung findet in Spreadsheets und separaten Tools statt** — keine einheitliche ICP-, Segment-, oder Kampagnen-Definition; kein durchgängiger Lead-Fluss.
-7. **Tool-Zoo im Tracking** — LinkedIn Analytics, E-Mail-Provider-Analytics, Google Analytics, Clay — fünf bis sechs Dashboards, keine konsolidierte Sicht.
-8. **Neue Business-Ideen werden ad hoc getestet oder gar nicht** — fehlende Kill-or-Go-Struktur kostet Zeit und Geld.
-9. **Keine orchestrierende Sicht über alles** — Priorisierung passiert im Kopf, nicht auf Basis von Daten.
+StrategAIze hat aktuell keine systematische Lead-Generierungs-Maschine. Konkrete Probleme:
+
+1. **Manuelles Marketing-Setup pro Asset.** LinkedIn-Posts, Blogposts, One-Pager und E-Mail-Vorlagen werden ad hoc und inkonsistent erstellt — keine einheitliche Brand-Stimme, hoher Wiederholungsaufwand.
+2. **Kein strukturiertes Brand-Profil als KI-Kontext.** Bedrock-Calls für Content-Generierung haben keinen wiederverwendbaren Brand-Kontext, jede Generierung startet bei Null.
+3. **Kein definierter ICP/Segment-Prozess.** Wer genau angesprochen werden soll ist nicht systematisch erfasst — Personas sind im Kopf, nicht im System.
+4. **Keine wiederholbare Lead-Recherche.** Lead-Listen entstehen pro Kampagne neu, ohne Adapter-Pattern, ohne Duplikat-Erkennung, ohne Anreicherung.
+5. **Keine personalisierten Pitches pro Lead.** Cold Outreach läuft mit Templates, die nicht auf Firmen-Spezifika eingehen — Conversion bleibt niedrig.
+6. **Kein geschlossener Performance-Loop.** Welcher Asset-Typ welche Cost-per-Lead bringt ist nicht gemessen — kein Lerneffekt für nächste KI-Generierung.
+7. **Kein Lead-Handoff an Business.** Qualifizierte Leads landen nicht systematisch in der Business-Pipeline — Pipeline-Funktion existiert dort, wird aber nicht angesteuert.
+
+Die Wissensverdichtungs-Probleme aus der ursprünglichen V1-Planung (siehe V6 Scope unten) sind weiterhin relevant, aber strategisch nachgelagert — sie bauen auf vorhandenen Customer-Cases auf, die der Marketing Launcher V1 erst erzeugen muss.
 
 ## Goal / Intended Outcome
-Ein operatives Intelligence Studio, in dem:
 
-- verdichtete Knowledge Units aus Onboarding und Signale aus Business automatisch auflaufen
-- ein Portfolio-Monitor pro Kunde Deployment-Typ, Stack, Version und Modul-Einsatz zeigt
-- Opportunities strukturiert bewertet und Entscheidungen nachvollziehbar getroffen werden
-- anonymisierte Cross-Kunden-Learnings als interne IP verfügbar sind
-- Brand-Assets und Content KI-gestützt mit konsistenter Markenstimme erzeugt werden
-- Kampagnen mit ICP, Segmenten, mehreren Kanälen und A/B-Varianten geplant und qualifizierte Leads automatisch an Business übergeben werden
-- Publishing auf externen Kanälen (LinkedIn, E-Mail) aus IS heraus passiert
-- Tracking-Rohdaten konsolidiert in einem einzigen Performance-Cockpit landen
-- neue Business-Ideen strukturiert getestet und mit klaren Kill-or-Go-Kriterien bewertet werden
-- Priorisierung über alle Ebenen in einem Hybrid-Cockpit sichtbar wird
+Ein operativer Marketing Launcher, in dem:
 
-## Product Overview — 6 Funktionsbereiche
+- ein **Brand Profile** auf 12-Sektionen-Schema (product-marketing-context-Foundation) als zentraler KI-Kontext für alle Generierungen dient
+- **7 Output-Typen** (Blogpost, LinkedIn-Post, One-Pager, E-Mail-Vorlage, Case Card, Landingpage-Briefing, Multi-Page-Website-Spec) aus Brand + Quell-Objekt KI-generiert werden, jeder mit Skill-Quellbezug
+- **ICP + Segment** strukturiert definiert werden — abgeleitet aus product-marketing-context Sektion 2 + 3
+- **Lead Research** über Firecrawl-Adapter (Primary, Pay-as-you-go) + Clay-CSV-Import (Fallback) wiederholbare Lead-Listen erzeugt
+- **Messaging-Variation pro Lead** mit 4-Level-Personalization (cold-email-Skill) + marketing-psychology-Booster pro Lead einen personalisierten Pitch produziert
+- **Campaign Management Lite** als Parent-Klammer ohne Variants Asset, ICP, Leads und Pitches in einem Zeitfenster bündelt
+- **Lead-Handoff via Pipeline-Push** an das Business System (Pipeline „Lead-Generierung", Stage „Neu") qualifizierte Leads als Deals übergibt
+- **Performance-Capture-Loop** manuell erfasste Performance-Daten (posted_at, cost_eur, leads_generated) als few-shot in den nächsten KI-Generierungs-Call zurückspielt — das macht V1 zu einem Closed Loop und differenziert von Jasper/Copy.ai
 
-IS deckt über den Gesamt-Lebenszyklus folgende Funktionsbereiche ab:
+## Product Overview — 7 Funktionsbereiche (über alle Versionen)
 
 | # | Bereich | Zentraler Zweck | Ab Version |
 |---|---|---|---|
-| 1 | **Learning & Pattern Intelligence** | Wissen verdichten, Opportunities ableiten, Cross-Kunden-Learnings | V1 |
-| 2 | **Content, Brand & Asset Production** | KI-gestützt konsistente Assets mit Brand-Profil als Kontext | V2 |
-| 3 | **Campaign & Lead Intelligence** | ICP, Segmente, Kampagnen, Lead-Recherche, Enrichment, Scoring, Handoff | V3 |
-| 4 | **Distribution / Publishing** | Aus IS heraus auf LinkedIn, E-Mail und weitere Kanäle posten | V4 |
-| 5 | **Tracking / Performance-Cockpit** | Rohdaten aus Kanälen konsolidieren, attributionierte Kampagnen-Performance | V5 |
-| 6 | **Validation & Idea Testing** | Hypothesen, Experimente, Research mit Kill-or-Go-Logik | V6 |
-| 7 | **Orchestration & Decision Layer** | Hybrid-Cockpit für Priorisierung über alle Ebenen | V7 |
-
-Plus Fundament (Teil V1):
-- **Ingest** aus Onboarding + Business
-- **Portfolio-Monitor** mit Customer Deployment Registry
+| 1 | **Marketing Launcher (Closed Loop Lite)** | Brand+ICP+Content+Leads+Pitches+Campaign+Pipeline-Handoff+Performance-Loop in einem Werkzeug | **V1** |
+| 2 | **E-Mail-Adapter mit Open-Tracking** | Versand + Open/Click-Tracking pro Lead, schließt erste Auto-Tracking-Lücke | V2 |
+| 3 | **Voll-Lead-Research + Lead-Scoring** | Firecrawl-Pull + regelbasiertes Scoring + Disqualifier — ersetzt manuellen Recherche-Aufwand | V3 |
+| 4 | **LinkedIn-Publishing + Multi-Channel-Distribution** | Kanal-Adapter-Framework, LinkedIn als zweiter Kanal nach E-Mail | V4 |
+| 5 | **Voll-Tracking + KI-Scoring + A/B-Statistik** | Performance-Cockpit, automatische Variants, KI-basiertes Lead-Scoring (löst V3-Regelsystem ab) | V5 |
+| 6 | **Wissensverdichtungs-Backbone** | Onboarding-Ingest + Portfolio-Monitor + Insight-Layer + Opportunity-Decision + Cross-Kunden-Learnings + Customer Deployment Registry (ehemals V1) | V6 |
+| 7 | **Validation & Idea Testing** | Experiment-Entität, Hypothesen, Kill-or-Go | V7 |
+| 8 | **Orchestration & Decision Layer** | Hybrid-Cockpit Top-5 pro Entity-Typ | V8 |
+| 9 | **Multi-Tenant + Voice-API + Erweiterungen** | Template-Modus, SMAO-API, Auto-Anonymisierung, weitere Kanäle | V9+ |
 
 ## Version Plan
 
-Versions-Reihenfolge = **Bau-Reihenfolge**, nicht Scope-Amputation (Gründer-Fixierung 2026-04-16). Alles wird gebaut.
-
 | Version | Inhalt | Status | Primäre neue Features |
 |---|---|---|---|
-| V1 | Fundament + Learning & Pattern Intelligence | Requirements abgeschlossen, Architecture offen | FEAT-001..007 |
-| V2 | Content, Brand & Asset Production | Requirements (diese Runde) | FEAT-008, FEAT-009 |
-| V3 | Campaign & Lead Intelligence Kern | Requirements (diese Runde) | FEAT-010..014 |
-| V4 | Publishing / Distribution | geplant | Kanal-Adapter-Framework, LinkedIn + E-Mail |
-| V5 | Tracking / Performance-Cockpit | geplant | Event-Schema, Rohdaten-Pull, Konsolidierung |
-| V6 | Validation & Idea Testing | geplant | Experiment-Entität, Research-Task |
-| V7 | Orchestration & Decision Layer | geplant | Hybrid-Cockpit, Priority-Felder |
-| V8+ | Template-Modus, SMAO-API, Auto-Anonymisierung, KI-Auto-Clustering, weitere Kanäle | geplant | Multi-Instanz, Partner-API |
+| **V1** | **Marketing Launcher (Closed Loop Lite)** | **Requirements (diese Runde)** | **FEAT-008, FEAT-009, FEAT-010, FEAT-011 (LITE), FEAT-014 (umgeschrieben), FEAT-015, FEAT-016** |
+| V2 | E-Mail-Versand-Adapter mit Open-Tracking | geplant | E-Mail-Adapter (Postmark/SES), Open/Click-Tracking, Versand-Queue |
+| V3 | Voll-Lead-Research + Lead-Scoring | geplant | FEAT-013 Lead Scoring (regelbasiert + Disqualifier), Firecrawl-Voll-Adapter, Auto-Disqualifier |
+| V4 | LinkedIn-Publishing + Multi-Channel-Distribution | geplant | FEAT-011 Voll-Variant (Channel-Segments + Variants), LinkedIn-Adapter, weitere Kanäle |
+| V5 | Voll-Tracking + KI-Scoring + A/B-Statistik | geplant | Tracking-Event-Schema, KI-Scoring-Modell, Auto-Variant-Generierung, A/B-Statistik |
+| **V6** | **Wissensverdichtungs-Backbone (ehemals V1)** | geplant | FEAT-001..007 (Onboarding-Ingest, Business-Ingest, Portfolio-Monitor, Insight-Layer, Opportunity-Decision, Cross-Kunden-Learnings, Customer Deployment Registry) |
+| V7 | Validation & Idea Testing | geplant | Experiment-Entität, Hypothesen, Kill-Kriterien, Research-Task-Erweiterung |
+| V8 | Orchestration & Decision Layer | geplant | Hybrid-Cockpit, Priority-Felder, Top-5-Dashboard |
+| V9+ | Multi-Tenant, SMAO-API, Auto-Anonymisierung, KI-Auto-Clustering, Deal-Attribution, weitere Kanäle | geplant | Multi-Instanz, Partner-API |
 
-## V1 Scope *(unverändert, bereits abgeschlossen 2026-04-15)*
+## V1 Scope — Marketing Launcher (Closed Loop Lite) *(diese Runde)*
 
-### Core Features
-- **FEAT-001 Ingest-Layer Onboarding** — Pull-basierter Import verdichteter Knowledge Units aus Onboarding-Plattform
-- **FEAT-002 Ingest-Layer Business** — Pull-basierter Import relevanter Entitäten aus Business Development System, fehlertolerant gegen fehlende Felder
-- **FEAT-003 Portfolio-Monitor** — UI-Überblick aller Kundenprojekte mit Filter, Suche, Detail-Ansicht
-- **FEAT-004 Insight-Layer** — KU-Liste mit Volltext-Suche, Tag-System, manuellem Clustering
-- **FEAT-005 Opportunity & Decision basic** — strukturierte Bewertung (4 Pflicht-, 7 optionale Dimensionen) mit KI-Unterstützung, Decision-Board mit Status-Workflow
-- **FEAT-006 Cross-Kunden-Learnings basic** — manuelle Freigabe-Markierung und Anonymisierung pro KU, interne Cross-Kunden-Ansicht
-- **FEAT-007 Customer Deployment Registry** — Deployment-Typ, Server-Referenzen, aktive Module, Code-Version, Update-Rollout-Ansicht
+Zweck: Geschlossener Marketing-Funnel von Brand-Profil bis Pipeline-Handoff in einem Werkzeug — damit StrategAIze sich selbst Leads holen kann.
+
+### Core Features (V1 = 7 Features, davon 5 neu spezifiziert + 2 als Lite-Variante umgewidmet)
+
+#### Neu spezifiziert (Spec-Foundation = coreyhaines31/marketingskills, MIT)
+- **FEAT-008 Brand Profile** — Singleton-Brand-Profil auf 12-Sektionen-Schema (`product-marketing-context`-Skill als Foundation): Product Overview, Target Audience, Personas (User/Champion/Decision Maker/Financial Buyer/Technical Influencer), Problems & Pain Points, Competitive Landscape (Direct/Secondary/Indirect), Differentiation, Objections & Anti-Personas, Switching Dynamics (JTBD Four Forces: Push/Pull/Habit/Anxiety), Customer Language (verbatim, words-to-use/avoid, glossary), Brand Voice, Proof Points, Goals. Ersetzt das alte FEAT-008-Schema vollständig. Singleton in V1, Multi-Brand = V9+.
+- **FEAT-009 Content Asset Production (7 Output-Typen)** — KI-Generierung via Bedrock mit Brand Profile + Quell-Objekt als Kontext. 7 Output-Typen mit Skill-Quellbezug pro Typ:
+  1. Blogpost (`copywriting`-Skill — Page Copy + Annotations + Alternatives + Meta Content)
+  2. LinkedIn-Post (`social-content`-Skill — Hook in 4 Formeln + Pillar-Framework + Caption + Engagement)
+  3. One-Pager (`sales-enablement`-Skill — 5-Sektionen: Problem / Solution / 3-Differentiators / Proof / CTA)
+  4. E-Mail-Vorlage (`cold-email`-Skill — Subject 2-4 Wörter + Body 4 Frameworks + 4-Level-Personalization + Follow-up-Sequence)
+  5. Case Card (`sales-enablement`-Skill — 6-Felder: Customer / Challenge / Solution / Results / Pull-Quote / Tags)
+  6. Landingpage-Briefing (`copywriting` + `page-cro`-Skills — 7-Dimensionen-CRO-Analyse als Briefing-Spec)
+  7. Multi-Page-Website-Spec (`site-architecture`-Skill — ASCII-Tree + Mermaid-Sitemap + URL-Map-Table + Nav-Spec + Linking-Plan)
+  Asset-Bibliothek mit Filter, Versionierung, Status-Workflow (Entwurf → überarbeitet → freigegeben → veröffentlicht), Markdown-Export.
+- **FEAT-010 ICP & Segment** — ICP-Entität abgeleitet aus product-marketing-context Sektion 2 (Target Audience) + Sektion 3 (Personas). Strukturierte Felder: Branche, Größe, Umsatz-Band, Strukturmerkmale, Trigger-Signale, Persona-Set. Segment-Entität: gefilterte ICP-Instanz mit konkreter Lead-Auswahl.
+- **FEAT-015 Lead Research (NEU)** — Firecrawl-Adapter als Primary (API, Pay-as-you-go, planbare Kosten) + Clay-CSV-Import als Fallback. Research-Task pro Segment, Duplikat-Erkennung (Company-Name + Domain), manuelle Lead-Ergänzung. Lead-Entität mit Segment- und Campaign-Referenz.
+- **FEAT-016 Messaging-Variation pro Lead (NEU)** — Pro Lead wird ein personalisierter Pitch generiert via cold-email 4-Level-Personalization (Industry / Company / Role / Individual) + marketing-psychology-Skill als Refinement-Booster. Output ist ein Asset vom Typ E-Mail-Vorlage oder LinkedIn-Post mit lead_id-Referenz. Versionierung pro Lead-Pitch.
+
+#### Lite-Variante umgewidmet aus V3-Planung
+- **FEAT-011 Campaign Management LITE** — Parent-Campaign als Klammer **ohne Channel-Segments und ohne Variants** (Voll-Variant kommt V4/V5). Pflichtfelder: Titel, Ziel, Zeitfenster, ICP-Referenz, Erfolgssignale. Verknüpft Assets, Leads und Pitches. Status-Workflow: entwurf → aktiv → abgeschlossen → abgebrochen. **High-Attention-Outreach (physischer Brief + Call) ist V1 NICHT mehr enthalten** — verschoben auf V4 als Channel-Variante.
+- **FEAT-014 Lead Handoff (Pipeline-Push) + Performance-Capture (UMGESCHRIEBEN)** — **Ersetzt die Qualified-Lead-Inbox-Architektur aus DEC-005.** Statt einer separaten Inbox-Entität im Business pusht V1 qualifizierte Leads als neuen Deal in eine bestehende Business-Pipeline (Pipeline „Lead-Generierung", Stage „Neu"). Pipeline-Funktion existiert im Business System bereits — kein neues Feature dort nötig. Auth via Internal-API-Token (gleiche Hetzner-Coolify-Umgebung). Status-Sync zurück via Webhook (Business → IS). Plus: Performance-Capture-Felder pro Asset (posted_at, channel, cost_eur, impressions, clicks, leads_generated, notes). Manuelle Eingabe nach Posting (~10 Sek pro Asset). LinkedIn-Ads-CSV-Import als Adapter. **Performance-Daten werden als few-shot in den nächsten KI-Generierungs-Call zurückgespielt** — das macht V1 zum Closed Loop.
 
 Feature-Details unter `/features/`.
 
-## V2 Scope — Content, Brand & Asset Production *(neu)*
+### Architektonische Festlegungen V1
 
-Zweck: KI-gestützt konsistente Content- und Kommunikations-Assets erzeugen, die nach StrategAIze klingen und auf Brand-Profil-Basis wiederverwendbar sind.
+- **Foundation bleibt gültig:** ARCHITECTURE.md V2 (13 Sektionen), MIG-001 Schema-Baseline (17 Tabellen, RLS, ai_jobs, ai_cost_ledger), Style Guide V2 (DEC-017), DEC-001..019. Adaption an Marketing-Launcher-Scope erfolgt im `/architecture V1`-Lauf (Addendum, nicht Komplett-Rewrite).
+- **DEC-005 (Qualified-Lead-Inbox) wird durch DEC-022 (Pipeline-Push) abgelöst** — siehe `/docs/DECISIONS.md`.
+- **DEC-020 (vorgemerkt):** Marketing Launcher als funktional eigenständiges Produkt im Single-Repo + template_id-Vorbereitung. Verkaufs-Verpackung später via separater Coolify-Deployments. Kombi-Paket Marketing Launcher + Business System nur wenn echter Kunde anfragt.
+- **DEC-021 (vorgemerkt):** Spec-Foundation = coreyhaines31/marketingskills (MIT-Lizenz, 47 Skills) als reference/-Folder im IS-Repo. Reference dient als Spec-Quelle für Datenmodell und Bedrock-Prompt-Vorlagen, **nicht** als runtime-Komponente. Skills im Business-System bleiben unverändert.
+- **Asset-Generierung asynchron** via Worker (DEC-011 bleibt) — gilt für 7 Output-Typen sowie für Pitch-Generierung in FEAT-016.
+- **Lead-Research-Adapter** im Provider-Adapter-Pattern (DEC-009): `firecrawlAdapter` + `clayCsvAdapter` parallel, beide schreiben in `lead`-Tabelle.
+- **Pipeline-Push** als `businessPipelineAdapter` mit Internal-API-Token. Endpoint im Business System wird in V1-Implementierung mit dem Business-Team geklärt.
 
-### Core Features
-- **FEAT-008 Brand Profile** — **ein einziges** Brand-Profil (StrategAIze-Eigen) mit strukturierten Feldern: Tonalität, Zielgruppen-Stimme, Do's, Don'ts, Struktur-Templates pro Output-Typ, 3–5 Beispiel-Assets als „so klingen wir". Farben/Typo als optionale Felder. Dient als LLM-Kontext für alle Content-Generierungen.
-- **FEAT-009 Content Asset Production** — Asset-Request-Workflow mit Quell-Objekt (KU, Opportunity, Pattern, Kampagne, Experiment — soweit in der jeweiligen Version vorhanden) und Output-Typ. KI-Generierung via Bedrock mit Brand-Profil als Kontext. 6 Output-Typen: Blogpost (Markdown), LinkedIn-Post, One-Pager, E-Mail-Vorlage, Case Card, Landingpage-Briefing. Asset-Bibliothek mit Filter, Versionierung, Status-Workflow (Entwurf → überarbeitet → freigegeben → veröffentlicht). Markdown-Export.
+## V2 Scope — E-Mail-Versand-Adapter + Open-Tracking *(geplant)*
 
-### Architektonische Festlegungen V2
-- **Nur ein Brand-Profil** in V2. Multi-Tenant-Brand-Profile = V8+ (Gründer-Entscheidung OQ-V2-03 am 2026-04-16). „Powered by Strategize"-Footer ist akzeptabler Default.
-- Brand-Profil-Schema muss template-ready sein (`template_id` optional), aber V2 aktiviert keine Multi-Tenant-Logik.
-- Asset-Erzeugung ist **synchron** (Request-Response in <30s) oder asynchron via Worker je nach Bedrock-Antwortzeit. Design in `/architecture`.
-- Publishing passiert in V2 **nicht** — Assets werden nur erzeugt, via Markdown-Export aus IS heraus manuell gepostet.
+Zweck: V1 erzeugt nur Asset (Markdown). V2 schaltet den Versand frei.
 
-## V3 Scope — Campaign & Lead Intelligence *(neu)*
+- E-Mail-Provider-Adapter (Postmark EU primär, AWS SES Frankfurt als Alternative — DEC-013 bleibt gültig)
+- Versand-Queue mit Scheduling
+- Open/Click-Tracking via Pixel + Link-Wrapper
+- Bounce/Complaint-Verarbeitung
+- DSGVO-Opt-out-Handling
 
-Zweck: Alles Vorgelagerte zum Vertrieb in IS bündeln. ICP, Segmente, Kampagnen (digital + physisch), Lead-Recherche, Enrichment, Scoring, Handoff an Business. Grenzlinie zu Business: IS = Pre-Sales, Business = Deal-Management (Gründer-Fixierung 2026-04-16).
+Features werden in eigener Requirements-Runde spezifiziert.
 
-### Core Features
-- **FEAT-010 ICP & Segment** — ICP-Entität (Ideal-Customer-Profile): Branche, Größe, Umsatz-Band, Strukturmerkmale, Trigger-Signale. Segment-Entität: gefilterte ICP-Instanz mit konkreter Auswahl (aus Business-Kontakten und/oder extern recherchierten Leads).
-- **FEAT-011 Campaign Management** — Parent-Campaign-Entität mit Channel-Segmenten (digital + physisch in einem Modell) und Variant-Ebene für A/B-Testing-Vorbereitung. Kampagnentypen: Standard Outbound, Inbound-Triggered, Hybrid, **High-Attention Outreach** (physischer Brief/Geldschein + Follow-up-Call). Pflichtfelder pro Kampagne: Titel, Ziel, Zielgruppe (Segment-Referenz), Kanäle, Zeitfenster, Erfolgssignale. Status-Workflow: entwurf → aktiv → abgeschlossen → abgebrochen.
-- **FEAT-012 Lead Research & Enrichment** — Lead-Recherche-Workflow mit Research-Typen (Zielgruppenrecherche, Operator-Profil, Multiplikator, Testmarkt, Outreach-Pack, Listenauftrag — aus archiviertem FEAT-012 übernommen). Clay-Enrichment-Adapter: CSV-Import in V3, Webhook/Pull-Evaluation in `/architecture`. Manuelle Lead-Ergänzung. Lead-Entität mit Kampagnen- und Segment-Referenz.
-- **FEAT-013 Lead Scoring** — regelbasiertes Scoring in V3 (konfigurierbare Regeln auf Lead-Feldern: Größe, Branche, Trigger-Match, Interaktionshistorie). KI-basiertes Scoring kommt V5+, wenn Tracking-Daten verfügbar sind.
-- **FEAT-014 Qualified Lead Handoff** — **Fluss 5b der Gesamtarchitektur.** Wenn Lead-Score einen Schwellenwert überschreitet: Export-Mechanismus an Business Development System in den dortigen „Qualified Lead Inbox". Mit Kampagnen-Kontext, Quell-Recherche, Score-Begründung. Statussync: IS sieht, welche Leads Business übernommen/verworfen hat.
+## V3 Scope — Voll-Lead-Research + Lead-Scoring *(geplant)*
 
-### Architektonische Festlegungen V3
-- **Campaign-Modell:** Parent-Campaign + Channel-Segmente + Variants (Gründer-Entscheidung OQ-V2-01). Das Modell gibt A/B-Testing operativ frei, **aber operative A/B-Auswertung kommt erst V5** (Tracking nötig).
-- **Lead-Handoff-Mechanik:** Qualified-Lead-Inbox im Business (Gründer-Entscheidung OQ-V2-02). **Kritische Abhängigkeit:** Business V4 hat heute keine solche Inbox — Business-seitige Erweiterung notwendig (siehe Risks R-05). FEAT-014 kann erst scharf geschaltet werden, wenn Business die Inbox liefert. Bis dahin: Export nach CSV oder manueller Handoff.
-- **Physische Zustellung:** IS bereitet vor (Brief-Content, Adress-Liste, Follow-up-Call-Zeitpunkt). Kein Paket-Tracking. Manuelles Status-Update „verschickt am X" (Gründer-Fixierung 2026-04-16).
-- **Clay-Integration-Tiefe:** in `/architecture` zu entscheiden. V3-Minimum: CSV-Import.
-- **Kanal-Ausspielung passiert in V3 noch NICHT** — V3 ist Kampagnen-Design + Lead-Recherche. Publishing ist V4.
+- **FEAT-013 Lead Scoring** (Spec existiert bereits, bleibt V3-Scope) — regelbasiert mit Disqualifier-Logik, konfigurierbare Regeln (Feld/Operator/Wert/Punkte/Kategorie), Threshold pro Segment/Kampagne
+- Voll-Firecrawl-Adapter (Webhook + API-Pull, V1 ist nur Pull-on-Demand)
+- Auto-Disqualifier-Regeln vor Pitch-Generierung
 
-## V4 Scope — Publishing / Distribution *(geplant)*
+## V4 Scope — LinkedIn-Publishing + Multi-Channel-Distribution *(geplant)*
 
-Ausspielung von Assets und Kampagnen-Inhalten aus IS heraus. Kanal-Adapter-Framework mit LinkedIn + E-Mail als erste Kanäle. Scheduling, Queue, Format-Anpassung. Publish-Status-Tracking. Verknüpfung: Asset + Kampagne + Channel-Segment + Publish-Event.
+- FEAT-011 Voll-Variant (Channel-Segments + Variants — A/B-Vorbereitung)
+- LinkedIn-Publishing-Adapter (Creator-API primär, Buffer/Hootsuite als Fallback-Brücke — DEC-014 bleibt)
+- Weitere Kanäle nach Bedarf
+- High-Attention-Outreach (physischer Brief + Call) als Channel-Variante zurückgeholt
 
-Offene Architektur-Fragen (`/architecture`):
-- LinkedIn-API-Realität (Creator-API, App-Review-Aufwand)
-- Scheduling/Worker-Layer (gemeinsam mit Ingest-Workern oder separat)
-- E-Mail-Provider-Auswahl (Postmark, SES, etc.)
+## V5 Scope — Voll-Tracking + KI-Scoring + A/B-Statistik *(geplant)*
 
-## V5 Scope — Tracking / Performance-Cockpit *(geplant)*
+- Tracking-Event-Schema Hybrid (DEC-015 bleibt) — Core-Felder + kanalspezifisches JSON-Payload
+- Konsolidiertes Performance-Cockpit
+- KI-Scoring (löst regelbasiertes Scoring aus V3 ab)
+- Auto-Variant-Generierung
+- A/B-Statistik mit Signifikanz-Test
+- Attribution auf Kampagnen-Ebene (NICHT auf Deal-Ebene — Deal-Attribution V9+)
 
-Rohdaten-Rückfluss aus Publishing-Kanälen. Einheitliches Event-Schema (Impressions, Engagement, Conversions wo verfügbar). Konsolidiertes Cockpit: Kampagne → Asset → Kanal → Performance. Attribution auf Kampagnen-Ebene, **nicht** auf Deal-Ebene in V5. A/B-Auswertung für Kampagnen-Varianten wird hier operativ nutzbar. KI-Scoring für Leads (Ersatz des regelbasierten Scorings aus V3) wird hier möglich.
+## V6 Scope — Wissensverdichtungs-Backbone (ehemals V1) *(geplant)*
 
-## V6 Scope — Validation & Idea Testing *(geplant)*
+**Inhaltlich identisch zur ursprünglichen V1-Planung 2026-04-15/16** — verschoben auf V6 weil ohne Customer-Cases (die der Marketing Launcher V1 erst erzeugt) leerer Speicher.
 
-Experiment-Entität mit Hypothese, Zielgruppe, Kanal, Kill-Kriterien, Erfolgssignalen, Budget, Zeitfenster. KI-Vorschlag von Experiment-Designs aus Opportunities. Research-Task mit 6 Research-Typen (aus archiviertem FEAT-012). Strukturierte Ergebnis-Dokumentation und Folgeentscheidung. Verknüpfung: Experiment → ggf. Kampagne → ggf. Lead → ggf. Deal.
+- **FEAT-001 Ingest-Layer Onboarding** — Pull-basierter Import verdichteter Knowledge Units aus Onboarding-SLC-010-Export-API
+- **FEAT-002 Ingest-Layer Business** — Pull-basierter Import relevanter Entitäten aus Business V4+, fehlertolerant
+- **FEAT-003 Portfolio-Monitor** — UI-Übersicht aller Kundenprojekte mit Filter, Suche, Detail-Ansicht
+- **FEAT-004 Insight-Layer** — KU-Liste mit Volltext-Suche, Tag-System, manuellem Clustering
+- **FEAT-005 Opportunity & Decision basic** — strukturierte Bewertung (4 Pflicht- + 7 optionale Dimensionen) mit KI-Unterstützung, Decision-Board
+- **FEAT-006 Cross-Kunden-Learnings basic** — manuelle Freigabe-Markierung und Anonymisierung pro KU, interne Cross-Kunden-Ansicht
+- **FEAT-007 Customer Deployment Registry** — Deployment-Typ, Server-Referenzen, aktive Module, Code-Version, Update-Rollout-Ansicht
 
-## V7 Scope — Orchestration & Decision Layer *(geplant)*
+Feature-Specs FEAT-001..007 existieren bereits unter `/features/` (aus V1-Planung 2026-04-15/16) und bleiben gültig — werden in V6-Slice-Planning später zugeschnitten.
 
-Hybrid-Cockpit (Gründer-Entscheidung OQ-V2-04). Priorisierung primär über Priority-Felder in bestehenden Listen. Zusätzlich: leichtgewichtige Dashboard-Seite „Was ist wichtig?" mit Top-5 pro Entity-Typ (Opportunity, Kampagne, Experiment). Manuelle Flags + Sortierung. **KI-Auto-Priorisierung ist V8+**.
+## V7 Scope — Validation & Idea Testing *(geplant)*
 
-## V8+ Scope — Spätere Verdichtung *(geplant)*
+Experiment-Entität mit Hypothese, Zielgruppe, Kanal, Kill-Kriterien, Erfolgssignalen, Budget, Zeitfenster. KI-Vorschlag von Experiment-Designs aus Opportunities. Research-Task mit 6 Research-Typen (aus archiviertem alten FEAT-012). Strukturierte Ergebnis-Dokumentation und Folgeentscheidung. Verknüpfung: Experiment → ggf. Kampagne → ggf. Lead → ggf. Deal.
+
+## V8 Scope — Orchestration & Decision Layer *(geplant)*
+
+Hybrid-Cockpit (Gründer-Entscheidung OQ-V2-04, DEC-007 bleibt). Priorisierung primär über Priority-Felder in bestehenden Listen. Zusätzlich: leichtgewichtige Dashboard-Seite „Was ist wichtig?" mit Top-5 pro Entity-Typ (Opportunity, Kampagne, Experiment, Lead). Manuelle Flags + Sortierung. **KI-Auto-Priorisierung ist V9+**.
+
+## V9+ Scope — Multi-Tenant + Voice-API + Erweiterungen *(geplant)*
 
 - Template-Modus für externe Kundenunternehmen (Multi-Instanz-Aktivierung)
 - Custom-Brand-Profile pro Kunde
@@ -170,136 +197,162 @@ Hybrid-Cockpit (Gründer-Entscheidung OQ-V2-04). Priorisierung primär über Pri
 
 ## Success Criteria
 
-### V1 *(unverändert)*
-- Verdichtete Knowledge Units aus Onboarding werden automatisch im IS sichtbar und durchsuchbar
-- Kundenportfolio ist zentral einsehbar (Kontakt, Unternehmen, Deployment-Typ, Stack, Code-Version)
-- Opportunities lassen sich in unter 2 Minuten erfassen und mit KI-Unterstützung bewerten
-- Mindestens 10 anonymisierte Learnings sind cross-Kunde intern zugänglich
-- Update-Rollout kann auf Basis der Customer Deployment Registry geplant werden
+### V1 — Marketing Launcher (Closed Loop Lite)
+
+- Brand Profile auf 12-Sektionen-Schema einmalig konfiguriert (alle 12 Sektionen mit Pflichtfeldern befüllt)
+- Alle 7 Output-Typen sind generierbar und exportierbar — KI-Output enthält die Skill-spezifischen Strukturelemente (z. B. cold-email Subject 2-4 Wörter, social-content Hook-Formel)
+- Asset-Bibliothek ist durchsuchbar, filterbar, versioniert, statusgeführt
+- ICP + Segment definiert, mindestens 1 Segment mit ≥ 20 Leads
+- Lead Research via Firecrawl funktioniert (Pull mit Duplikat-Erkennung), Clay-CSV-Import funktioniert
+- Pro Lead wird ein personalisierter Pitch generiert (E-Mail-Vorlage oder LinkedIn-Post) mit 4-Level-Personalization-Substanz
+- Campaign Lite verbindet Assets, Leads und Pitches in einem Zeitfenster
+- Pipeline-Push an Business System funktioniert: Deal entsteht in Pipeline „Lead-Generierung", Stage „Neu" — verifiziert über Business-API-Smoke-Test
+- Performance-Capture-Felder pro Asset eingabefähig (posted_at, cost_eur, impressions, clicks, leads_generated)
+- Performance-Daten werden als few-shot in den nächsten KI-Generierungs-Call zurückgespielt — verifiziert über Prompt-Inspection
 - IS läuft stabil auf Hetzner über Coolify, ohne US-Datenfluss
+- KI-Freigabe-Quote > 60 % ohne manuelle Überarbeitung (gemessen über die ersten 30 Assets)
+- Mindestens 5 qualifizierte Leads in Business-Pipeline-„Lead-Generierung" gepusht innerhalb 4 Wochen nach V1-Deploy
 
-### V2
-- Brand-Profil ist einmalig konfiguriert und LLM-Kontext-fähig
-- Alle 6 Output-Typen sind generierbar und exportierbar
-- Asset-Bibliothek ist durchsuchbar, filterbar, versioniert
-- Asset-Status-Workflow funktioniert (Entwurf → freigegeben → veröffentlicht)
-- KI-generierter Content klingt konsistent nach StrategAIze (Freigabe-Quote > 60 % ohne manuelle Überarbeitung)
+## Out of Scope V1 *(verschoben auf spätere Versionen)*
 
-### V3
-- ICP kann definiert und Segmente daraus abgeleitet werden
-- Parent-Campaign mit Channel-Segmenten (digital + physisch) ist erstellbar
-- High-Attention-Outreach-Kampagne (Brief + Call) ist strukturiert erfassbar
-- Lead-Recherche-Workflow produziert strukturierte Leads
-- Clay-CSV-Import funktioniert
-- Regelbasiertes Lead-Scoring funktioniert mit mindestens 5 konfigurierbaren Regeln
-- Qualified-Lead-Handoff an Business funktioniert (via Qualified-Lead-Inbox, sobald Business diese liefert; bis dahin CSV-Export)
+- E-Mail-Versand und Open/Click-Tracking → **V2**
+- LinkedIn-Publishing → **V4**
+- Auto-Disqualifier-Regeln → **V3**
+- Lead-Scoring (regelbasiert oder KI) → **V3** bzw. **V5**
+- Channel-Segments + Variants in Campaign → **V4**
+- High-Attention-Outreach (physischer Brief + Call) → **V4**
+- Voll-Tracking-Cockpit + A/B-Statistik → **V5**
+- Statistisch saubere A/B-Auswertung → **V5**
+- KI-Auto-Variant-Generierung → **V5**
+- **Wissensverdichtungs-Backbone** (Onboarding-Ingest, Portfolio-Monitor, Insight-Layer, Opportunity-Decision, Cross-Kunden-Learnings, Customer Deployment Registry) → **V6**
+- Validation/Experiment-Entität → **V7**
+- Orchestration/Hybrid-Cockpit → **V8**
+- Template-Modus, Multi-Tenant, SMAO-API → **V9+**
 
-## Out of Scope *(dauerhaft)*
+## Out of Scope *(dauerhaft, PLATFORM.md-Non-Goals)*
 
-### Hart Non-Goal (PLATFORM.md 4b + Gründer-Fixierung 2026-04-16)
 - Eigener RAG-Chat-Layer oder Wissens-Plattform über Kundenrohdaten
-- Fremdsystem-Konnektoren (Outlook, Gmail, Drive, Sharepoint, Datev, Lexware)
-- Eigene Voice-Oberfläche
-- Rohdatenverarbeitung (bleibt in Onboarding)
+- Fremdsystem-Konnektoren (Outlook, Gmail, Drive, Sharepoint, Datev, Lexware) — IS schreibt nur in Business-Pipeline via API
+- Eigene Voice-Oberfläche (V9+ nur als API für SMAO-Partner)
+- Rohdatenverarbeitung (bleibt in Onboarding bzw. den Quellsystemen)
 - Deal-Management, Gesprächsdokumentation, Revenue-Tracking im IS (bleibt Business)
-- Physische Zustellungs-Tracking (bleibt offline)
-- IS als verkaufsfähiger Multi-Kanal-Publisher (kein Publish-Produkt)
-- IS als Google-Analytics-Ersatz (nur eigene Kampagnen-Konsolidierung)
-- Business V4/V5 als Kampagnen-Designer (Business = reine Lead-Abarbeitung)
-
-### Parked
-- Modules/Flows/Build-Drafts (alte FEAT-009) — nach V2/V3-Erfahrung neu bewerten
-- Process-Mining-Connector, Branchen-Layer, Anomalie-Flagging — V8+
+- Physische Zustellungs-Tracking (bleibt offline, V4 bereitet nur vor)
+- IS als verkaufsfähiger Multi-Kanal-Publisher (kein Publish-Produkt — Publishing dient Marketing Launcher)
+- IS als Google-Analytics-Ersatz (nur eigene Kampagnen-Konsolidierung in V5)
 
 ## Constraints
 
 ### Technical
 - Hetzner + Supabase + Docker-Compose via Coolify (analog Onboarding-Plattform)
 - Next.js 16+ mit App Router, React 19, Tailwind, shadcn/ui
-- AWS Bedrock eu-central-1 als einziger LLM (Claude Sonnet/Opus), Provider-Adapter-Pattern verbindlich
-- Kein Remote-Git-Repo vorhanden — für V1-Deploy ist GitHub-Repo + Coolify-Setup Teil des Project-Setup-Slices
+- AWS Bedrock eu-central-1 als einziger LLM (Claude Sonnet/Opus), Provider-Adapter-Pattern verbindlich (DEC-002, DEC-009)
+- GitHub-Repo `Strategaize-systems/strategaize-intelligence-studio` aktiv (DEC-018), Coolify-Auto-Deploy aus
+- Bedrock-Calls für 7 Output-Typen + Pitch-Generierung pro Lead → asynchron via Worker (DEC-011)
 
 ### Data Residency (verbindlich)
 - EU-Hosting, bevorzugt Deutschland
 - Keine US-Direktanbieter, keine US-Regionen — auch nicht temporär
+- Firecrawl: vor V1-Implementierung verifizieren, dass EU-Endpoint + DPA verfügbar ist (sonst alternative Lösung wie selbst gehostetes Crawl-Skript)
 - Referenz: `/strategaize-dev-system/.claude/rules/data-residency.md`
 
-### Business-System-Constraint (V1 + V3)
-Business V4 hat heute: Kontakte, Unternehmen, Deals, Angebote (teilweise).
-Business V4 hat **nicht**: Produkt-/Angebotskatalog, Modul-Zuordnung, Projekt-Status als eigenes Modell, **Qualified-Lead-Inbox als Entität**.
+### Spec-Foundation-Constraint
+- V1 baut auf coreyhaines31/marketingskills (MIT-Lizenz, geklont nach `reference/corey-haines-marketing-skills/`)
+- Reference ist **Spec-Quelle**, **kein Runtime-Bestandteil** — die Skills laufen nicht im IS-Worker, sondern dienen als Vorlage für Datenmodell und Bedrock-Prompt-Vorlagen
+- Git-Strategie für reference-Folder: siehe DEC-021 + Open Question OQ-V1-01 unten
 
-Konsequenzen:
-- Ingest-Layer V1 fehlertolerant: was existiert wird ingestet, was fehlt wird leer gelassen
-- FEAT-007 Customer Deployment Registry IS-seitig primäre Wahrheit
-- **FEAT-014 Qualified Lead Handoff hängt von Business-seitiger Erweiterung ab** — Business muss eine Qualified-Lead-Inbox als eigene Entität bauen. V3 kann bis dahin mit CSV-Export überbrücken.
+### Business-System-Constraint (Pipeline-Push)
+- Business System V4+ hat bereits eine Pipeline-Funktion mit konfigurierbaren Stages
+- Marketing Launcher V1 setzt voraus: eine Pipeline „Lead-Generierung" mit Stage „Neu" existiert (oder wird im V1-Deploy angelegt)
+- API-Endpoint für Deal-Erstellung muss verfügbar sein — verifiziert in V1-Implementierung mit Business-Team
+- Auth: Internal-API-Token (gleiche Hetzner-Coolify-Umgebung)
 
 ### Scope-Protection
-- Schema V1 template-ready: optionale `template_id`-Felder und Feature-Flags pro Modul
-- Multi-Instanz-Aktivierung frühestens V8+
-- Brand-Profil in V2 = **eins**, Multi-Brand = V8+
+- Schema V1 template-ready (DEC-010 bleibt): optionale `template_id`-Felder und Feature-Flags pro Modul
+- Multi-Instanz-Aktivierung frühestens V9+
+- Brand-Profil in V1 = **eins**, Multi-Brand = V9+
 
-### Architektur-Imperativ (für `/architecture`)
-- Schema-Design V1 muss die Objekt-Struktur von V2–V7 zumindest konzeptionell mitbedenken: Content-, Asset-, Brand-, Kampagnen-, Segment-, Lead-, Publish-Event-, Tracking-Event-Tabellen
-- Adapter-Pattern als einheitliches Framework: Bedrock (LLM), Clay (Enrichment), LinkedIn (Publishing), E-Mail (Publishing), weitere Kanäle später
-- Gemeinsame Worker-Layer-Architektur (analog Onboarding-Worker), nicht pro Modul eigenständig
-- `/architecture`-Runde denkt in V1–V7, nicht nur in V1
+### Architektur-Imperativ (für `/architecture V1`)
+- ARCHITECTURE.md V2 bleibt Foundation — V1 braucht **Addendum**, keinen Rewrite:
+  - Tabellen für Brand-Profil-12-Sektionen (kann als JSONB strukturiert sein, einzelne Foreign-Keys nur wo Filterung relevant)
+  - 7 Output-Typen mit Skill-Quellbezug → Asset-Tabelle hat `source_skill`-Feld
+  - Lead-Tabelle mit Segment- und Campaign-FK
+  - Pitch-Tabelle (FEAT-016) mit Lead-FK + Asset-FK
+  - Performance-Capture-Felder als JSONB an Asset oder als eigene `asset_performance`-Tabelle
+  - Pipeline-Push-Adapter (`businessPipelineAdapter`) im Adapter-Verzeichnis
+  - Firecrawl-Adapter im Adapter-Verzeichnis
+- Adapter-Pattern bleibt einheitliches Framework: Bedrock (LLM), Firecrawl (Lead-Research), Business-Pipeline (Lead-Push), Clay-CSV (Lead-Import-Fallback). E-Mail (V2), LinkedIn (V4), Tracking (V5) folgen.
+- Worker-Layer-Architektur: gemeinsam, wie in DEC-008 festgelegt — kein Modul-eigener Worker
 
 ## Risks / Assumptions
 
-### Risks
-- **R-01: Business V4/V4.1 Erweiterungen.** Neue Entitäten werden Ingest-Anpassungen in IS erfordern. Akzeptiert.
-- **R-02: Onboarding-Export-Abhängigkeit.** Ingest V1 hängt von Onboarding SLC-010 ab.
-- **R-03: Scope-Kreep.** Bei aktiver Ideenfindung könnten V3+-Features in V1/V2 gezogen werden. Mitigation: Non-Goals hart verankert, Versions-Reihenfolge fixiert.
-- **R-04: Sensitive Daten in FEAT-007.** Deployment-Registry enthält Server-Referenzen. Nur Metadaten, keine Secrets.
-- **R-05: Business-Qualified-Lead-Inbox fehlt.** FEAT-014 braucht Business-seitige Inbox. Ohne diese nur CSV-Export möglich. Business-Roadmap-Abstimmung nötig.
-- **R-06: LinkedIn-API-Hürde V4.** Creator-API-App-Review dauert Wochen bis Monate. Mitigation: Früh in `/architecture` evaluieren, ggf. Buffer-/Hootsuite-Zwischen-Ebene als temporäre Brücke.
-- **R-07: Attribution-Komplexität V5.** Durchgängige Attribution (Kampagne → Deal) ist bekanntes Hard-Problem. Mitigation: V5 bewusst nur auf Kampagnen-Ebene, Deal-Attribution V8+.
-- **R-08: Clay-API-Kosten.** Je nach Integration-Tiefe. Mitigation: V3-Minimum CSV-Import.
-- **R-09: Tracking-Rohdaten-Limitierungen.** Plattformen liefern oft nur Aggregate, keine Raw-Events. Akzeptiert — IS konsolidiert was da ist.
-- **R-10: Brand-Konsistenz-Qualität V2.** Wenn Brand-Profil zu minimal ist, driftet KI-Output. Mitigation: 3–5 Beispiel-Assets als Pflicht-Feld.
+### Risks (V1)
+- **R-01: Firecrawl-EU-Endpoint und DPA.** Wenn Firecrawl in V1-Implementierung kein DSGVO-belastbares EU-Hosting bietet, ist Lead-Research-Primary-Provider blockiert. Mitigation: Vor SLC-005 (Lead Research) verifizieren — bei negativem Ergebnis Pivot auf Clay-CSV-only oder selbst gehostetes Crawl-Skript.
+- **R-02: Business-Pipeline-API-Lücke.** Pipeline-Funktion existiert in Business System, aber API-Endpoint für externe Deal-Erstellung muss in V1-Implementierung mit Business-Team verifiziert werden. Mitigation: Smoke-Test im Bridge-Slice (vor SLC-008), bei Lücke kurzer Business-System-Sprint.
+- **R-03: KI-Output-Qualität pro Skill-Quelle.** 7 Output-Typen mit jeweils eigenem Skill-Schema bedeutet 7 individuelle Bedrock-Prompts. Wenn ein Output-Typ konsistent unter Freigabe-Quote 60 % bleibt, blockiert er V1-Erfolg. Mitigation: pro Skill 5 Beispiel-Outputs aus Corey-Haines-Repo als few-shot mitgeben + iteratives Prompt-Tuning.
+- **R-04: 4-Level-Personalization-Aufwand.** Pro Lead 4-Level-Pitch (Industry/Company/Role/Individual) bedeutet 4 Bedrock-Calls oder einen großen Multi-Section-Call. Cost-pro-Lead könnte auflaufen. Mitigation: Cost-Tracking ab Tag 1 (DEC-009), bei Cost-pro-Lead > 0,50 EUR Refactoring zu single-call.
+- **R-05: Performance-Capture-Disziplin.** Performance-Loop funktioniert nur, wenn nach Posting wirklich Daten manuell erfasst werden. Mitigation: 10-Sek-UX, Reminder-Mechanismus, Default-Werte aus LinkedIn-Ads-CSV.
+- **R-06: Reference-Folder-Lizenz und Updates.** Corey-Haines-Repo ist MIT, aber Updates am Quell-Repo könnten unsere Spec-Foundation drift. Mitigation: Spec-Snapshot in `docs/spec-references/` extrahieren (siehe Empfehlung Git-Strategie b in OQ-V1-01).
+- **R-07: Bedrock-Cost-Auflauf.** 7 Output-Typen + Pitch-Generierung pro Lead bedeutet bei 100 Leads/Monat ~700 Bedrock-Calls. Mitigation: Cost-Cap pro Generation in `ai_cost_ledger`, Alarm bei Monatsschwelle.
+
+### Risks (mit Auswirkung auf spätere Versionen)
+- **R-08: V6 Wissensverdichtungs-Backbone-Verschiebung.** Wenn V6 erst nach 6+ Monaten kommt, sind Onboarding-Ingest-Annahmen veraltet. Mitigation: Onboarding-SLC-010-Export-API bleibt Ingest-Quelle, FEAT-001-Spec wird vor V6-Slice-Planning aktualisiert.
+- **R-09: Business V4 Lead-Pipeline-Stages-Konvention.** V1 setzt Stage „Neu" voraus. Wenn Business-Roadmap die Stage-Namen ändert, Pipeline-Push-Adapter anpassen.
 
 ### Assumptions
-- Onboarding-Plattform stellt stabile Export-API bereit (SLC-010)
-- Business V4 bietet REST-Zugang zu Kontakten, Unternehmen, Deals, Angeboten
-- Primärnutzer V1–V3: Gründer + 1–2 Berater
+- Primärnutzer V1: Gründer + 1 Marketing-Operator
 - Deployment erfolgt analog Onboarding: Coolify + Docker-Compose + Supabase + Bedrock-Adapter
-- Bedrock-Call-Kosten für Content-Generierung sind akzeptabel (geschätzt 10–50 Calls/Tag)
-- LinkedIn + E-Mail sind als erste Publishing-Kanäle ausreichend für V4
-- Business bekommt ab V4.x oder V5 eine Qualified-Lead-Inbox-Entität
+- Bedrock-Call-Kosten für Content-Generierung sind akzeptabel (geschätzt 30–80 Calls/Tag in V1)
+- LinkedIn + E-Mail sind als erste Publishing-Kanäle ausreichend für V2 + V4
+- Pipeline-Funktion im Business System hat einen erreichbaren API-Endpoint für externe Deal-Erstellung (Verifikation in V1-Implementierung)
+- Firecrawl bietet einen DSGVO-belastbaren EU-Endpoint (Verifikation in V1-Implementierung)
 
 ## Open Questions
 
-*OQ-V2-01..04 wurden am 2026-04-16 entschieden und sind Bestandteil der Architektur-Festlegungen oben.*
+### Pre-Architecture V1 (zu klären in `/architecture V1`-Lauf oder im Implementierungs-Bridge-Slice)
 
-### Offen für `/architecture` V2
-- **OQ-A1:** Genauer Datenschnitt Business-Ingest V1 (Deal-States, Angebote) — aus V1-Requirements übernommen (war OQ-02)
-- **OQ-A2:** Einheitliches GitHub-Repo für IS einrichten — aus V1-Requirements übernommen (war OQ-03)
-- **OQ-A3:** Tracking-Event-Schema V5: einheitlich (rigide) vs. hybrid (Core + kanal-spezifisches JSON-Payload)
-- **OQ-A4:** Worker-Layer-Architektur: gemeinsam für alle Module oder pro Modul eigenständig (Empfehlung: gemeinsam)
-- **OQ-A5:** Clay-Integration-Tiefe V3: CSV-Import-Minimum vs. Webhook + API-Pull
-- **OQ-A6:** LinkedIn-Publishing-API-Realität V4: Creator-API-App-Review-Aufwand, ggf. Buffer-/Hootsuite-Zwischen-Ebene
-- **OQ-A7:** Multi-Instanz-Architektur: Single-Codebase + Feature-Flags (Empfehlung) vs. Plug-in-Pattern
-- **OQ-A8:** E-Mail-Provider-Auswahl V4: Postmark, SES, Custom-SMTP
-- **OQ-A9:** Asset-Generierung synchron (in-Request) vs. asynchron via Worker je nach Bedrock-Antwortzeit
+- **OQ-V1-01: Git-Strategie für reference/corey-haines-marketing-skills/** — drei Optionen:
+  - a) ins Git committen (self-contained Repo, Updates am Upstream gehen verloren)
+  - b) gitignoren + Setup-README + Spec-Extraktion in `docs/spec-references/` (schlank, Empfehlung)
+  - c) Git-Submodule (versionsgepinnte Quelle, etwas mehr Komplexität)
+  - **Empfehlung: b)** — siehe DEC-021 (Status: pending Bestätigung im Skill-Lauf).
+- **OQ-V1-02: Firecrawl EU-Hosting verifizieren** — DPA-Status und Endpoint-Region prüfen, Alternative bei Negativ-Ergebnis. Vor SLC-005 in V1.
+- **OQ-V1-03: Pipeline-Push-API-Endpoint im Business System** — exakte Route, Payload-Schema, Auth-Modell mit Business-Team klären. Vor SLC-008 in V1.
+- **OQ-V1-04: 4-Level-Personalization Cost-Strategie** — single-call multi-section vs. 4 sequential calls. Entscheidung nach erstem Prototyp im Architektur-Lauf.
+- **OQ-V1-05: Performance-Capture-UX** — Inline-Eingabe in Asset-Detail vs. separater Performance-Capture-Workflow. Entscheidung im UI-Slice.
 
-### Offen für `/requirements` V3+ (später)
-- **OQ-R1:** Knowledge Packaging / SMAO-API — welche Version, welcher Auth-Standard (V8+)
-- **OQ-R2:** Custom-Brand-Profile pro Kunde — wann V8+ aktivieren, welche Pricing-Relevanz
+### Offen für `/architecture V1`
 
-### Business-Roadmap-Abhängigkeit
-- **OQ-BD1:** Business V4.x/V5: Qualified-Lead-Inbox-Entität als neues Feature einplanen. Ohne diese Business-seitige Erweiterung kann FEAT-014 Qualified Lead Handoff nicht scharf geschaltet werden. Abstimmung mit Business-Roadmap vor V3-Slice-Planning.
+- **OQ-A1: Datenmodell 12-Sektionen-Brand-Profile** — JSONB-Singleton vs. ausgespreizte Tabelle. Empfehlung: JSONB mit definiertem Schema (kein zusätzlicher Migration-Bedarf bei Sektion-Erweiterung).
+- **OQ-A2: Asset-Tabelle mit `source_skill`-Feld** — als Enum oder Free-Text mit Validation gegen Skill-Liste.
+- **OQ-A3: Lead-Pitch-Beziehung** — eine Pitch-Tabelle mit Lead-FK + Asset-FK, oder wird Pitch nur als spezialisierter Asset-Subtype geführt? Entscheidung beeinflusst Versionierung.
+- **OQ-A4: Performance-Capture-Tabelle** — eigene `asset_performance`-Tabelle vs. JSONB-Spalte an `asset`. Entscheidung beeinflusst Reporting-Queries.
+- **OQ-A5: Few-shot-Performance-Loop-Mechanik** — Wie werden Performance-Daten in den nächsten Prompt eingespeist? Top-N-Performer per Skill-Typ als Beispiele? Klassifikation High-/Mid-/Low-Performer? Entscheidung im Architektur-Lauf.
+
+### Offen für `/requirements` V2+ (später)
+
+- **OQ-R1:** E-Mail-Provider-Wahl V2 (DEC-013 schlägt Postmark EU vor — Bestätigung im V2-Lauf)
+- **OQ-R2:** LinkedIn-API-Realität V4 (DEC-014 schlägt Creator-API + Buffer-Fallback vor — App-Review-Test im V4-Lauf)
+- **OQ-R3:** Custom-Brand-Profile pro Kunde — wann V9+ aktivieren, welche Pricing-Relevanz
 
 ## Delivery Mode
+
 **`internal-tool`**
 
-Begründung: V1–V7 werden primär intern genutzt (Gründer + kleines Team). Deployment cloud-fähig (Hetzner + Supabase), aber kein SaaS-Produkt. Template-Modus für externe Kundeneinsätze kommt V8+ — dann kann sich der Delivery Mode auf `client-app` oder `SaaS` erweitern.
+Begründung: V1–V8 werden primär intern genutzt (Gründer + 1–2 Marketing-/Sales-Operator). Deployment cloud-fähig (Hetzner + Supabase), aber kein SaaS-Produkt. Template-Modus für externe Kundeneinsätze kommt V9+ — dann kann sich der Delivery Mode auf `client-app` oder `SaaS` erweitern.
 
 ## Referenzen
+
 - Gesamtarchitektur: `/strategaize-dev-system/docs/PLATFORM.md`
 - Data Residency: `/strategaize-dev-system/.claude/rules/data-residency.md`
-- Discovery V1: `/reports/RPT-001.md`
-- Discovery V2: `/reports/RPT-003.md`
-- Requirements V1: `/reports/RPT-002.md`
-- Requirements V2 (diese Runde): `/reports/RPT-004.md`
-- Richtungsvorgaben V1: `/docs/discovery-input.md`
-- Richtungsvorgaben V2: `/docs/discovery-input-v2.md`
+- Spec-Foundation: `/reference/corey-haines-marketing-skills/` (MIT-Lizenz, 47 Skills)
+- Discovery V1 (alt): `/reports/RPT-001.md`
+- Requirements V1 (alt): `/reports/RPT-002.md`
+- Discovery V2 (alt): `/reports/RPT-003.md`
+- Requirements V2 (alt): `/reports/RPT-004.md`
+- Architecture V1 (Foundation, gültig): `/reports/RPT-005.md`
+- Slice-Planning V1 (alt): `/reports/RPT-006.md`
+- SLC-001 Backend-Setup (alt): `/reports/RPT-007.md`
+- **Requirements V1 Marketing Launcher Pivot (diese Runde): `/reports/RPT-008.md`**
+- Richtungsvorgaben V1 (alt): `/docs/discovery-input.md`
+- Richtungsvorgaben V2 (alt): `/docs/discovery-input-v2.md`
+- Memory: `session_handoff_2026_04_25_marketing_launcher_pivot.md`, `project_marketing_launcher_v1_scope.md`

@@ -2,213 +2,213 @@
   "items": [
     {
       "id": "BL-001",
-      "title": "Project Setup & Foundation",
-      "type": "feature",
-      "priority": "high",
-      "status": "open",
-      "version": "V1",
-      "description": "Next.js 16+ Projekt initialisieren, Supabase-Setup (lokal + Hetzner), Docker-Compose via Coolify, Base-Schema mit template-ready Feldern, Auth/RBAC (analog Onboarding), Bedrock-Adapter (Provider-Adapter-Pattern), GitHub-Repo anlegen und mit Coolify verbinden. Grundlage für alle Features.",
-      "createdAt": "2026-04-15"
-    },
-    {
-      "id": "BL-002",
-      "title": "FEAT-001 Ingest-Layer Onboarding",
-      "type": "feature",
-      "priority": "high",
-      "status": "open",
-      "version": "V1",
-      "description": "Pull-basierter KU-Import aus Onboarding-SLC-010-Export-API, inkrementell alle 10 Minuten, IS-eigene KU-Cache-Tabelle, Ingest-Log. Siehe /features/FEAT-001-ingest-onboarding.md.",
-      "createdAt": "2026-04-15"
-    },
-    {
-      "id": "BL-003",
-      "title": "FEAT-002 Ingest-Layer Business",
-      "type": "feature",
-      "priority": "high",
-      "status": "open",
-      "version": "V1",
-      "description": "Pull-basierter Import von Kontakten/Unternehmen/Deals/Angeboten aus Business V4, fehlertolerant gegen fehlende Entitäten. Stündlicher Cron. Siehe /features/FEAT-002-ingest-business.md.",
-      "createdAt": "2026-04-15"
-    },
-    {
-      "id": "BL-004",
-      "title": "FEAT-003 Portfolio-Monitor",
-      "type": "feature",
-      "priority": "high",
-      "status": "open",
-      "version": "V1",
-      "description": "UI-Übersicht aller Kundenprojekte mit Filter, Suche, Detail-Ansicht mit Deployment-Karte, verknüpften KUs und Opportunities. Primärer IS-Einstiegspunkt. Siehe /features/FEAT-003-portfolio-monitor.md.",
-      "createdAt": "2026-04-15"
-    },
-    {
-      "id": "BL-005",
-      "title": "FEAT-004 Insight-Layer",
-      "type": "feature",
-      "priority": "high",
-      "status": "open",
-      "version": "V1",
-      "description": "Durchsuchbare, filterbare KU-Liste mit Tag-System, manuellem Clustering, Volltext-Suche, Detail-Ansicht, Aktionen. Siehe /features/FEAT-004-insight-layer.md.",
-      "createdAt": "2026-04-15"
-    },
-    {
-      "id": "BL-006",
-      "title": "FEAT-005 Opportunity & Decision basic",
-      "type": "feature",
-      "priority": "high",
-      "status": "open",
-      "version": "V1",
-      "description": "Opportunity-CRUD mit 4 Pflicht + 7 optionalen Bewertungs-Dimensionen. KI-Bewertungsvorschlag via Bedrock Sonnet. Decision-Board mit Status-Workflow und Audit-Log. Siehe /features/FEAT-005-opportunity-decision.md.",
-      "createdAt": "2026-04-15"
-    },
-    {
-      "id": "BL-007",
-      "title": "FEAT-006 Cross-Kunden-Learnings basic",
-      "type": "feature",
-      "priority": "medium",
-      "status": "open",
-      "version": "V1",
-      "description": "Zusatzfelder an KU (is_shareable + shared_text), manuelle Freigabe- und Anonymisierungs-UX, Cross-Kunden-Ansicht. Siehe /features/FEAT-006-cross-kunden-learnings.md.",
-      "createdAt": "2026-04-15"
-    },
-    {
-      "id": "BL-008",
-      "title": "FEAT-007 Customer Deployment Registry",
-      "type": "feature",
-      "priority": "high",
-      "status": "open",
-      "version": "V1",
-      "description": "Pro Kunde Deployment-Entität (Typ, Hoster, Host-Referenz, Zugang-Referenz, aktive Module, Code-Version). Update-Rollout-Ansicht. Keine Secrets im IS. Siehe /features/FEAT-007-deployment-registry.md.",
-      "createdAt": "2026-04-15"
-    },
-    {
-      "id": "BL-009",
-      "title": "FEAT-008 Brand Profile",
-      "type": "feature",
-      "priority": "high",
-      "status": "open",
-      "version": "V2",
-      "description": "Singleton-Brand-Profil (StrategAIze-Eigen) mit strukturierten Feldern: Tonalität, Do's, Don'ts, Struktur-Templates pro Output-Typ, 3–5 Beispiel-Assets als few-shot-Examples. LLM-Kontext-Grundlage für FEAT-009. Siehe /features/FEAT-008-brand-profile.md.",
-      "createdAt": "2026-04-16"
-    },
-    {
-      "id": "BL-010",
-      "title": "FEAT-009 Content Asset Production",
-      "type": "feature",
-      "priority": "high",
-      "status": "open",
-      "version": "V2",
-      "description": "Asset-Request-Workflow, KI-Generierung via Bedrock mit Brand-Profil-Kontext, 6 Output-Typen (Blogpost, LinkedIn-Post, One-Pager, E-Mail-Vorlage, Case Card, Landingpage-Briefing), Asset-Bibliothek mit Filter, Versionierung, Status-Workflow, Markdown-Export. Siehe /features/FEAT-009-content-asset-production.md.",
-      "createdAt": "2026-04-16"
-    },
-    {
-      "id": "BL-011",
-      "title": "FEAT-010 ICP & Segment",
-      "type": "feature",
-      "priority": "high",
-      "status": "open",
-      "version": "V3",
-      "description": "ICP-Entität (firmografisch, strukturell, Trigger-Signale) + Segment-Entität (gefilterte ICP-Instanz mit Business-Kontakten + externen Leads als Mitgliedern). Segment-Definition-Builder. Siehe /features/FEAT-010-icp-segment.md.",
-      "createdAt": "2026-04-16"
-    },
-    {
-      "id": "BL-012",
-      "title": "FEAT-011 Campaign Management",
-      "type": "feature",
-      "priority": "high",
-      "status": "open",
-      "version": "V3",
-      "description": "Parent-Campaign + Channel-Segmente + Variant-Ebene für A/B. Kampagnentypen inkl. High-Attention-Outreach (physischer Brief + Call). Status-Workflow, Kampagnen-Wizard, hierarchische Detail-Ansicht. Siehe /features/FEAT-011-campaign-management.md.",
-      "createdAt": "2026-04-16"
-    },
-    {
-      "id": "BL-013",
-      "title": "FEAT-012 Lead Research & Enrichment",
-      "type": "feature",
-      "priority": "high",
-      "status": "open",
-      "version": "V3",
-      "description": "Lead-Entität, Research-Task (6 Research-Typen aus archiviertem FEAT-012), Clay-CSV-Import-Adapter, manuelle Lead-Ergänzung, Duplikat-Erkennung. Siehe /features/FEAT-012-lead-research-enrichment.md.",
-      "createdAt": "2026-04-16"
-    },
-    {
-      "id": "BL-014",
-      "title": "FEAT-013 Lead Scoring",
-      "type": "feature",
-      "priority": "medium",
-      "status": "open",
-      "version": "V3",
-      "description": "Regelbasiertes Lead-Scoring mit konfigurierbaren Regeln (Feld/Operator/Wert/Punkte/Kategorie), Disqualifier-Logik, Threshold-Config global + Override pro Segment/Kampagne, Score-Histogramm. KI-Scoring = V5+. Siehe /features/FEAT-013-lead-scoring.md.",
-      "createdAt": "2026-04-16"
-    },
-    {
-      "id": "BL-015",
-      "title": "FEAT-014 Qualified Lead Handoff",
-      "type": "feature",
-      "priority": "high",
-      "status": "open",
-      "version": "V3",
-      "description": "Fluss 5b: Handoff-Event-Entität, API-Push an Business Qualified-Lead-Inbox (sobald Business diese liefert), CSV-Export als Übergang, manueller Handoff, Status-Sync aus Business. Siehe /features/FEAT-014-qualified-lead-handoff.md.",
-      "createdAt": "2026-04-16"
-    },
-    {
-      "id": "BL-016",
-      "title": "Business-Roadmap-Abstimmung: Qualified Lead Inbox",
-      "type": "improvement",
-      "priority": "high",
-      "status": "open",
-      "version": "V3",
-      "description": "Business V4.x/V5 muss eine Qualified-Lead-Inbox-Entität als neues Feature erhalten. FEAT-014 ist davon abhängig. Vor V3-Slice-Planning: Business-Roadmap-Abstimmung (Auth-Modell, JSON-Payload, Webhook/Poll-Status-Sync).",
-      "createdAt": "2026-04-16"
-    },
-    {
-      "id": "BL-017",
-      "title": "V4 Publishing / Distribution — Feature-Spezifikation",
-      "type": "feature",
-      "priority": "medium",
-      "status": "open",
-      "version": "V4",
-      "description": "In späterer Requirements-Runde zu spezifizieren: Kanal-Adapter-Framework (LinkedIn + E-Mail), Scheduling/Queue, Format-Anpassung, Publish-Status. LinkedIn-API-Realität (Creator-API, App-Review) vorher evaluieren.",
-      "createdAt": "2026-04-16"
-    },
-    {
-      "id": "BL-018",
-      "title": "V5 Tracking / Performance-Cockpit — Feature-Spezifikation",
-      "type": "feature",
-      "priority": "medium",
-      "status": "open",
-      "version": "V5",
-      "description": "In späterer Requirements-Runde zu spezifizieren: einheitliches Event-Schema, Rohdaten-Pull, konsolidiertes Kampagnen-Cockpit, A/B-Auswertung operativ, KI-Scoring als Ersatz für regelbasiertes Scoring.",
-      "createdAt": "2026-04-16"
-    },
-    {
-      "id": "BL-019",
-      "title": "V6 Validation & Idea Testing — Feature-Spezifikation",
+      "title": "V6 FEAT-001 Ingest-Layer Onboarding (verschoben aus altem V1)",
       "type": "feature",
       "priority": "medium",
       "status": "open",
       "version": "V6",
-      "description": "In späterer Requirements-Runde zu spezifizieren: Experiment-Entität (Hypothese, Kill-Kriterien), KI-Vorschlag von Experiment-Designs aus Opportunities, Research-Task-Erweiterung mit strukturierten Ergebnis-Dokumentationen.",
-      "createdAt": "2026-04-16"
+      "description": "Pull-basierter KU-Import aus Onboarding-SLC-010-Export-API, inkrementell alle 10 Minuten, IS-eigene KU-Cache-Tabelle, Ingest-Log. Verschoben 2026-04-25 von V1 auf V6 (Wissensverdichtungs-Backbone). Siehe /features/FEAT-001-ingest-onboarding.md.",
+      "createdAt": "2026-04-15"
     },
     {
-      "id": "BL-020",
-      "title": "V7 Orchestration & Decision Layer — Feature-Spezifikation",
+      "id": "BL-002",
+      "title": "V6 FEAT-002 Ingest-Layer Business (verschoben aus altem V1)",
       "type": "feature",
-      "priority": "low",
+      "priority": "medium",
       "status": "open",
-      "version": "V7",
-      "description": "In späterer Requirements-Runde zu spezifizieren: Hybrid-Cockpit (Priority-Felder in Listen + Top-5-Dashboard), manuelle Flags, Learning-Rückflüsse. KI-Auto-Priorisierung = V8+.",
-      "createdAt": "2026-04-16"
+      "version": "V6",
+      "description": "Pull-basierter Import von Kontakten/Unternehmen/Deals/Angeboten aus Business V4+, fehlertolerant gegen fehlende Entitaeten. Stuendlicher Cron. Verschoben 2026-04-25 von V1 auf V6. Siehe /features/FEAT-002-ingest-business.md.",
+      "createdAt": "2026-04-15"
     },
     {
-      "id": "BL-021",
-      "title": "Design-System-Grundstock (Style Guide V2)",
+      "id": "BL-003",
+      "title": "V6 FEAT-003 Portfolio-Monitor (verschoben aus altem V1)",
+      "type": "feature",
+      "priority": "medium",
+      "status": "open",
+      "version": "V6",
+      "description": "UI-Uebersicht aller Kundenprojekte mit Filter, Suche, Detail-Ansicht mit Deployment-Karte, verknuepften KUs und Opportunities. Verschoben 2026-04-25 von V1 auf V6. Siehe /features/FEAT-003-portfolio-monitor.md.",
+      "createdAt": "2026-04-15"
+    },
+    {
+      "id": "BL-004",
+      "title": "V6 FEAT-004 Insight-Layer (verschoben aus altem V1)",
+      "type": "feature",
+      "priority": "medium",
+      "status": "open",
+      "version": "V6",
+      "description": "Durchsuchbare, filterbare KU-Liste mit Tag-System, manuellem Clustering, Volltext-Suche, Detail-Ansicht, Aktionen. Verschoben 2026-04-25 von V1 auf V6. Siehe /features/FEAT-004-insight-layer.md.",
+      "createdAt": "2026-04-15"
+    },
+    {
+      "id": "BL-005",
+      "title": "V6 FEAT-005 Opportunity & Decision basic (verschoben aus altem V1)",
+      "type": "feature",
+      "priority": "medium",
+      "status": "open",
+      "version": "V6",
+      "description": "Opportunity-CRUD mit 4 Pflicht + 7 optionalen Bewertungs-Dimensionen. KI-Bewertungsvorschlag via Bedrock Sonnet. Decision-Board mit Status-Workflow und Audit-Log. Verschoben 2026-04-25 von V1 auf V6. Siehe /features/FEAT-005-opportunity-decision.md.",
+      "createdAt": "2026-04-15"
+    },
+    {
+      "id": "BL-006",
+      "title": "V6 FEAT-006 Cross-Kunden-Learnings basic (verschoben aus altem V1)",
+      "type": "feature",
+      "priority": "medium",
+      "status": "open",
+      "version": "V6",
+      "description": "Zusatzfelder an KU (is_shareable + shared_text), manuelle Freigabe- und Anonymisierungs-UX, Cross-Kunden-Ansicht. Verschoben 2026-04-25 von V1 auf V6. Siehe /features/FEAT-006-cross-kunden-learnings.md.",
+      "createdAt": "2026-04-15"
+    },
+    {
+      "id": "BL-007",
+      "title": "V6 FEAT-007 Customer Deployment Registry (verschoben aus altem V1)",
+      "type": "feature",
+      "priority": "medium",
+      "status": "open",
+      "version": "V6",
+      "description": "Pro Kunde Deployment-Entitaet (Typ, Hoster, Host-Referenz, Zugang-Referenz, aktive Module, Code-Version). Update-Rollout-Ansicht. Keine Secrets im IS. Verschoben 2026-04-25 von V1 auf V6. Siehe /features/FEAT-007-deployment-registry.md.",
+      "createdAt": "2026-04-15"
+    },
+    {
+      "id": "BL-008",
+      "title": "V6 Project Setup & Foundation Refresh (verschoben aus altem V1)",
+      "type": "feature",
+      "priority": "medium",
+      "status": "open",
+      "version": "V6",
+      "description": "Setup-Aufgaben fuer V6-Wissensverdichtungs-Backbone — bauen auf V1-Foundation auf, Schema-Erweiterungen fuer KU-Cache, Business-Cache, Onboarding-Pull-Worker. Aktivierung der Feature-Flags FEATURE_INGEST_ENABLED, FEATURE_PORTFOLIO_ENABLED, FEATURE_INSIGHT_ENABLED. Verschoben 2026-04-25 (war BL-001 im alten V1).",
+      "createdAt": "2026-04-15"
+    },
+    {
+      "id": "BL-009",
+      "title": "V1 FEAT-008 Brand Profile (12-Sektionen-Schema)",
       "type": "feature",
       "priority": "high",
       "status": "open",
       "version": "V1",
-      "description": "Umsetzung StrategAIze Style Guide V2 als verbindliche Komponenten-Bibliothek (Header, KPICard, FilterBar, Voice/AI-Buttons, StatusBadge, ContentCard, DeutschlandKarte, Modal, Form-Komponenten) + Tailwind-Theme + 5 Layout-Templates + Design-System-Showcase-Seite. Vorbedingung für alle Feature-UIs (DEC-017). Entspricht SLC-002.",
+      "description": "Singleton-Brand-Profil auf 12-Sektionen-Schema aus product-marketing-context-Skill (MIT). Sektionen: Product Overview / Target Audience / Personas / Problems & Pain Points / Competitive Landscape / Differentiation / Objections & Anti-Personas / Switching Dynamics (JTBD Four Forces) / Customer Language / Brand Voice / Proof Points / Goals. Ersetzt altes V2-Brand-Profile-Schema vollstaendig. JSONB-Singleton-Tabelle. Siehe /features/FEAT-008-brand-profile.md.",
+      "createdAt": "2026-04-25"
+    },
+    {
+      "id": "BL-010",
+      "title": "V1 FEAT-009 Content Asset Production (7 Output-Typen mit Skill-Quellbezug)",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V1",
+      "description": "Asset-Request-Workflow, asynchrone Generierung via Worker (DEC-011), 7 Output-Typen mit jeweils dediziertem Skill aus Corey-Haines-Repo: Blogpost (copywriting), LinkedIn-Post (social-content), One-Pager (sales-enablement 5-Sektionen), E-Mail-Vorlage (cold-email 4-Frameworks + 4-Level), Case Card (sales-enablement 6-Felder), Landingpage-Briefing (copywriting+page-cro 7-Dimensionen), Multi-Page-Website-Spec (site-architecture). Asset-Bibliothek mit Filter/Versionierung/Status, Performance-Few-Shot-Loop. Siehe /features/FEAT-009-content-asset-production.md.",
+      "createdAt": "2026-04-25"
+    },
+    {
+      "id": "BL-011",
+      "title": "V1 FEAT-010 ICP & Segment (aus product-marketing-context Sektion 2+3)",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V1",
+      "description": "ICP-Felder mappen 1:1 auf product-marketing-context Sektion 2 (Target Audience) + Sektion 3 (Personas). Brand-Profile-Verknuepfung mit 'Aus Brand Profile uebernehmen'-Action. Segment-Mitglieder kommen in V1 ausschliesslich aus FEAT-015 Lead-Pool (kein Business-Ingest in V1). Filter-Builder ueber Lead-Felder. Siehe /features/FEAT-010-icp-segment.md.",
+      "createdAt": "2026-04-25"
+    },
+    {
+      "id": "BL-012",
+      "title": "V1 FEAT-011 Campaign Management LITE (Parent-Klammer ohne Variants)",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V1",
+      "description": "V1-Variante: Parent-Campaign als Klammer fuer Asset-Set + Lead-Set + Pitch-Set in einem Zeitfenster. KEIN Channel-Segment, KEIN Variant — kommt mit V4 als Voll-Variant. Performance-Aggregation aus FEAT-014. Wizard fuer Schritt-fuer-Schritt-Anlage. Siehe /features/FEAT-011-campaign-management.md.",
+      "createdAt": "2026-04-25"
+    },
+    {
+      "id": "BL-013",
+      "title": "V1 FEAT-014 Lead Handoff (Pipeline-Push) + Performance-Capture",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V1",
+      "description": "Pipeline-Push statt Qualified-Lead-Inbox (loest DEC-005 ab via DEC-022). Qualifizierter Lead wird als Deal in Business-Pipeline 'Lead-Generierung' Stage 'Neu' gepusht. Plus Performance-Capture-Felder pro Asset (10-Sek-UX nach Posting), LinkedIn-Ads-CSV-Adapter. Top-2-Performer als few-shot in naechste KI-Generierung — Closed-Loop-Differentiator. Siehe /features/FEAT-014-qualified-lead-handoff.md.",
+      "createdAt": "2026-04-25"
+    },
+    {
+      "id": "BL-014",
+      "title": "V1 FEAT-015 Lead Research (Firecrawl + Clay-CSV)",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V1",
+      "description": "Wiederholbare Lead-Recherche mit Firecrawl-Adapter (Primary, Pay-as-you-go, EU-Endpoint vor SLC-005 verifizieren) + Clay-CSV-Import (Fallback) + manuelle Eintragung. Lead-Pool als Datenquelle fuer Segment-Mitgliedschaft (FEAT-010), Pitch-Generierung (FEAT-016) und Pipeline-Push (FEAT-014). Duplikat-Erkennung ueber (domain, contact_email). Cost-Cap pro Run. Ersetzt alte FEAT-012-V3-Spec. Siehe /features/FEAT-015-lead-research.md.",
+      "createdAt": "2026-04-25"
+    },
+    {
+      "id": "BL-015",
+      "title": "V1 FEAT-016 Messaging-Variation pro Lead (4-Level + Psychology-Booster)",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V1",
+      "description": "Pro Lead ein personalisierter Pitch (E-Mail oder LinkedIn-Post) mit 4-Level-Personalization (Industry/Company/Role/Individual) aus cold-email-Skill + marketing-psychology-Booster (Reciprocity/Social Proof/Scarcity/Authority/Liking/Commitment). Brand-Profile (FEAT-008) als KI-Kontext. Konkrete V1-Implementierung von BL-024-Idee. Siehe /features/FEAT-016-messaging-variation.md.",
+      "createdAt": "2026-04-25"
+    },
+    {
+      "id": "BL-016",
+      "title": "V1 Project Setup & Foundation",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V1",
+      "description": "Next.js 16+ Projekt initialisieren, Supabase-Setup (lokal + Hetzner), Docker-Compose via Coolify, Base-Schema mit template-ready Feldern, Auth/RBAC (analog Onboarding), Bedrock-Adapter (Provider-Adapter-Pattern), GitHub-Repo bereits aktiv (DEC-018). Grundlage fuer alle V1-Features.",
+      "createdAt": "2026-04-25"
+    },
+    {
+      "id": "BL-017",
+      "title": "V1 Design-System-Grundstock (Style Guide V2)",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V1",
+      "description": "Umsetzung StrategAIze Style Guide V2 als verbindliche Komponenten-Bibliothek (Header, KPICard, FilterBar, Voice/AI-Buttons, StatusBadge, ContentCard, Modal, Form-Komponenten) + Tailwind-Theme + 5 Layout-Templates + Design-System-Showcase-Seite. Vorbedingung fuer alle Feature-UIs (DEC-017). War BL-021 im alten V1, bleibt strukturelle Anforderung.",
       "createdAt": "2026-04-16"
+    },
+    {
+      "id": "BL-018",
+      "title": "V2 E-Mail-Versand-Adapter mit Open-Tracking",
+      "type": "feature",
+      "priority": "medium",
+      "status": "open",
+      "version": "V2",
+      "description": "Postmark EU primaer (DEC-013), Versand-Queue mit Scheduling, Open/Click-Tracking via Pixel + Link-Wrapper, Bounce/Complaint-Verarbeitung, DSGVO-Opt-out-Handling. V1 erzeugt nur Asset, V2 schaltet den Versand frei.",
+      "createdAt": "2026-04-25"
+    },
+    {
+      "id": "BL-019",
+      "title": "V3 Lead Scoring (regelbasiert + Disqualifier)",
+      "type": "feature",
+      "priority": "medium",
+      "status": "open",
+      "version": "V3",
+      "description": "FEAT-013 Lead Scoring mit regelbasierten Konfigurations-Punkten (Feld/Operator/Wert/Punkte/Kategorie), Disqualifier-Logik, Threshold-Config global + Override pro Segment/Kampagne, Score-Histogramm. Auto-Trigger-Push wenn Score Threshold ueberschreitet. Siehe /features/FEAT-013-lead-scoring.md.",
+      "createdAt": "2026-04-16"
+    },
+    {
+      "id": "BL-020",
+      "title": "V4 LinkedIn-Publishing + Multi-Channel + High-Attention-Outreach",
+      "type": "feature",
+      "priority": "medium",
+      "status": "open",
+      "version": "V4",
+      "description": "FEAT-011 Voll-Variant (Channel-Segments + Variants), LinkedIn-Adapter (Creator-API primaer, Buffer/Hootsuite als Fallback, DEC-014), High-Attention-Outreach (physischer Brief + Call) als Channel-Variante (zurueckgeholt aus alter V3-Planung).",
+      "createdAt": "2026-04-25"
+    },
+    {
+      "id": "BL-021",
+      "title": "V5 Voll-Tracking + KI-Scoring + A/B-Statistik",
+      "type": "feature",
+      "priority": "medium",
+      "status": "open",
+      "version": "V5",
+      "description": "Tracking-Event-Schema Hybrid (DEC-015), konsolidiertes Performance-Cockpit, KI-Scoring (loest V3 ab), Auto-Variant-Generierung, A/B-Statistik mit Signifikanz-Test, Attribution auf Kampagnen-Ebene.",
+      "createdAt": "2026-04-25"
     },
     {
       "id": "BL-022",
@@ -217,7 +217,7 @@
       "priority": "medium",
       "status": "open",
       "version": null,
-      "description": "Eigene StrategAIze-Business-Website mit Claude Design (Prototyp) + Claude Code (Implementierung) bauen statt One.com AI Builder (100 EUR/Monat). Basis: Style Guide V2 + Extended Style Guide als Design-System-Input, Brand Colors aus bestehenden Projekten, Next.js + Tailwind + shadcn/ui Stack. Hosting auf IONOS (bereits vorhanden). Seiten: Homepage, Produkt-Übersichten (Onboarding, Business System, IS), Social Proof, CTA, Kontakt. Texte/Copy aus Codebase + PRDs generieren lassen. Voraussetzung: Produkte müssen in stabilem Zustand sein (Business V4.1+, Onboarding fertig), damit Website-Inhalte belastbar sind. One.com-Abo kündigen sobald Alternative steht.",
+      "description": "Eigene StrategAIze-Business-Website mit Claude Design (Prototyp) + Claude Code (Implementierung) bauen statt One.com AI Builder (100 EUR/Monat). Basis: Style Guide V2 + Extended Style Guide als Design-System-Input, Brand Colors aus bestehenden Projekten, Next.js + Tailwind + shadcn/ui Stack. Hosting auf IONOS. Voraussetzung: Produkte stabil (Business V4.1+, Onboarding fertig).",
       "createdAt": "2026-04-22"
     },
     {
@@ -226,19 +226,39 @@
       "type": "idea",
       "priority": "medium",
       "status": "open",
-      "version": "V2",
-      "description": "Export verdichteter Knowledge Units als .md-Dateien in Vault-Struktur (Ordner pro Kunde/Block/Thema). Kompatibel mit Obsidian, Notion, und jedem Markdown-fähigen System. Primäre Use Cases: (1) Kunden erhalten ihr verdichtetes Wissen als portables Paket — kein Vendor Lock-in. (2) Knowledge-Basis für digitale Assistenten / Voice-AI-Systeme (z.B. SMAO) — Markdown als universelles Wissensformat für Telefon-Assistenten, Chatbots, interne Helpdesks. (3) Berater können Wissen in eigene Tools importieren. Export-Format: Frontmatter-YAML (Tags, Kunde, Block, Datum) + Markdown-Body. Batch-Export als ZIP. Baut auf FEAT-004 Insight-Layer auf. Strategische Relevanz: universelles Wissens-Austauschformat, Differenzierungsmerkmal gegenüber geschlossenen Plattformen, Voraussetzung für SMAO-Partner-API (V8+).",
+      "version": "V6",
+      "description": "Export verdichteter Knowledge Units als .md-Dateien in Vault-Struktur. Kompatibel mit Obsidian, Notion, Markdown-faehige Systeme. Use Cases: portables Kunden-Paket, Knowledge-Basis fuer digitale Assistenten / Voice-AI (SMAO), Berater-Tools-Import. Frontmatter-YAML + Markdown-Body. Baut auf FEAT-004 Insight-Layer auf — daher V6 (mit dem Backbone). Strategische Differenzierung gegenueber geschlossenen Plattformen.",
       "createdAt": "2026-04-22"
     },
     {
       "id": "BL-024",
-      "title": "Personalisierter Sales-Pitch pro Lead (Clay + Content-Kombination)",
+      "title": "Personalisierter Sales-Pitch pro Lead — V1-Implementierung als FEAT-016",
       "type": "idea",
       "priority": "medium",
-      "status": "open",
-      "version": "V3",
-      "description": "Konkreter Use Case der FEAT-009 (Content Production) + FEAT-012 (Lead Research) Kombination: Aus Clay-Enrichment-Daten (Funding-Status, Hiring-Signale, Tech-Stack, Branche) automatisch personalisierten Pitch generieren — inkl. Einwandbehandlung, Follow-up-Strategie, und branchenspezifischem Ansprache-Template. Output als Content-Asset mit Status-Workflow. Ziel: Sales-Vorbereitung von 30 Min. manuellem LinkedIn-Research auf 5 Min. KI-gestützten Pitch reduzieren. Kein eigenständiges Feature, sondern Asset-Typ-Erweiterung in FEAT-009 + Research-Workflow in FEAT-012. Bei V3-Requirements als konkreten Workflow-Use-Case spezifizieren.",
+      "status": "in_progress",
+      "version": "V1",
+      "description": "Konkrete V1-Implementierung dieser Idee ist FEAT-016 Messaging-Variation pro Lead. 4-Level-Personalization (Industry/Company/Role/Individual) aus cold-email-Skill + marketing-psychology-Booster. Wird auf 'done' gesetzt sobald FEAT-016 V1-released ist.",
       "createdAt": "2026-04-22"
+    },
+    {
+      "id": "BL-025",
+      "title": "Firecrawl EU-Hosting + DPA verifizieren (Pre-V1-Implementation)",
+      "type": "improvement",
+      "priority": "high",
+      "status": "open",
+      "version": "V1",
+      "description": "Vor SLC-005 (Lead Research) muss Firecrawl-DPA-Status und Endpoint-Region geprueft werden (Risk R-01 + OQ-V1-02 im PRD). Bei Negativ-Ergebnis: Pivot auf Clay-CSV-only oder selbst gehostetes Crawl-Skript. Verifikation als ADR (DEC) oder ISSUE dokumentieren.",
+      "createdAt": "2026-04-26"
+    },
+    {
+      "id": "BL-026",
+      "title": "Business-Pipeline-API-Endpoint verifizieren (Pre-V1-Implementation)",
+      "type": "improvement",
+      "priority": "high",
+      "status": "open",
+      "version": "V1",
+      "description": "Vor SLC-008 (Lead Handoff) muss der API-Endpoint im Business System fuer externe Deal-Erstellung in Pipeline 'Lead-Generierung' Stage 'Neu' verifiziert werden. Auth via Internal-API-Token. Smoke-Test mit Business-Team. Risk R-02 + OQ-V1-03 im PRD.",
+      "createdAt": "2026-04-26"
     }
   ]
 }

@@ -4,57 +4,64 @@
       "id": "v1",
       "name": "V1",
       "status": "active",
-      "summary": "Fundament + Learning & Pattern Intelligence — 7 Features: Ingest-Layer Onboarding, Ingest-Layer Business (fehlertolerant), Portfolio-Monitor, Insight-Layer (KU-Liste mit Tags/Clustering/Volltext), Opportunity & Decision basic (4+7 Dimensionen, KI-Bewertung), Cross-Kunden-Learnings basic (manuelle Freigabe + Anonymisierung), Customer Deployment Registry. Requirements abgeschlossen 2026-04-15, Architecture steht an.",
+      "summary": "Marketing Launcher (Closed Loop Lite) — 7 Features: FEAT-008 Brand Profile (12-Sektionen-Schema aus product-marketing-context), FEAT-009 Content Asset Production (7 Output-Typen mit Skill-Quellbezug aus copywriting/social-content/sales-enablement/cold-email/page-cro/site-architecture), FEAT-010 ICP & Segment (aus product-marketing-context Sektion 2+3), FEAT-011 Campaign LITE (Parent-Klammer ohne Channel-Segments+Variants), FEAT-014 Lead Handoff (Pipeline-Push statt Qualified-Lead-Inbox) + Performance-Capture-Loop, FEAT-015 Lead Research (Firecrawl + Clay-CSV), FEAT-016 Messaging-Variation pro Lead (4-Level-Personalization + marketing-psychology). Ist Lead-Generator fuer StrategAIze selbst — schliesst Marketing-Schleife minimal mit Pipeline-Push ans Business System.",
       "order": 1
     },
     {
       "id": "v2",
       "name": "V2",
       "status": "planned",
-      "summary": "Content, Brand & Asset Production — FEAT-008 Brand Profile (ein StrategAIze-Eigenes, strukturiert mit 3–5 Beispiel-Assets als few-shot-Examples), FEAT-009 Content Asset Production (6 Output-Typen: Blogpost, LinkedIn-Post, One-Pager, E-Mail-Vorlage, Case Card, Landingpage-Briefing; KI-Generierung via Bedrock mit Brand-Kontext; Asset-Bibliothek mit Versionierung und Status-Workflow).",
+      "summary": "E-Mail-Versand-Adapter mit Open-Tracking — Postmark EU primaer (DEC-013), Versand-Queue mit Scheduling, Open/Click-Tracking via Pixel + Link-Wrapper, Bounce/Complaint-Verarbeitung, DSGVO-Opt-out-Handling. V1 erzeugt nur Asset, V2 schaltet den Versand frei.",
       "order": 2
     },
     {
       "id": "v3",
       "name": "V3",
       "status": "planned",
-      "summary": "Campaign & Lead Intelligence — FEAT-010 ICP & Segment, FEAT-011 Campaign Management (Parent-Campaign + Channel-Segmente + Variant-Ebene, digital + physisch, High-Attention-Outreach-Typ), FEAT-012 Lead Research & Enrichment (6 Research-Typen + Clay-CSV-Import + manuell), FEAT-013 Lead Scoring (regelbasiert, Disqualifier, Threshold-Config), FEAT-014 Qualified Lead Handoff (Fluss 5b an Business — setzt Business-seitige Qualified-Lead-Inbox voraus).",
+      "summary": "Voll-Lead-Research + Lead-Scoring — FEAT-013 Lead Scoring (regelbasiert + Disqualifier-Logik), Voll-Firecrawl-Adapter (Webhook + API-Pull), Auto-Disqualifier-Regeln vor Pitch-Generierung. Erweitert V1-Lead-Research-Pull-on-Demand zu automatischem Inbound-Stream.",
       "order": 3
     },
     {
       "id": "v4",
       "name": "V4",
       "status": "planned",
-      "summary": "Publishing / Distribution — Kanal-Adapter-Framework (LinkedIn + E-Mail als erste Kanäle), Scheduling, Queue, Format-Anpassung, Publish-Status-Tracking, Verknüpfung Asset → Kampagne → Channel-Segment → Publish-Event. Features werden in späterer Requirements-Runde spezifiziert.",
+      "summary": "LinkedIn-Publishing + Multi-Channel-Distribution — FEAT-011 Voll-Variant (Channel-Segments + Variants fuer A/B-Vorbereitung), LinkedIn-Adapter (Creator-API primaer, Buffer/Hootsuite als Fallback gemaess DEC-014), High-Attention-Outreach (physischer Brief + Call) als Channel-Variante. V4 macht Multi-Channel-Distribution scharf.",
       "order": 4
     },
     {
       "id": "v5",
       "name": "V5",
       "status": "planned",
-      "summary": "Tracking / Performance-Cockpit — einheitliches Event-Schema, Rohdaten-Pull pro Kanal, konsolidiertes Kampagnen-Cockpit, A/B-Auswertung operativ, KI-Scoring (ersetzt regelbasiertes Scoring aus V3). Attribution auf Kampagnen-Ebene, keine Deal-Attribution. Features werden in späterer Requirements-Runde spezifiziert.",
+      "summary": "Voll-Tracking + KI-Scoring + A/B-Statistik — Tracking-Event-Schema Hybrid (Core-Felder + kanalspezifisches JSON-Payload, DEC-015), konsolidiertes Performance-Cockpit, KI-Scoring (loest regelbasiertes Scoring aus V3 ab), Auto-Variant-Generierung, A/B-Statistik mit Signifikanz-Test. Attribution auf Kampagnen-Ebene, Deal-Attribution V9+.",
       "order": 5
     },
     {
       "id": "v6",
       "name": "V6",
       "status": "planned",
-      "summary": "Validation & Idea Testing — Experiment-Entität (Hypothese, Kill-Kriterien, Erfolgssignale, Budget, Zeitfenster), KI-Vorschlag von Experiment-Designs aus Opportunities, Research-Task-Erweiterung (6 Research-Typen), strukturierte Ergebnis-Dokumentation und Folgeentscheidung. Features werden in späterer Requirements-Runde spezifiziert.",
+      "summary": "Wissensverdichtungs-Backbone (ehemals V1) — FEAT-001 Ingest-Layer Onboarding, FEAT-002 Ingest-Layer Business, FEAT-003 Portfolio-Monitor, FEAT-004 Insight-Layer (KU-Liste mit Tags/Clustering/Volltext), FEAT-005 Opportunity & Decision basic (4+7 Dimensionen, KI-Bewertung), FEAT-006 Cross-Kunden-Learnings basic (manuelle Freigabe + Anonymisierung), FEAT-007 Customer Deployment Registry. Pivot 2026-04-25: verschoben weil ohne Customer-Cases (die Marketing Launcher V1 erst erzeugt) leerer Speicher.",
       "order": 6
     },
     {
       "id": "v7",
       "name": "V7",
       "status": "planned",
-      "summary": "Orchestration & Decision Layer — Hybrid-Cockpit (Priority-Felder in Listen + leichtgewichtiges Top-5-Dashboard), manuelle Flags, Sortierung nach Priorität, Learning-Rückflüsse an Onboarding und Business. KI-Auto-Priorisierung ist V8+.",
+      "summary": "Validation & Idea Testing — Experiment-Entitaet (Hypothese, Kill-Kriterien, Erfolgssignale, Budget, Zeitfenster), KI-Vorschlag von Experiment-Designs aus Opportunities (V6+ verfuegbar), Research-Task-Erweiterung mit 6 Research-Typen aus archiviertem alten FEAT-012, strukturierte Ergebnis-Dokumentation und Folgeentscheidung.",
       "order": 7
     },
     {
-      "id": "v8plus",
-      "name": "V8+",
+      "id": "v8",
+      "name": "V8",
       "status": "planned",
-      "summary": "Spätere Verdichtung — Template-Modus für externe Kundenunternehmen (Multi-Instanz-Aktivierung), Custom-Brand-Profile pro Kunde, SMAO-Partner-API (Auth, Rate-Limiting), Auto-Anonymisierung via Bedrock, KI-Auto-Clustering, KI-Auto-Priorisierung, Deal-Ebene-Attribution, weitere Publishing-Kanäle (X, YouTube, Paid-Ads).",
+      "summary": "Orchestration & Decision Layer — Hybrid-Cockpit (Priority-Felder in Listen + leichtgewichtiges Top-5-Dashboard, DEC-007), manuelle Flags + Sortierung, Learning-Rueckfluesse an Onboarding (Fragenkataloge) und Business (Argumente). KI-Auto-Priorisierung = V9+.",
       "order": 8
+    },
+    {
+      "id": "v9plus",
+      "name": "V9+",
+      "status": "planned",
+      "summary": "Multi-Tenant + Voice-API + Erweiterungen — Template-Modus fuer externe Kundenunternehmen (Multi-Instanz-Aktivierung), Custom-Brand-Profile pro Kunde (loest V1-Singleton ab), SMAO-Partner-API mit Auth + Rate-Limiting (Knowledge Packaging), Auto-Anonymisierung via Bedrock fuer Cross-Kunden-Learnings, KI-Auto-Clustering, KI-Auto-Priorisierung, Deal-Ebene-Attribution (Kampagne -> Deal-Abschluss), weitere Publishing-Kanaele (X, YouTube/Short-Video, Paid-Ads).",
+      "order": 9
     }
   ]
 }

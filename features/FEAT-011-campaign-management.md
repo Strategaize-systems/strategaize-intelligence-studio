@@ -1,37 +1,76 @@
-# FEAT-011 — Campaign Management
+# FEAT-011 — Campaign Management LITE (V1) + Voll-Variant (V4)
 
 ## Status
-- Version: V3
+- Version: V1 (LITE) + V4 (Voll-Variant)
 - Status: planned
 - Priority: high
 
 ## Purpose
-Zentrales Kampagnen-Objekt für alle vertrieblichen und marketingseitigen Ausspiel-Aktivitäten. Modelliert digital + physisch einheitlich mit Parent-Campaign + Channel-Segmenten + Variant-Ebene für A/B-Testing-Vorbereitung.
+Zentrales Kampagnen-Objekt für alle vertrieblichen und marketingseitigen Ausspiel-Aktivitäten. **V1 ist eine Lite-Variante** (Parent-Klammer ohne Channel-Segments und ohne Variants), die V1-Marketing-Launcher-Slices zusammenklammert. **V4 erweitert auf Voll-Variant** (Channel-Segments + Variants für A/B-Vorbereitung) — dann ist Multi-Channel-Distribution scharfgeschaltet.
 
-**Kontext:** Gründer-Entscheidung OQ-V2-01 (2026-04-16): Parent-Campaign mit Channel-Segment-Kindern, Variant-Ebene für späteres A/B-Testing in V5 vorbereitet.
+**Kontext-Update 2026-04-25:** Die ursprüngliche V3-Spec sah Channel-Segments + Variants direkt vor. Pivot 2026-04-25: V1 startet mit Lite-Klammer (kein Channel-Segment, kein Variant), weil V1 noch keine echte Multi-Channel-Distribution ausspielt. Voll-Variant inklusive High-Attention-Outreach (physischer Brief + Call) verschiebt sich auf V4. DEC-004 (Parent + Channel-Segments + Variants) bleibt strukturell gültig — nur die V1-Aktivierung ist auf Parent-only reduziert.
 
-## In Scope (V3)
+## In Scope V1 (LITE)
 
-### Parent-Campaign-Entität
-Die strategische Kampagne mit Ziel und Zielgruppe.
+### Parent-Campaign-Entität (Klammer ohne Channel-Segments)
 
-**Pflichtfelder:**
-- Titel (z. B. „Q2 Akquise Steuerberater Süddeutschland")
+Die strategische Kampagne als Klammer für Asset-Set + Lead-Set + Pitch-Set in einem Zeitfenster.
+
+**Pflichtfelder V1:**
+- Titel (z. B. „Q2 2026 Steuerberater Süddeutschland Outreach")
 - Ziel/Hypothese (Freitext)
+- Zugehöriges ICP (n:1 zu FEAT-010 ICP)
 - Zugehöriges Segment (n:1 zu FEAT-010 Segment)
 - Zeitfenster (Start/Ende)
-- Erfolgssignale (strukturierte Liste)
-- Kampagnentyp: `standard_outbound`, `inbound_triggered`, `hybrid`, **`high_attention_outreach`**
+- Erfolgssignale (strukturierte Liste — z. B. „mind. 5 Pipeline-Pushes", „Cost-per-Lead < 80 EUR")
 - Status: `entwurf` → `aktiv` → `abgeschlossen` → `abgebrochen`
 - Verantwortlicher (User-Referenz)
 
-**Optionale Felder:**
-- Budget-Rahmen
-- Verknüpftes Asset-Paket (Referenz auf FEAT-009 Assets)
-- Verknüpfte Opportunity (Referenz auf FEAT-005)
+**Optionale Felder V1:**
+- Budget-Rahmen (Schätzung, kein Auto-Tracking in V1)
+- Verknüpftes Asset-Set (n:m zu FEAT-009) — welche Assets gehören zur Kampagne
+- Verknüpftes Lead-Set (n:m zu FEAT-015) — welche Leads sind Adressaten
+- Verknüpfte Pitch-Set (n:m zu FEAT-016) — welche Pitches wurden generiert
 - Notizen
 
+**V1 NICHT enthalten (aktiviert mit V4):**
+- Channel-Segment-Entität (LinkedIn / E-Mail / Physical-Mail / Phone-Call als Sub-Klammern)
+- Variant-Entität (A/B-Varianten innerhalb eines Channel-Segments)
+- High-Attention-Outreach-Kampagnentyp (physischer Brief + Call)
+- Audience-Split-Validierung
+- Channel-Mix-Filter
+
+### UI V1
+
+- **Kampagnen-Übersicht:** Liste mit Filter (Status, ICP, Segment, Zeitraum)
+- **Detail-Ansicht V1:** Parent-Felder + zugeordnete Asset-Set + Lead-Set + Pitch-Set (jeweils als Tab oder Accordion)
+- **Kampagnen-Wizard V1 (Step-by-Step):**
+  1. Titel + Ziel + Zeitfenster
+  2. ICP + Segment auswählen (FEAT-010)
+  3. Asset-Set zuordnen (FEAT-009)
+  4. Lead-Set zuordnen (FEAT-015)
+  5. Pitch-Set zuordnen (FEAT-016 — nach Lead-Auswahl, je 1 Pitch pro Lead)
+  6. Erfolgssignale + Verantwortlicher
+  7. Speichern als Entwurf oder direkt aktivieren
+- **Kalender-Ansicht** (optional V1, sonst V4)
+
+### Performance-Aggregation V1
+
+Die Kampagnen-Detail-Ansicht zeigt aggregierte Performance über alle zugeordneten Assets (aus FEAT-014 Performance-Capture):
+- Posts gesamt
+- Impressions gesamt
+- Clicks gesamt
+- Leads-generated gesamt
+- Cost gesamt (EUR)
+- Cost-per-Lead (berechnet)
+- Pipeline-Pushes (aus FEAT-014 Lead-Handoff)
+
+## In Scope V4 (Voll-Variant)
+
+In V4 wird die Lite-Klammer um die folgenden Strukturen erweitert:
+
 ### Channel-Segment-Entität
+
 Ein Kanal innerhalb einer Kampagne.
 
 **Pflichtfelder:**
@@ -45,8 +84,7 @@ Ein Kanal innerhalb einer Kampagne.
 - Briefing-Notizen
 - Verknüpfte Assets (n:m zu FEAT-009)
 
-### Variant-Entität
-Eine A/B-Test-Variante innerhalb eines Channel-Segments.
+### Variant-Entität (A/B-Vorbereitung)
 
 **Pflichtfelder:**
 - Parent-Channel-Segment (n:1)
@@ -55,51 +93,61 @@ Eine A/B-Test-Variante innerhalb eines Channel-Segments.
 - Audience-Split-Anteil (Prozent, Summe pro Channel-Segment muss 100 ergeben)
 - Status: `entwurf` / `aktiv` / `abgeschlossen`
 
-**Hinweis:** Varianten werden in V3 angelegt. Operative Auswertung kommt erst V5 (Tracking nötig).
+**Hinweis:** Operative A/B-Auswertung mit Signifikanz-Test kommt erst V5 (Tracking-Voll nötig).
 
-### High-Attention-Outreach-Kampagnentyp
-Spezielle Handhabung für physische Kampagnen:
+### High-Attention-Outreach-Kampagnentyp (V4)
+
 - Physical-Mail-Channel-Segment: Adress-Liste + Brief-Content (Asset-Referenz) + Versand-Hinweis
 - Phone-Call-Channel-Segment: Anruf-Plan, Follow-up-Script, optional Zeitplan
-- **IS bereitet vor, trackt physisch nicht** (Gründer-Fixierung 2026-04-16)
+- IS bereitet vor, trackt physisch nicht (Gründer-Fixierung 2026-04-16 bleibt gültig)
 - Manuelles Status-Update: „verschickt am X" + Follow-up-Call-Ausgang
 
-### UI
-- Kampagnen-Übersicht: Liste mit Filter (Status, Kanal-Mix, Segment, Typ)
-- Detail-Ansicht: Parent + alle Channel-Segmente + Varianten hierarchisch
-- Kampagnen-Wizard: Schritt-für-Schritt-Anlage (Segment auswählen → Kanäle wählen → Assets zuordnen → Zeitplan → Start)
-- Kalender-Ansicht (optional in V3, sonst V4)
+### Template-Ready (V1 + V4)
+- `template_id` (UUID NULL in V1)
 
-### Template-Ready
-- `template_id` (optional, NULL in V3)
+## Out of Scope V1
 
-## Out of Scope (V3)
-- Tatsächliches Publishing auf Kanälen (V4)
-- Echtes A/B-Test-Auswertung mit Performance-Vergleich (V5)
-- Automatische Kampagnen-Empfehlung aus Opportunities (V6+)
-- Kampagnen-Klonen / Templates-als-Ausgangspunkt (V8+)
+- Channel-Segment-Entität (V4)
+- Variant-Entität (V4)
+- High-Attention-Outreach-Kampagnentyp (V4)
+- Tatsächliches Publishing auf Kanälen (V2 E-Mail / V4 LinkedIn)
+- A/B-Auswertung (V5)
+- Automatische Kampagnen-Empfehlung aus Opportunities (V7+, abhängig V6)
+- Kampagnen-Klonen / Templates (V9+)
 - Budget-Tracking mit tatsächlichen Kosten (V5+)
-- Kampagnen-Workflow-Automation (Triggered-Sequenzen) (V6+)
+- Kampagnen-Workflow-Automation (V7+)
 
-## Acceptance Criteria
-- Parent-Campaign kann mit allen Pflichtfeldern angelegt werden
-- Mindestens 2 Channel-Segmente pro Kampagne anlegbar
-- Variant-Ebene ist funktional (mindestens 2 Varianten pro Channel-Segment)
-- Audience-Split-Anteile werden validiert (Summe = 100)
-- High-Attention-Outreach-Kampagnentyp funktioniert mit Physical-Mail + Phone-Call-Channel-Segmenten
-- Status-Workflow durchgängig
-- Hierarchische Detail-Ansicht zeigt Parent → Channel-Segmente → Varianten
-- Verknüpfung zu Assets (FEAT-009), Segment (FEAT-010), Opportunity (FEAT-005) funktioniert
+## Acceptance Criteria V1
 
-## Dependencies
-- FEAT-010 ICP & Segment (Zielgruppen-Referenz)
-- FEAT-009 Content Asset Production (Asset-Zuordnung)
-- FEAT-005 Opportunity & Decision (optionale Verknüpfung)
+- Parent-Campaign kann mit allen Pflichtfeldern (V1) angelegt werden
+- ICP + Segment-Verknüpfung funktioniert
+- Asset-Set / Lead-Set / Pitch-Set-Zuordnung funktioniert (n:m)
+- Status-Workflow durchgängig (entwurf → aktiv → abgeschlossen → abgebrochen)
+- Performance-Aggregation in Detail-Ansicht zeigt korrekte Summen aus FEAT-014 Performance-Capture
+- Kampagnen-Wizard führt Schritt-für-Schritt durch alle Pflicht-Inputs
 
-## Architektur-Hinweise für `/architecture`
-- Drei-Tabellen-Struktur: `campaign` → `channel_segment` (n:1) → `campaign_variant` (n:1)
-- Channel-Enum erweiterbar (LinkedIn, E-Mail, Physical-Mail, Phone-Call, Other; Paid-Plattformen folgen V8+)
-- Audience-Split-Validierung via Check-Constraint oder App-Layer
-- Physical-Mail-Artefakte: Adress-Liste als Array oder separate Tabelle
-- Publishing-Events (FEAT V4) werden später an Channel-Segment + Variant verknüpft
-- Tracking-Events (FEAT V5) ebenso
+## Dependencies V1
+
+- FEAT-010 ICP & Segment (Audience-Verknüpfung)
+- FEAT-009 Content Asset Production (Asset-Set)
+- FEAT-015 Lead Research (Lead-Set)
+- FEAT-016 Messaging-Variation (Pitch-Set)
+- FEAT-014 Lead Handoff + Performance-Capture (für Aggregation)
+
+## Architektur-Hinweise für `/architecture V1`
+
+- **V1 Tabelle `campaign`** (Parent-only): `id`, `title`, `goal`, `icp_id`, `segment_id`, `start_at`, `end_at`, `success_signals (text[])`, `status`, `owner_id`, `budget_estimate (NULL)`, `notes`, `template_id (NULL)`, `created_at`, `created_by`
+- **V1 Verknüpfungstabellen** (n:m): `campaign_asset (campaign_id, asset_id)`, `campaign_lead (campaign_id, lead_id)`, `campaign_pitch (campaign_id, pitch_id)`
+- **Performance-Aggregation:** Als Materialized View oder On-the-fly-Query über `asset_performance` joined via `campaign_asset` — Empfehlung On-the-fly für V1 (kleines Volumen)
+- **V4 Erweiterung (vorbereitet):** Tabellen `channel_segment` und `campaign_variant` werden in V4-Migration angelegt — V1-Schema enthält keine ungenutzten leeren Tabellen
+- Kampagnen-Wizard als Multi-Step-Form-Komponente (analog Onboarding-Wizard-Pattern)
+
+## Migration aus V3-Spec
+
+Die alte V3-Spec sah die Voll-Variant direkt vor. V1-Tabellen-Subset wird angelegt, V4-Erweiterung dokumentiert aber nicht migriert. Es gibt keine Daten-Migration — V1 startet mit leerer Kampagnen-Tabelle.
+
+## Referenzen
+
+- DEC-004 (Campaign-Modell Parent + Channel-Segments + Variants) bleibt strukturell gültig — V1 aktiviert nur Parent-Subset
+- FEAT-008 (Brand Profile als KI-Kontext für Asset-Generierung)
+- FEAT-014 (Performance-Capture-Loop)
