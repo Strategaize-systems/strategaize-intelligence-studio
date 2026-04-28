@@ -155,9 +155,9 @@
       "title": "V1 Project Setup & Foundation",
       "type": "feature",
       "priority": "high",
-      "status": "open",
+      "status": "in_progress",
       "version": "V1",
-      "description": "Next.js 16+ Projekt initialisieren, Supabase-Setup (lokal + Hetzner), Docker-Compose via Coolify, Base-Schema mit template-ready Feldern, Auth/RBAC (analog Onboarding), Bedrock-Adapter (Provider-Adapter-Pattern), GitHub-Repo bereits aktiv (DEC-018). Grundlage fuer alle V1-Features.",
+      "description": "Next.js 16 + React 19 + Tailwind 3 + Supabase-Clients + Worker (esbuild-bundle) + Vitest + ESLint v9 flat-config + Bedrock-Adapter (DEC-009) implementiert in SLC-101 (2026-04-28). Auf Hetzner-Coolify deployt = NICHT (MT-2 blockiert auf IS-Coolify-Supabase-Instanz). Status bleibt in_progress bis MT-2 + erster Deploy durch.",
       "createdAt": "2026-04-25"
     },
     {
@@ -165,9 +165,9 @@
       "title": "V1 Design-System-Grundstock (Style Guide V2)",
       "type": "feature",
       "priority": "high",
-      "status": "open",
+      "status": "done",
       "version": "V1",
-      "description": "Umsetzung StrategAIze Style Guide V2 als verbindliche Komponenten-Bibliothek (Header, KPICard, FilterBar, Voice/AI-Buttons, StatusBadge, ContentCard, Modal, Form-Komponenten) + Tailwind-Theme + 5 Layout-Templates + Design-System-Showcase-Seite. Vorbedingung fuer alle Feature-UIs (DEC-017). War BL-021 im alten V1, bleibt strukturelle Anforderung.",
+      "description": "Implementiert in SLC-101 (2026-04-28): 14 Komponenten unter src/components/design-system/ (Header, KPICard, FilterBar, Button, VoiceButton, AIButton, StatusBadge, ContentCard, Modal, Input, Textarea, Select, Checkbox, FormField) + 5 Layout-Templates (Layout1Dashboard, Layout2MeinTag, Layout3Beziehungen, Layout4Pipeline, Layout5Aufgaben) + Tailwind-Theme mit Brand-Tokens + Showcase-Seite /_design-system. Style Guide V2 (DEC-017) verbindlich.",
       "createdAt": "2026-04-16"
     },
     {

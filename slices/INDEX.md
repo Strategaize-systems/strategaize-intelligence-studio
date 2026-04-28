@@ -2,13 +2,13 @@
 
 ## Status
 
-**V1 Marketing Launcher Slice-Planning abgeschlossen 2026-04-26 (RPT-010).** 8 Slices SLC-101..108 mit Micro-Task-Decomposition + TDD-Policy + Worktree-Empfehlung spezifiziert. Pre-Implementation-Bridges (BL-027 + BL-028) als parallele Coordination-Tasks im Backlog. Naechster Skill-Schritt: `/backend SLC-101` (Foundation-Refresh + MIG-002).
+**SLC-101 Foundation Refresh code-only umgesetzt 2026-04-28 (RPT-011).** 10 von 10 Code-Micro-Tasks done, MT-2 (Hetzner-Migration) blockiert auf User-Coordination (IS-Coolify-Supabase-Instanz). Alle uebrigen 7 Slices SLC-102..108 weiterhin `planned` aus Slice-Planning RPT-010 (2026-04-26).
 
 ## V1 Marketing Launcher Slices
 
 | ID | Slice | Feature | Status | Priority | Created |
 |----|-------|---------|--------|----------|---------|
-| SLC-101 | [Foundation Refresh](SLC-101-foundation-refresh.md) | Setup / BL-016 + BL-017 | planned | Blocker | 2026-04-26 |
+| SLC-101 | [Foundation Refresh](SLC-101-foundation-refresh.md) | Setup / BL-016 + BL-017 | in_progress | Blocker | 2026-04-26 |
 | SLC-102 | [Brand Profile (12-Sektionen)](SLC-102-brand-profile.md) | FEAT-008 / BL-009 | planned | High | 2026-04-26 |
 | SLC-103 | [Content Asset Production (7 Output-Typen)](SLC-103-content-asset-production.md) | FEAT-009 / BL-010 | planned | High | 2026-04-26 |
 | SLC-104 | [ICP & Segment](SLC-104-icp-segment.md) | FEAT-010 / BL-011 | planned | High | 2026-04-26 |

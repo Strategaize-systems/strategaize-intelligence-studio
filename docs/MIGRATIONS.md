@@ -1,8 +1,9 @@
 # Migrations
 
-### MIG-001 — Initial Schema Baseline V1
-- Date: 2026-04-16
-- Scope: 17 Tabellen für V1 (FEAT-001..007) inkl. Infrastruktur-Tabellen (`ai_jobs`, `ai_cost_ledger`, `audit_log`). Alle Tabellen mit RLS aktiv, `template_id UUID NULL` als V8+-Vorbereitung, Standard-Rollen-Helper-Funktionen (`auth.user_tenant_id()`, `auth.user_role()`).
+### MIG-001 — Initial Schema Baseline V1 *(V1-Subset implementiert 2026-04-28)*
+- Date: 2026-04-28 (V1-Subset SQL committed; Hetzner-Apply pending MT-2)
+- Scope (V1-Subset, in `sql/migrations/001_v1_foundation.sql`): `ai_jobs`, `ai_cost_ledger`, `audit_log`, `auth.user_role()`, `ai_job_type_enum` (V6-Werte), service_role GRANTs. Pre-Condition fuer MIG-002.
+- Scope (Original-Spec, V6-Slice-Planning): 14 weitere V6-Tabellen (FEAT-001..007) — wandert mit V6-Slice-Planning, NICHT in V1.
 - Reason: Architektur V2 definiert V1-Schema für Ingest, Knowledge-Units, Opportunity/Decision, Cross-Kunden-Learnings, Customer Deployment Registry. Siehe `/docs/ARCHITECTURE.md` Abschnitt 5.1.
 - Affected Areas: Initiale Datenbank-Baseline. Keine Daten-Migration nötig (Leer-Projekt).
 - Risk: Schema-Fehler sind später schwer zurückzunehmen, daher Template-Readiness (`template_id`) ab Tag 1, um Multi-Instanz-Refactor in V8+ zu vermeiden. RLS-Policies müssen vor jedem Production-Deploy mit SAVEPOINT-Tests gegen echte DB verifiziert werden (Muster aus `strategaize-dev-system/.claude/rules/coolify-test-setup`).
@@ -30,8 +31,8 @@
   - `ai_cost_ledger` — Cost-Tracking pro externem Call (DEC-009)
   - `audit_log` — Generic Audit-Trail
 
-### MIG-002 — V1 Marketing Launcher Schema Extension *(geplant, nicht ausgefuehrt)*
-- Date: TBD (V1 Marketing Launcher Implementation, post `/architecture V1` 2026-04-26)
+### MIG-002 — V1 Marketing Launcher Schema Extension *(SQL implementiert 2026-04-28, Hetzner-Apply pending)*
+- Date: 2026-04-28 (SQL-File `sql/migrations/002_v1_marketing_launcher_schema.sql` committed; Hetzner-Apply pending MT-2 / IS-Coolify-Supabase-Instanz)
 - Scope: 16 Tabellen fuer V1-Marketing-Launcher (FEAT-008..011 + 014..016). Plus Enum-Erweiterung von `ai_job_type_enum` um 3 Werte (`asset_generation`, `pitch_generation`, `lead_research_run`).
 - Reason: Strategischer Pivot 2026-04-25 — V1 ist Marketing Launcher (Closed Loop Lite). Architektur-Foundation V2 (MIG-001) bleibt als V6-Vorbereitung gueltig. MIG-002 ergaenzt das V1-Datenmodell aus FEAT-008..016. Architekturaufloesung der OQ-A1..A5 in DEC-023..027 (siehe `/docs/DECISIONS.md`).
 - Affected Areas: 16 neue Tabellen, keine Aenderungen an MIG-001-Tabellen. Erweiterung `ai_jobs.job_type` Enum um 3 Werte.
