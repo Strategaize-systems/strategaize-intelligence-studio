@@ -1,8 +1,9 @@
 # Migrations
 
-### MIG-001 — Initial Schema Baseline V1 *(V1-Subset implementiert 2026-04-28)*
-- Date: 2026-04-28 (V1-Subset SQL committed; Hetzner-Apply pending MT-2)
-- Scope (V1-Subset, in `sql/migrations/001_v1_foundation.sql`): `ai_jobs`, `ai_cost_ledger`, `audit_log`, `auth.user_role()`, `ai_job_type_enum` (V6-Werte), service_role GRANTs. Pre-Condition fuer MIG-002.
+### MIG-001 — Initial Schema Baseline V1 *(V1-Subset applied 2026-04-29)*
+- Date: 2026-04-29 — V1-Subset SQL applied auf Hetzner-Coolify-Supabase (Server `is-coolify-nbg1`, IP 162.55.216.180, Container `supabase-db-r8citvzqeg4y7xcmvclljg6e`)
+- Scope (V1-Subset, in `sql/migrations/001_v1_foundation.sql`): `ai_jobs`, `ai_cost_ledger`, `audit_log`, `public.user_role()` (NICHT `auth.user_role()` wegen Supabase-Schema-Lock), `ai_job_type_enum` (4 V6-Werte: ingest_onboarding, ingest_business, opportunity_scoring, business_status_pull), service_role GRANTs. Pre-Condition fuer MIG-002.
+- Apply-Verifikation: 3/3 Infrastruktur-Tabellen + 1/1 Helper-Function + Enum mit 4 Initial-Werten + RLS aktiv.
 - Scope (Original-Spec, V6-Slice-Planning): 14 weitere V6-Tabellen (FEAT-001..007) — wandert mit V6-Slice-Planning, NICHT in V1.
 - Reason: Architektur V2 definiert V1-Schema für Ingest, Knowledge-Units, Opportunity/Decision, Cross-Kunden-Learnings, Customer Deployment Registry. Siehe `/docs/ARCHITECTURE.md` Abschnitt 5.1.
 - Affected Areas: Initiale Datenbank-Baseline. Keine Daten-Migration nötig (Leer-Projekt).
@@ -31,8 +32,9 @@
   - `ai_cost_ledger` — Cost-Tracking pro externem Call (DEC-009)
   - `audit_log` — Generic Audit-Trail
 
-### MIG-002 — V1 Marketing Launcher Schema Extension *(SQL implementiert 2026-04-28, Hetzner-Apply pending)*
-- Date: 2026-04-28 (SQL-File `sql/migrations/002_v1_marketing_launcher_schema.sql` committed; Hetzner-Apply pending MT-2 / IS-Coolify-Supabase-Instanz)
+### MIG-002 — V1 Marketing Launcher Schema Extension *(applied 2026-04-29)*
+- Date: 2026-04-29 — SQL-File `sql/migrations/002_v1_marketing_launcher_schema.sql` applied auf Hetzner-Coolify-Supabase (gleicher Server wie MIG-001).
+- Apply-Verifikation: 16/16 V1-Tabellen + 2/2 neue Enums (asset_output_type_enum + asset_source_skill_enum, jeweils 7 Werte) + 3 ai_job_type_enum-Werte ergaenzt (asset_generation, pitch_generation, lead_research_run) + RLS aktiv auf allen 16 Tabellen + alle 4 kritischen Indizes (Singleton, Dedupe, Idempotency, Few-shot-Top-N) angelegt.
 - Scope: 16 Tabellen fuer V1-Marketing-Launcher (FEAT-008..011 + 014..016). Plus Enum-Erweiterung von `ai_job_type_enum` um 3 Werte (`asset_generation`, `pitch_generation`, `lead_research_run`).
 - Reason: Strategischer Pivot 2026-04-25 — V1 ist Marketing Launcher (Closed Loop Lite). Architektur-Foundation V2 (MIG-001) bleibt als V6-Vorbereitung gueltig. MIG-002 ergaenzt das V1-Datenmodell aus FEAT-008..016. Architekturaufloesung der OQ-A1..A5 in DEC-023..027 (siehe `/docs/DECISIONS.md`).
 - Affected Areas: 16 neue Tabellen, keine Aenderungen an MIG-001-Tabellen. Erweiterung `ai_jobs.job_type` Enum um 3 Werte.

@@ -2,7 +2,7 @@
 
 ## Status
 
-**SLC-101 Foundation Refresh code-only umgesetzt 2026-04-28 (RPT-011).** 10 von 10 Code-Micro-Tasks done, MT-2 (Hetzner-Migration) blockiert auf User-Coordination (IS-Coolify-Supabase-Instanz). Alle uebrigen 7 Slices SLC-102..108 weiterhin `planned` aus Slice-Planning RPT-010 (2026-04-26).
+**SLC-101 Foundation komplett umgesetzt 2026-04-29 (RPT-011).** Alle 10 Micro-Tasks done inkl. MT-2 Hetzner-Migration. Hetzner-Server `is-coolify-nbg1` (CPX42, Ubuntu 24.04, Coolify v4.0.0 + Supabase-Stack 14 Container) live. MIG-001 + MIG-002 applied. Naechster Schritt: `/qa SLC-101`. Uebrige 7 Slices SLC-102..108 weiterhin `planned`.
 
 ## V1 Marketing Launcher Slices
 

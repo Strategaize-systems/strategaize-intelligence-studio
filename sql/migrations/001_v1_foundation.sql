@@ -21,7 +21,10 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 -- ── auth helper ────────────────────────────────────────────────────────
 -- ARCHITECTURE.md 5.5: SECURITY DEFINER, liest aus JWT-Claim 'role'.
 -- V1 single-tenant: tenant_id-Logik kommt mit V8+ (DEC-010).
-CREATE OR REPLACE FUNCTION auth.user_role()
+-- HINWEIS: Funktion liegt im public-Schema, NICHT auth-Schema. Supabase
+-- verwaltet auth-Schema selbst und blockt User-Defined-Funktionen dort
+-- (auch fuer postgres-Superuser). public.user_role() ist semantisch identisch.
+CREATE OR REPLACE FUNCTION public.user_role()
 RETURNS text
 LANGUAGE sql
 SECURITY DEFINER
@@ -29,7 +32,7 @@ STABLE
 AS $$
   SELECT COALESCE(
     current_setting('request.jwt.claim.role', true),
-    NULLIF(auth.jwt() ->> 'role', ''),
+    NULLIF(current_setting('request.jwt.claims', true)::jsonb ->> 'role', ''),
     'authenticated'
   );
 $$;

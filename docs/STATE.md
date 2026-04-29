@@ -12,17 +12,17 @@ Referenz: `/strategaize-dev-system/docs/PLATFORM.md`.
 
 ## Current State
 - High-Level State: implementing
-- Current Focus: SLC-101 Foundation Refresh implementiert + lokal verifiziert (build + typecheck + 21 tests passing). Alle Code-Outputs (10 MTs ausser MT-2) committed auf branch `worktree/slc-101-foundation`. MT-2 (Hetzner-DB-Migration) blockiert auf User-Coordination — IS-spezifische Coolify-Supabase-Instanz muss vorhanden sein. Naechster Schritt: User entscheidet ob (a) IS-Coolify-Setup zuerst gemacht wird und MT-2 dann nachgereicht oder (b) Worktree gemerged + /qa SLC-101 trotz offener DB-Verifikation.
-- Current Phase: V1 Marketing Launcher Implementation (SLC-101 Foundation umgesetzt, MT-2 Hetzner-Migration ausstehend; Worktree-Branch noch offen)
+- Current Focus: SLC-101 Foundation komplett (alle 10 MTs done inkl. MT-2 Hetzner-Migration auf 2026-04-29). Hetzner-Server `is-coolify-nbg1` (162.55.216.180, CPX42, Ubuntu 24.04) mit Coolify v4.0.0 + Supabase-Stack (14 Container healthy) live. MIG-001 + MIG-002 erfolgreich applied (19 Tabellen public-Schema, 3 Enums, RLS auf allen V1-Tabellen, alle 4 kritischen Indizes). Naechster Schritt: `/qa SLC-101` (mandatory per CLAUDE.md), danach Worktree-Branch mergen + `/backend SLC-102` (Brand Profile FEAT-008).
+- Current Phase: V1 Marketing Launcher Implementation (SLC-101 done; bereit fuer /qa)
 
 ## Immediate Next Steps
-1. **User-Coordination MT-2:** Entscheiden ob IS-eigene Coolify-Supabase-Instanz heute angelegt wird (dann MT-2 sofort) oder erst zu einem spaeteren Zeitpunkt (dann SLC-101-Code mergen + /qa code-only).
-2. **Parallel BL-028:** Firecrawl-Self-Host auf Hetzner (vor SLC-105). Eigene Setup-Session.
-3. **Parallel BL-027:** Business-System Coordination-Sprint (POST `/api/internal/deals` + INTERNAL_API_TOKEN). Vor V1-Final-Check.
-4. Nach MT-2-Klaerung: `/qa SLC-101` (mandatory per CLAUDE.md).
-5. Danach `/backend SLC-102` (Brand Profile, FEAT-008).
-6. Slice-Reihenfolge bleibt: SLC-101 → 102 → 103 → 104 → (BL-028 fertig) → 105 → 106 → 107 → 108 (Manual-Mode V1-default, Flag scharf nach BL-027).
-7. Vor `/final-check V1`: Gesamt-`/qa V1` + BL-027 abgeschlossen + Feature-Flag `BUSINESS_PIPELINE_PUSH_ENABLED=true`.
+1. `/qa SLC-101` — mandatory per CLAUDE.md, mit echten DB-Tests gegen die neue Hetzner-Supabase (TEST_DATABASE_URL via coolify-test-setup-Pattern). Erwartung: Singleton/Dedupe/Idempotency-Constraints, RLS-Policies, 21 unit-tests + 4 DB-tests gruen.
+2. **DNS-Records** anlegen (User klickt): is.strategaizetransition.com → 162.55.216.180 (Coolify-Proxy regelt subdomain → Service). Konkrete Eintraege werden im Anschluss geliefert sobald User DNS-Provider bestaetigt.
+3. Worktree-Branch `worktree/slc-101-foundation` nach `/qa`-Pass mergen in master.
+4. Danach `/backend SLC-102` (Brand Profile FEAT-008, mandatory worktree).
+5. **Parallel BL-028:** Firecrawl-Self-Host auf Hetzner (vor SLC-105).
+6. **Parallel BL-027:** Business-System Coordination-Sprint (POST `/api/internal/deals` + INTERNAL_API_TOKEN). Vor V1-Final-Check.
+7. Slice-Reihenfolge bleibt: SLC-101 → 102 → 103 → 104 → (BL-028 fertig) → 105 → 106 → 107 → 108.
 
 ## Active Scope
 **V1 (active):** Marketing Launcher Closed Loop Lite — 7 Features (FEAT-008/009/010/011/014/015/016). Requirements + Architecture + Slice-Planning + SLC-101 Foundation umgesetzt 2026-04-28 (Code-only; Hetzner-Migration MT-2 ausstehend).
@@ -32,7 +32,7 @@ Referenz: `/strategaize-dev-system/docs/PLATFORM.md`.
 Pivot-Begruendung 2026-04-25: Ohne Marketing Launcher keine Interessenten -> ohne Interessenten keine Kunden -> ohne Kunden keine Customer-Cases -> ohne Customer-Cases ist die Wissensverdichtung leerer Speicher. Marketing Launcher V1 ist Lead-Generator fuer StrategAIze selbst.
 
 ## Blockers
-- **MT-2 Hetzner-Migration** blockiert auf User-Coordination: IS-spezifische Coolify-Supabase-Instanz muss vorhanden sein, bevor MIG-001 + MIG-002 produktiv ausgefuehrt werden koennen. SQL-Files sind committed unter `sql/migrations/`. SSH-Key + Server-Map siehe Memory `reference_hetzner_servers.md`. Drei bestehende Hetzner-Server (Business 91.98.20.191, Onboarding 159.69.207.29, Zweitserver 162.55.216.180) sind nicht IS-eigen.
+- aktuell keine
 
 ## Last Stable Version
 - none yet
