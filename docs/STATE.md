@@ -12,16 +12,14 @@ Referenz: `/strategaize-dev-system/docs/PLATFORM.md`.
 
 ## Current State
 - High-Level State: qa
-- Current Focus: SLC-101 Foundation **/qa PASS** (RPT-012, 2026-04-29). 21/21 unit-tests + 5/5 SAVEPOINT-DB-Constraints + RLS-/GRANTs verifiziert + Stub-Scan clean + Wiring (TS-Types vs DB-Enum) match. 4 Medium/Low-Findings dokumentiert (ISSUE-004 Coolify-Domain-Config, ISSUE-005 Browser-Smoke, ISSUE-006 Vitest-DB-Auto, ISSUE-007 middleware-deprecation) — alle non-blocking. Naechster Schritt: Worktree-Branch `worktree/slc-101-foundation` mergen in `master` + `/backend SLC-102` (Brand Profile FEAT-008).
+- Current Focus: SLC-101 Foundation **/qa PASS** (RPT-012, 2026-04-29) + ISSUE-004 resolved (2026-04-29: Coolify-FQDN auf supabase-kong gesetzt, `https://is-api.strategaizetransition.com` liefert HTTP/2 401, Cert valide). 21/21 unit-tests + 5/5 SAVEPOINT-DB-Constraints + RLS-/GRANTs verifiziert + Stub-Scan clean + Wiring (TS-Types vs DB-Enum) match. 3 verbleibende Medium/Low-Findings (ISSUE-005 Browser-Smoke, ISSUE-006 Vitest-DB-Auto, ISSUE-007 middleware-deprecation) — alle non-blocking. Naechster Schritt: `/backend SLC-102` (Brand Profile FEAT-008).
 - Current Phase: V1 Marketing Launcher Implementation (SLC-101 done; bereit fuer SLC-102)
 
 ## Immediate Next Steps
-1. Worktree-Branch `worktree/slc-101-foundation` mergen in `master`.
-2. `/backend SLC-102` (Brand Profile FEAT-008, mandatory worktree). 12-Sektionen-JSONB-Singleton + Changelog + Vollstaendigkeits-Pruefung.
-3. Vor SLC-103 Implementation-Start: **ISSUE-004** Coolify-Domain-Config (2-Klick-Job in UI) damit `https://is-api.strategaizetransition.com` aktiv ist.
-4. **Parallel BL-028:** Firecrawl-Self-Host auf Hetzner (vor SLC-105).
-5. **Parallel BL-027:** Business-System Coordination-Sprint (POST `/api/internal/deals` + INTERNAL_API_TOKEN). Vor V1-Final-Check.
-6. Slice-Reihenfolge bleibt: SLC-101 ✅ → 102 → 103 → 104 → (BL-028 fertig) → 105 → 106 → 107 → 108.
+1. `/backend SLC-102` (Brand Profile FEAT-008, mandatory worktree). 12-Sektionen-JSONB-Singleton + Changelog + Vollstaendigkeits-Pruefung.
+2. **Parallel BL-028:** Firecrawl-Self-Host auf Hetzner (vor SLC-105).
+3. **Parallel BL-027:** Business-System Coordination-Sprint (POST `/api/internal/deals` + INTERNAL_API_TOKEN). Vor V1-Final-Check.
+4. Slice-Reihenfolge bleibt: SLC-101 ✅ → 102 → 103 → 104 → (BL-028 fertig) → 105 → 106 → 107 → 108.
 
 ## Active Scope
 **V1 (active):** Marketing Launcher Closed Loop Lite — 7 Features (FEAT-008/009/010/011/014/015/016). Requirements + Architecture + Slice-Planning + SLC-101 Foundation umgesetzt 2026-04-28 (Code-only; Hetzner-Migration MT-2 ausstehend).

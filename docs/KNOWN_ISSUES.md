@@ -29,13 +29,14 @@
 - Next Action: BL-028 im IS-Backlog dokumentiert: Firecrawl-Self-Host-Setup (Container im Compose oder dedizierter Hetzner-Server, Auth-Token, Smoke-Test). Vor SLC-105 (Lead Research) abzuschliessen. Bei Volumen-Wachstum > 10k Crawls/Monat ist Self-Host kostenmaessig klar im Vorteil. Bei < 1k Crawls/Monat moeglicherweise Server-Fixkosten ueberwiegen — V1-Volumen-Estimate 200-500 Crawls/Monat ist akzeptabler Trade-off, DSGVO-Konformitaet ist nicht-verhandelbar.
 
 ### ISSUE-004 — Coolify-Service-FQDN nicht via API setzbar (Supabase Kong)
-- Status: open
+- Status: resolved
 - Severity: Medium
 - Area: Deployment / Coolify
 - Summary: Beim Setup auf Hetzner-Coolify (2026-04-29, /backend SLC-101 MT-2): Coolify v4.0.0 erlaubt das Setzen einer Custom-Domain auf Sub-Applications eines Service-Stacks (z.B. supabase-kong) NICHT zuverlaessig via REST-API. PATCH auf SERVICE_FQDN_SUPABASEKONG ENV-Var erfolgreich, aber Stop+Start + Re-Deploy regenerieren die Traefik-Labels NICHT mit dem neuen FQDN. Kong-Container behaelt die auto-generierte sslip.io Domain. Endpoint /services/{uuid} mit `fqdn`-Field wird mit "Validation failed" abgelehnt; /services/{uuid}/applications/{uuid} liefert "not found".
 - Impact: External-HTTPS-URL fuer is-api.strategaizetransition.com ist nicht aktiv. Browser-side Supabase-Calls (NEXT_PUBLIC_SUPABASE_URL) wuerden fehlschlagen — relevant ab SLC-103 (Asset Production), wo Next.js auf Supabase zugreift. Fuer SLC-101 Foundation + SLC-102 Brand Profile (server-only) NICHT relevant, weil Server-Code SUPABASE_URL=http://supabase-kong:8000 internal nutzt.
-- Workaround: Coolify-UI manuell — Service-Detail → supabase-kong sub-app → Domains-Field auf https://is-api.strategaizetransition.com setzen → Save → Redeploy. 2-Klick-Job fuer User. Nicht jetzt erledigt weil nicht-blocking fuer SLC-101.
-- Next Action: Vor SLC-103 Implementation-Start: User klickt Domain-Config in Coolify-UI. Alternativ: Workaround per direktem docker-compose-Patch + Service-Reload (hacky, vermeiden).
+- Workaround: Coolify-UI manuell — Service-Detail → supabase-kong sub-app → General → Domains-Field auf `https://is-api.strategaizetransition.com:8000` setzen → Save → Restart. Wichtige Coolify-Quirk: Port `:8000` muss im FQDN stehen (interner Routing-Hint fuer Traefik, NICHT externer Port — extern bleibt 443/HTTPS).
+- Resolution: 2026-04-29 erledigt durch User via Coolify-UI. Verifikation: `curl -sI https://is-api.strategaizetransition.com/` liefert `HTTP/2 401`, `server: kong/3.9.1`, `www-authenticate: Basic realm="service"` — Kong antwortet, Let's Encrypt Cert valide, Routing korrekt. Endpoint live und bereit fuer NEXT_PUBLIC_SUPABASE_URL ab SLC-103.
+- Next Action: Erledigt.
 
 ### ISSUE-005 — Browser-Smoke-Test der Showcase-Seite nicht durchgefuehrt
 - Status: open
