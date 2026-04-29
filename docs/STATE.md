@@ -11,18 +11,17 @@ System 3 der StrategAIze-Gesamtarchitektur. **V1 ist der Marketing Launcher (Clo
 Referenz: `/strategaize-dev-system/docs/PLATFORM.md`.
 
 ## Current State
-- High-Level State: implementing
-- Current Focus: SLC-101 Foundation komplett (alle 10 MTs done inkl. MT-2 Hetzner-Migration auf 2026-04-29). Hetzner-Server `is-coolify-nbg1` (162.55.216.180, CPX42, Ubuntu 24.04) mit Coolify v4.0.0 + Supabase-Stack (14 Container healthy) live. MIG-001 + MIG-002 erfolgreich applied (19 Tabellen public-Schema, 3 Enums, RLS auf allen V1-Tabellen, alle 4 kritischen Indizes). Naechster Schritt: `/qa SLC-101` (mandatory per CLAUDE.md), danach Worktree-Branch mergen + `/backend SLC-102` (Brand Profile FEAT-008).
-- Current Phase: V1 Marketing Launcher Implementation (SLC-101 done; bereit fuer /qa)
+- High-Level State: qa
+- Current Focus: SLC-101 Foundation **/qa PASS** (RPT-012, 2026-04-29). 21/21 unit-tests + 5/5 SAVEPOINT-DB-Constraints + RLS-/GRANTs verifiziert + Stub-Scan clean + Wiring (TS-Types vs DB-Enum) match. 4 Medium/Low-Findings dokumentiert (ISSUE-004 Coolify-Domain-Config, ISSUE-005 Browser-Smoke, ISSUE-006 Vitest-DB-Auto, ISSUE-007 middleware-deprecation) — alle non-blocking. Naechster Schritt: Worktree-Branch `worktree/slc-101-foundation` mergen in `master` + `/backend SLC-102` (Brand Profile FEAT-008).
+- Current Phase: V1 Marketing Launcher Implementation (SLC-101 done; bereit fuer SLC-102)
 
 ## Immediate Next Steps
-1. `/qa SLC-101` — mandatory per CLAUDE.md, mit echten DB-Tests gegen die neue Hetzner-Supabase (TEST_DATABASE_URL via coolify-test-setup-Pattern). Erwartung: Singleton/Dedupe/Idempotency-Constraints, RLS-Policies, 21 unit-tests + 4 DB-tests gruen.
-2. **DNS-Records** anlegen (User klickt): is.strategaizetransition.com → 162.55.216.180 (Coolify-Proxy regelt subdomain → Service). Konkrete Eintraege werden im Anschluss geliefert sobald User DNS-Provider bestaetigt.
-3. Worktree-Branch `worktree/slc-101-foundation` nach `/qa`-Pass mergen in master.
-4. Danach `/backend SLC-102` (Brand Profile FEAT-008, mandatory worktree).
-5. **Parallel BL-028:** Firecrawl-Self-Host auf Hetzner (vor SLC-105).
-6. **Parallel BL-027:** Business-System Coordination-Sprint (POST `/api/internal/deals` + INTERNAL_API_TOKEN). Vor V1-Final-Check.
-7. Slice-Reihenfolge bleibt: SLC-101 → 102 → 103 → 104 → (BL-028 fertig) → 105 → 106 → 107 → 108.
+1. Worktree-Branch `worktree/slc-101-foundation` mergen in `master`.
+2. `/backend SLC-102` (Brand Profile FEAT-008, mandatory worktree). 12-Sektionen-JSONB-Singleton + Changelog + Vollstaendigkeits-Pruefung.
+3. Vor SLC-103 Implementation-Start: **ISSUE-004** Coolify-Domain-Config (2-Klick-Job in UI) damit `https://is-api.strategaizetransition.com` aktiv ist.
+4. **Parallel BL-028:** Firecrawl-Self-Host auf Hetzner (vor SLC-105).
+5. **Parallel BL-027:** Business-System Coordination-Sprint (POST `/api/internal/deals` + INTERNAL_API_TOKEN). Vor V1-Final-Check.
+6. Slice-Reihenfolge bleibt: SLC-101 ✅ → 102 → 103 → 104 → (BL-028 fertig) → 105 → 106 → 107 → 108.
 
 ## Active Scope
 **V1 (active):** Marketing Launcher Closed Loop Lite — 7 Features (FEAT-008/009/010/011/014/015/016). Requirements + Architecture + Slice-Planning + SLC-101 Foundation umgesetzt 2026-04-28 (Code-only; Hetzner-Migration MT-2 ausstehend).
