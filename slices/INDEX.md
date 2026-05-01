@@ -2,14 +2,16 @@
 
 ## Status
 
-**SLC-101 Foundation done — /qa PASS 2026-04-29 (RPT-012).** Alle 10 Micro-Tasks + Hetzner-Migration + 5/5 SAVEPOINT-DB-Constraint-Tests + RLS/GRANTs + Stub-Scan gruen. 4 Medium/Low-Issues (ISSUE-004..007) dokumentiert, alle non-blocking. Naechster Schritt: Worktree-Branch in master mergen + `/backend SLC-102` (Brand Profile FEAT-008). Uebrige 7 Slices SLC-102..108 weiterhin `planned`.
+**SLC-102 Backend done 2026-05-01 (RPT-013).** 5 von 7 Micro-Tasks im /backend-Scope implementiert (MT-1 Schema, MT-2 Repository+Actions, MT-5 Prompt-Builder, MT-6 Completeness, MT-7 RLS). 81 Unit-Tests + 9 DB-Integration-Tests gruen, Build/Lint/Typecheck clean. UI-Tasks (MT-3 Accordion, MT-4 Changelog-Tab, MT-5 PromptSnippetPreview) bleiben fuer `/frontend SLC-102`. Branch: `worktree/slc-102-brand-profile`. Naechster Schritt: `/qa SLC-102` (Backend-Teil), dann `/frontend SLC-102`.
+
+**SLC-101 Foundation done — /qa PASS 2026-04-29 (RPT-012).** Alle 10 Micro-Tasks + Hetzner-Migration + 5/5 SAVEPOINT-DB-Constraint-Tests + RLS/GRANTs + Stub-Scan gruen. 4 Medium/Low-Issues (ISSUE-004..007) dokumentiert, alle non-blocking. ISSUE-004 resolved 2026-04-29.
 
 ## V1 Marketing Launcher Slices
 
 | ID | Slice | Feature | Status | Priority | Created |
 |----|-------|---------|--------|----------|---------|
 | SLC-101 | [Foundation Refresh](SLC-101-foundation-refresh.md) | Setup / BL-016 + BL-017 | done | Blocker | 2026-04-26 |
-| SLC-102 | [Brand Profile (12-Sektionen)](SLC-102-brand-profile.md) | FEAT-008 / BL-009 | planned | High | 2026-04-26 |
+| SLC-102 | [Brand Profile (12-Sektionen)](SLC-102-brand-profile.md) | FEAT-008 / BL-009 | in_progress | High | 2026-04-26 |
 | SLC-103 | [Content Asset Production (7 Output-Typen)](SLC-103-content-asset-production.md) | FEAT-009 / BL-010 | planned | High | 2026-04-26 |
 | SLC-104 | [ICP & Segment](SLC-104-icp-segment.md) | FEAT-010 / BL-011 | planned | High | 2026-04-26 |
 | SLC-105 | [Lead Research (Firecrawl + Clay-CSV)](SLC-105-lead-research.md) | FEAT-015 / BL-014 | planned | High | 2026-04-26 |

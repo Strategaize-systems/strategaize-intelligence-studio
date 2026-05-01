@@ -11,15 +11,17 @@ System 3 der StrategAIze-Gesamtarchitektur. **V1 ist der Marketing Launcher (Clo
 Referenz: `/strategaize-dev-system/docs/PLATFORM.md`.
 
 ## Current State
-- High-Level State: qa
-- Current Focus: SLC-101 Foundation **/qa PASS** (RPT-012, 2026-04-29) + ISSUE-004 resolved (2026-04-29: Coolify-FQDN auf supabase-kong gesetzt, `https://is-api.strategaizetransition.com` liefert HTTP/2 401, Cert valide). 21/21 unit-tests + 5/5 SAVEPOINT-DB-Constraints + RLS-/GRANTs verifiziert + Stub-Scan clean + Wiring (TS-Types vs DB-Enum) match. 3 verbleibende Medium/Low-Findings (ISSUE-005 Browser-Smoke, ISSUE-006 Vitest-DB-Auto, ISSUE-007 middleware-deprecation) — alle non-blocking. Naechster Schritt: `/backend SLC-102` (Brand Profile FEAT-008).
-- Current Phase: V1 Marketing Launcher Implementation (SLC-101 done; bereit fuer SLC-102)
+- High-Level State: implementing
+- Current Focus: SLC-102 Brand Profile **Backend-Scope done 2026-05-01** (RPT-013, branch `worktree/slc-102-brand-profile`). 5 von 7 Micro-Tasks im Backend-Scope: MT-1 Zod-Schema, MT-2 Repository + Server Actions, MT-5 Prompt-Builder, MT-6 Completeness-Logik, MT-7 RLS-Tests. 81 Unit-Tests + 9 DB-Integration-Tests gegen Coolify-DB gruen. Build/Lint/Typecheck clean. UI-Tasks (MT-3 Accordion, MT-4 Changelog-Tab, MT-5 PromptSnippetPreview) bleiben fuer `/frontend SLC-102`. Naechster Schritt: `/qa SLC-102` (Backend-Teil), dann `/frontend SLC-102`.
+- Current Phase: V1 Marketing Launcher Implementation (SLC-101 done, SLC-102 backend done)
 
 ## Immediate Next Steps
-1. `/backend SLC-102` (Brand Profile FEAT-008, mandatory worktree). 12-Sektionen-JSONB-Singleton + Changelog + Vollstaendigkeits-Pruefung.
-2. **Parallel BL-028:** Firecrawl-Self-Host auf Hetzner (vor SLC-105).
-3. **Parallel BL-027:** Business-System Coordination-Sprint (POST `/api/internal/deals` + INTERNAL_API_TOKEN). Vor V1-Final-Check.
-4. Slice-Reihenfolge bleibt: SLC-101 ✅ → 102 → 103 → 104 → (BL-028 fertig) → 105 → 106 → 107 → 108.
+1. `/qa SLC-102` (Backend-Teil): re-run aller Tests, Audit-Review der Backend-Implementation.
+2. `/frontend SLC-102` (UI-Tasks MT-3 + MT-4 + MT-5 PromptSnippetPreview, mandatory worktree).
+3. Worktree `worktree/slc-102-brand-profile` mergen nach `master` nach komplettem /qa.
+4. **Parallel BL-028:** Firecrawl-Self-Host auf Hetzner (vor SLC-105).
+5. **Parallel BL-027:** Business-System Coordination-Sprint (POST `/api/internal/deals` + INTERNAL_API_TOKEN). Vor V1-Final-Check.
+6. Slice-Reihenfolge bleibt: SLC-101 ✅ → 102 (in Arbeit) → 103 → 104 → (BL-028 fertig) → 105 → 106 → 107 → 108.
 
 ## Active Scope
 **V1 (active):** Marketing Launcher Closed Loop Lite — 7 Features (FEAT-008/009/010/011/014/015/016). Requirements + Architecture + Slice-Planning + SLC-101 Foundation umgesetzt 2026-04-28 (Code-only; Hetzner-Migration MT-2 ausstehend).

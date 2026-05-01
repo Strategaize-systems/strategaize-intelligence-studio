@@ -85,7 +85,7 @@
       "title": "V1 FEAT-008 Brand Profile (12-Sektionen-Schema)",
       "type": "feature",
       "priority": "high",
-      "status": "open",
+      "status": "in_progress",
       "version": "V1",
       "description": "Singleton-Brand-Profil auf 12-Sektionen-Schema aus product-marketing-context-Skill (MIT). Sektionen: Product Overview / Target Audience / Personas / Problems & Pain Points / Competitive Landscape / Differentiation / Objections & Anti-Personas / Switching Dynamics (JTBD Four Forces) / Customer Language / Brand Voice / Proof Points / Goals. Ersetzt altes V2-Brand-Profile-Schema vollstaendig. JSONB-Singleton-Tabelle. Siehe /features/FEAT-008-brand-profile.md.",
       "createdAt": "2026-04-25"
