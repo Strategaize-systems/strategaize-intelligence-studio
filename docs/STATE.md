@@ -24,9 +24,11 @@ Referenz: `/strategaize-dev-system/docs/PLATFORM.md`.
 ## Active Scope
 **V1 (active):** Marketing Launcher Closed Loop Lite — 7 Features (FEAT-008/009/010/011/014/015/016). Requirements + Architecture + Slice-Planning + SLC-101 Foundation umgesetzt 2026-04-28 (Code-only; Hetzner-Migration MT-2 ausstehend).
 
-**V2..V9+ (planned):** Siehe `/planning/roadmap.json`.
+**V2..V12+ (planned):** Siehe `/planning/roadmap.json`.
 
 Pivot-Begruendung 2026-04-25: Ohne Marketing Launcher keine Interessenten -> ohne Interessenten keine Kunden -> ohne Kunden keine Customer-Cases -> ohne Customer-Cases ist die Wissensverdichtung leerer Speicher. Marketing Launcher V1 ist Lead-Generator fuer StrategAIze selbst.
+
+**Discovery V6+ Venture-Layer 2026-05-02 (RPT-013) — Re-Numerierung scharfgeschaltet 2026-05-02:** Erweiterung der Intelligence Platform um eine Opportunity-&-Venture-Schicht beschlossen. **V1-V5 (Market Launcher) bleiben unangetastet** — und decken den im Discovery-Input als 'Market Launcher' beschriebenen Research-/Outreach-Apparat fuer den Venture-Bereich vollstaendig ab (FEAT-015 Lead Research + FEAT-010 ICP/Segment + FEAT-009 Content Asset Production). V6 leicht modifiziert (FEAT-005 raus). NEU eingefuehrt: V7 Venture Layer Foundation, V8 Venture Layer Erweitert, V9 Cross-System Integration. Re-Numerierung scharf: V7 alt (Validation) -> V10, V8 alt (Orchestration) -> V11, V9+ alt (Multi-Tenant) -> V12+. Cross-Repo-Vorbereitung: Onboarding-Plattform bekommt BL-070..075 fuer External-Validation-Capture-Mode (founder_assessment / operator_assessment / market_participant_interview / industry_expert_interview) — modulare Erweiterung ueber bestehende Capture-Mode-Hooks (FEAT-025), kein Re-Build, ~3-4 Wochen Implementation wenn IS V9 in Sicht ist.
 
 ## Blockers
 - aktuell keine
@@ -48,3 +50,4 @@ Pivot-Begruendung 2026-04-25: Ohne Marketing Launcher keine Interessenten -> ohn
 - DEC-005 (Qualified-Lead-Inbox) bleibt durch DEC-022 (Pipeline-Push) abgeloest.
 - ESLint v9 mit flat-config (typescript-eslint), Next 16 hat `next lint` entfernt — Workaround per `npm run lint = eslint .`.
 - Next 16 hat `middleware`-Convention deprecated zugunsten `proxy`. V1 nutzt noch middleware.ts, Migration zu proxy.ts in V2-Followup-Sprint.
+- **2026-05-02 RPT-013 Discovery V6+ Venture-Layer**: BL-005 (FEAT-005 Opportunity & Decision basic) als deprecated markiert — Inhalt wandert in V7 Venture Layer Foundation. V6 Wording in roadmap.json aktualisiert (FEAT-005 raus, V6 bleibt Wissensverdichtungs-Backbone-Foundation). 15 neue BL-Items angelegt: BL-029..034 (V7), BL-035..039 (V8), BL-040..043 (V9). FEAT-005 Spec-Datei `/features/FEAT-005-opportunity-decision.md` bleibt als Vorlage fuer /requirements V7. **Re-Numerierung 2026-05-02 vom User bestaetigt und scharfgeschaltet** (alt-V7 -> V10 Validation, alt-V8 -> V11 Orchestration + Venture-Portfolio, alt-V9+ -> V12+ Multi-Tenant + Voice + Erweiterungen).

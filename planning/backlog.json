@@ -42,12 +42,12 @@
     },
     {
       "id": "BL-005",
-      "title": "V6 FEAT-005 Opportunity & Decision basic (verschoben aus altem V1)",
+      "title": "FEAT-005 Opportunity & Decision basic (deprecated 2026-05-02 — geht in V7 Venture Layer Foundation auf)",
       "type": "feature",
       "priority": "medium",
-      "status": "open",
-      "version": "V6",
-      "description": "Opportunity-CRUD mit 4 Pflicht + 7 optionalen Bewertungs-Dimensionen. KI-Bewertungsvorschlag via Bedrock Sonnet. Decision-Board mit Status-Workflow und Audit-Log. Verschoben 2026-04-25 von V1 auf V6. Siehe /features/FEAT-005-opportunity-decision.md.",
+      "status": "deferred",
+      "version": null,
+      "description": "DEPRECATED 2026-05-02 (RPT-013 Discovery V6+ Venture-Layer). Die alte Spec FEAT-005 (4+7 Bewertungs-Dimensionen, KI-Vorschlag, Decision-Board) wird ersetzt durch ein haerteres und breiteres System: V7 Venture Layer Foundation mit Quick-Capture, Lifecycle, 5 Kern-Eval-Blocks (Lebenskompat / Problemrealitaet / Customer Access / Speed-to-Test / Wirtschaftslogik), Kill Rules als Eskalation, Direction Fit (R1/R2), Action Outputs. Architektonisch verbleibt aus FEAT-005: Decision-Board-Pattern, Status-Workflow, KI-Vorschlag-Mechanik (nur fuer wirtschaftliche Blocks, nicht fuer Lebenskompat). Originale FEAT-005-Spec-Datei /features/FEAT-005-opportunity-decision.md bleibt als Referenz/Vorlage erhalten — wird in /requirements V7 als Spec-Quelle verwendet.",
       "createdAt": "2026-04-15"
     },
     {
@@ -279,6 +279,156 @@
       "version": "V1",
       "description": "Self-Hosted Firecrawl auf Hetzner einrichten (Container im Compose oder dedizierter Server). Auth-Token konfigurieren. Smoke-Test mit Sample-Crawl. ENV `FIRECRAWL_API_BASE_URL` + `FIRECRAWL_API_KEY` setzen. Pre-Condition fuer SLC-105 (Lead Research) — siehe DEC-028, ISSUE-003.",
       "createdAt": "2026-04-26"
+    },
+    {
+      "id": "BL-029",
+      "title": "V7 Opportunity Intake (Quick-Capture) + Lifecycle",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V7",
+      "description": "Aus RPT-013 Discovery V6+ Venture-Layer. Quick-Capture mit 6 Pflichtfeldern (Titel, Quelle, Kurzbeschreibung max 280 Zeichen, vermutetes Problem, erste Direction-Vermutung R1/R2/beide/keiner, warum jetzt relevant). Lifecycle 5 Status (New / Capturing / In Review / Decided / Closed) als State-Machine. Status-Wechsel 'In Review' nur ueber explizit-Knopf 'Hard Review starten' mit Hinweistext. Opportunity-Typen: eigene Idee / Kundenproblem / Beteiligungschance / Gruender-Idee / Marktbeobachtung / Tech-Trend / Spin-off / Vehikel. Architektonische Vorlage: FEAT-005 Decision-Board-Pattern + Status-Workflow.",
+      "createdAt": "2026-05-02"
+    },
+    {
+      "id": "BL-030",
+      "title": "V7 5 Kern-Eval-Blocks (Lebenskompat / Problem / CustomerAccess / Speed / Wirtschaftslogik)",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V7",
+      "description": "Aus RPT-013 Discovery V6+ Venture-Layer. Pro Block: Ampel (Gruen/Gelb/Rot) + Freitext + 2-3 Subfragen-Felder. Block-Liste: (1) Lebenskompatibilitaet (Freiheitsvertraeglichkeit, Ortsunabhaengigkeit, keine operative Gefangenschaft, kein schwerer Personalapparat, 3-5-Jahre-Aufbau-Kompatibilitaet) — kein KI-Vorschlag, Mensch only. (2) Problemrealitaet (Schmerzhoehe, Frequenz, Zahlungsrelevanz, Veraenderungsdruck) — KI-Vorschlag optional. (3) Customer Access / Go-to-Market (Identifizierbarkeit, digitale Adressierbarkeit, Kanal-Reproduzierbarkeit, Star-Vertrieb-Abhaengigkeit). (4) Speed-to-Test / Testbarkeit (wie schnell ein Test steht, wie billig). (5) Wirtschaftslogik (Umsatz-/Wiederholungs-/Margenlogik, Kapitalbedarf, Ausschuettung). Aufwand-Schaetzung: ~1-2 Tage pro Block + UI = ~8-12 Tage gesamt.",
+      "createdAt": "2026-05-02"
+    },
+    {
+      "id": "BL-031",
+      "title": "V7 Kill Rules MVP (KR1 Lebensinkompat + KR2 Markt zu weich) als Eskalations-Vorschlag",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V7",
+      "description": "Aus RPT-013 Discovery V6+ Venture-Layer. Beim Block-Submit Regel-Pruefung: wenn Block 1 Lebenskompat = ROT UND Lebensinkompatibilitaet bestaetigt -> System schlaegt Reject vor mit Begruendungstext. Wenn Block 2 Problemrealitaet = ROT UND Pain-zu-weich-Indikator -> System schlaegt Reject/Park vor. **Auto-Kill explizit ABGELEHNT** (Discovery-Ergebnis): Eskalation mit Reject-Vorschlag-UI, User bestaetigt manuell oder ueberstimmt. Reject/Park-Decision wird in Decision-Tag persistiert. Begleitende Notiz pflichtfeldartig (warum trotzdem oder warum bestaetigt).",
+      "createdAt": "2026-05-02"
+    },
+    {
+      "id": "BL-032",
+      "title": "V7 Direction Fit binaer (R1/R2/beide/keiner) + Decision Tags",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V7",
+      "description": "Aus RPT-013 Discovery V6+ Venture-Layer. Nach Bestehen der 5 Kern-Eval-Blocks: Direction-Fit-Auswertung. Vier moegliche Tags orthogonal zu Lifecycle-Status: R1-Candidate (Beteiligungs-Cashflow, stabiler Markt, wiederkehrende Erloese, Ausschuettung, Delegierbarkeit), R2-Candidate (Aufbau+Exit in 2-5 Jahren, Operator-/Kaeufer-Pfad, Vehikel/Exit-Logik, Wert nicht in Person des Nutzers), beide, keiner. Bewertungslogik: Direction-Fit-Voraussetzungen werden gegen Block-Antworten gepruefte (Wirtschaftslogik fuer R1, Speed-to-Test + Wettbewerb fuer R2). System kann Vorschlag machen, User bestaetigt. Plus weitere Decision-Tags MVP: Reject / Park / Watchlist / Test Approved.",
+      "createdAt": "2026-05-02"
+    },
+    {
+      "id": "BL-033",
+      "title": "V7 Action Outputs MVP (ein Output-Typ pro Decision-Tag)",
+      "type": "feature",
+      "priority": "medium",
+      "status": "open",
+      "version": "V7",
+      "description": "Aus RPT-013 Discovery V6+ Venture-Layer. Pro Decision-Tag eine konkrete Folge-Aktion: Reject -> Reject-Notiz mit Pflichtfeld 'warum gekippt' + Datum. Park -> Park-Note + 'parking-until-date' + Re-Review-Reminder. Watchlist -> Watchlist-Eintrag mit 'Trigger-Event-Beschreibung' (was muss passieren um wieder anzufassen). Test Approved -> Test-Plan-Stub mit Hypothese / Maximalbudget / Zeitfenster / Abbruchkriterium (verlinkt zu V10 Experiment). Direction-1-Candidate / Direction-2-Candidate -> Folge-Action-Stub-Liste (Build Operator Profile, Build Capital Story, Prepare Pilot Market Test) — die scharfen Outputs (Operator-Profile, Capital-Story) kommen V8.",
+      "createdAt": "2026-05-02"
+    },
+    {
+      "id": "BL-034",
+      "title": "V7 Venture-Layer Project Setup (Migrations, Workflow-Engine, UI-Foundation)",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V7",
+      "description": "Aus RPT-013 Discovery V6+ Venture-Layer. Foundation-Slice fuer V7: neue Tabellen opportunity / opportunity_evaluation / opportunity_action / decision_log mit RLS, ENUMs fuer lifecycle_status + decision_tag + opportunity_type, Server-Actions-Skelett, Worker-Job-Type fuer KI-Vorschlag-Generierung (Bedrock Sonnet, eu-central-1, Adapter-Pattern), Style-Guide-V2-konforme UI-Templates fuer Opportunity-List + Detail + Eval-Form. KEINE Aenderung an V1-V5-Schema. Aufbau auf V6-Foundation (FEAT-001 Ingest fuer Knowledge-Unit-Verknuepfung).",
+      "createdAt": "2026-05-02"
+    },
+    {
+      "id": "BL-035",
+      "title": "V8 Restliche Eval-Blocks + Konsolidierung auf 6-8 trennscharfe Blocks",
+      "type": "feature",
+      "priority": "medium",
+      "status": "open",
+      "version": "V8",
+      "description": "Aus RPT-013 Discovery V6+ Venture-Layer. Erweiterung der 5 V7-Kern-Blocks um die restlichen Bereiche (Marktbestaendigkeit, Wettbewerb/Verteidigung, Menschenunabhaengigkeit, Skalierbarkeit, Innovation/Timing, Kapital-Story-Faehigkeit, Strategischer Fit). **Konsolidierungs-Empfehlung-Skizze (OQ-D-06):** 8 finale Blocks: 1. Lebenskompat (V7), 2. Problemrealitaet (V7), 3. Customer Access + Skalierbarkeit (V7-B4 + V8-B7 zusammen), 4. Speed-to-Test (V7), 5. Wirtschaftslogik + Wiederholungs-/Margenlogik (V7), 6. Wettbewerb + Verteidigung (V8), 7. Menschenunabhaengigkeit + Operator-Tauglichkeit (V8), 8. Strategischer Fit + Kapital-Story (V8). Marktbestaendigkeit + Innovation/Timing werden Sub-Bewertungen IM Wettbewerbs-Block. Final-Entscheidung in /requirements V8 nach realen V7-Eval-Erfahrungen.",
+      "createdAt": "2026-05-02"
+    },
+    {
+      "id": "BL-036",
+      "title": "V8 Override mit Pflichtfeldern + optionaler 24h-Cooldown",
+      "type": "feature",
+      "priority": "high",
+      "status": "open",
+      "version": "V8",
+      "description": "Aus RPT-013 Discovery V6+ Venture-Layer. Wenn der User eine Idee trotz negativer Eval-Matrix weiterverfolgen moechte: Override-Modus mit Pflichtfeldern (Warum Override / Welche Bewertung wird ignoriert / Welche Annahme soll noch geprueft werden / Maximalbudget / Maximalzeitfenster / Hartes Abbruchkriterium). Plus optional (Schutz vor Affekt-Decisions, Solo-User-Kontext): 24h-Cooldown-Modus, in dem die Override-Decision erst nach 24h scharfgeschaltet wird. Override wird als eigenes Objekt persistiert mit Audit-Log und Verbindung zum Decision-Log.",
+      "createdAt": "2026-05-02"
+    },
+    {
+      "id": "BL-037",
+      "title": "V8 Red Flag Object (Severity, Resolved-Flag, Verknuepfungen)",
+      "type": "feature",
+      "priority": "medium",
+      "status": "open",
+      "version": "V8",
+      "description": "Aus RPT-013 Discovery V6+ Venture-Layer. Eigenes Objekt red_flag mit Feldern: severity (low/medium/high/blocker), title, description, source_block_id (Verknuepfung zum Eval-Block der Block aufgedeckt hat), opportunity_id, status (open/resolved/wontfix), resolved_at, resolved_by. Differenziert zu strukturierten Block-Antworten: Red Flags sind explizite Warnungen die ueberlebensueber-Block-Grenzen liefen. Filter/Sortierung in Opportunity-Detail. Aggregat in Portfolio-Sicht (V11 Pattern-Erkennung).",
+      "createdAt": "2026-05-02"
+    },
+    {
+      "id": "BL-038",
+      "title": "V8 Operator Profile Object + Capital Story Draft Object",
+      "type": "feature",
+      "priority": "medium",
+      "status": "open",
+      "version": "V8",
+      "description": "Aus RPT-013 Discovery V6+ Venture-Layer. Operator Profile als eigenes Objekt: operator_name, role_fit (Beschreibung), star_avoidance_score (Beschreibungsfeld + Ampel), standardisierbarkeit, track_record_summary, lebenskompat_des_operators, opportunity_id (FK), source_capture_session_id (FK in V9 Onboarding-External-Validation). Capital Story Draft Object: title, story_text, capital_type (Equity / Debt / Bootstrapping / Profit-Reinvest / Other), groessenordnung_eur, use_of_funds, narrative_clarity_assessment, opportunity_id (FK). Beide Objekte sind Outputs der V7-Action-Outputs 'Build Operator Profile' bzw. 'Build Capital Story'.",
+      "createdAt": "2026-05-02"
+    },
+    {
+      "id": "BL-039",
+      "title": "V8 Research Task Typisierung (Desk / Structured Human / Internal Hypothesis)",
+      "type": "feature",
+      "priority": "medium",
+      "status": "open",
+      "version": "V8",
+      "description": "Aus RPT-013 Discovery V6+ Venture-Layer. Research Task als eigenes Objekt mit drei Typen: (1) Desk Research (Marktgroesse, Wettbewerber, Preislogik, Regulierung, Tech-Bedrohung, Skalierbarkeit, Internationalisierbarkeit, Suchbarkeit). (2) Structured Human Research (Marktbereitschaft, Kaufverhalten, Pain Points, Adoptionshuerden, Gruender-/Operator-Tauglichkeit) — verbindet zu V9 Onboarding-Trigger. (3) Internal Hypothesis Research (logische Gegenpruefung, Szenario-Tests, Hebelbewertung, strategische Passung, Systemfit). Status-Workflow open/in_progress/done. Verknuepfung zu Opportunity + spezifischen Eval-Blocks (welche Frage soll der Research beantworten?). Output-Feld 'finding_summary' das in den Eval-Block zurueckfliesst.",
+      "createdAt": "2026-05-02"
+    },
+    {
+      "id": "BL-040",
+      "title": "V9 Onboarding-Trigger fuer External Validation (Capture-Session ausloesen)",
+      "type": "feature",
+      "priority": "medium",
+      "status": "open",
+      "version": "V9",
+      "description": "Aus RPT-013 Discovery V6+ Venture-Layer. Aus IS-Knopfdruck (z.B. in Opportunity-Detail oder Research-Task) eine Capture-Session in der Onboarding-Plattform anlegen mit gewaehltem Template. Templates (zu schaffen in Onboarding-Plattform, vgl. BL-070..074 dort): founder_assessment, operator_assessment, market_participant_interview, industry_expert_interview. Cross-Repo-Aufruf via existierender Onboarding-API + neuer Endpoint POST /api/internal/external-validation-sessions. Auth: INTERNAL_API_TOKEN. Capture-Session-ID wird in Research-Task / Operator-Profile-Object referenziert. **Pre-Condition:** Onboarding-Plattform muss external_validation Capture-Mode + 4 Templates implementiert haben (Cross-Repo-BL).",
+      "createdAt": "2026-05-02"
+    },
+    {
+      "id": "BL-041",
+      "title": "V9 Onboarding-Pull mit Mode-Filter external_validation",
+      "type": "feature",
+      "priority": "medium",
+      "status": "open",
+      "version": "V9",
+      "description": "Aus RPT-013 Discovery V6+ Venture-Layer. Erweiterung des V6 FEAT-001 Onboarding-Pull-Workers um Mode-Filter `external_validation`. Output ist nicht ein KU (wie bei normalen Onboarding-Sessions), sondern ein strukturiertes Profil-Objekt (Operator Profile bei founder/operator-Templates, Market Insight bei market_participant/industry_expert-Templates). Ergebnis fliesst in V8 Operator-Profile-Object oder in V8 Research-Task finding_summary zurueck. Inkrementell alle 10 Min, Idempotenz via Capture-Session-Snapshot-ID.",
+      "createdAt": "2026-05-02"
+    },
+    {
+      "id": "BL-042",
+      "title": "V9 Market-Launcher-Trigger (V1-V5 nutzen fuer Pilot-Marktung-Test)",
+      "type": "feature",
+      "priority": "medium",
+      "status": "open",
+      "version": "V9",
+      "description": "Aus RPT-013 Discovery V6+ Venture-Layer. Wenn Venture-Layer-Action-Output 'Test Approved' oder 'Direction-1-Candidate / Direction-2-Candidate' erzeugt wird, kann aus IS-Knopfdruck ein Lead-Research-Task im V1-V5-Bereich (Market Launcher) ausgeloest werden. Vorausgefuellt: ICP/Segment-Vorschlag aus Opportunity-Beschreibung + vermuteter Zielgruppe + Brand-Profile-Kontext. Verbindung Opportunity -> Campaign (V1) optional, damit Performance-Daten an die Opportunity zurueckgespielt werden koennen. Cross-Repo-intern (Market Launcher = V1-V5 IS-Repo selbst), kein API-Call noetig — direkter Server-Action-Aufruf.",
+      "createdAt": "2026-05-02"
+    },
+    {
+      "id": "BL-043",
+      "title": "V9 Business-System Deal-Status-Pull (Validation-Signal fuer Direction-2-Candidates)",
+      "type": "feature",
+      "priority": "low",
+      "status": "open",
+      "version": "V9",
+      "description": "Aus RPT-013 Discovery V6+ Venture-Layer. Lesender Pull aus Business-System fuer Opportunities die als Direction-2-Candidate in den Vertrieb gegangen sind: nutzt bestehende GET /api/export/deals (existiert in Business System). Aggregat: wie viele Deals (Opportunities-Cluster) sind in welchem Stage, Conversion-Rate, durchschnittlicher Deal-Wert, Velocity. Zurueck in IS als Validation-Signal an die jeweilige Opportunity (validate_marketability_score). Stuendlicher Cron, fehlertolerant. **KEINE Aenderung am Business System** — nutzt nur was bereits existiert (per User-Antwort 3).",
+      "createdAt": "2026-05-02"
     }
   ]
 }

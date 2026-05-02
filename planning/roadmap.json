@@ -4,64 +4,85 @@
       "id": "v1",
       "name": "V1",
       "status": "active",
-      "summary": "Marketing Launcher (Closed Loop Lite) — 7 Features in 8 Slices SLC-101..108 (Slice-Planning RPT-010 abgeschlossen 2026-04-26): SLC-101 Foundation, SLC-102 Brand Profile (FEAT-008, 12-Sektionen-JSONB-Singleton), SLC-103 Content Asset Production (FEAT-009, 7 Output-Typen mit Skill-Quellbezug), SLC-104 ICP & Segment (FEAT-010), SLC-105 Lead Research (FEAT-015, Firecrawl Self-Host + Clay-CSV — depends on BL-028), SLC-106 Messaging-Variation (FEAT-016, 4-Level + Psychology-Booster), SLC-107 Campaign LITE (FEAT-011, Parent-only), SLC-108 Lead Handoff (FEAT-014, Pipeline-Push Flag-gated) + Performance-Capture-Loop + Few-shot scharf. Pre-V1-Release-Bridges: BL-027 (Business-Sprint POST /api/internal/deals) + BL-028 (Firecrawl Self-Host). Ist Lead-Generator fuer StrategAIze selbst — schliesst Marketing-Schleife minimal mit Pipeline-Push ans Business System.",
+      "summary": "Marketing Launcher (Closed Loop Lite) — 7 Features in 8 Slices SLC-101..108 (Slice-Planning RPT-010 abgeschlossen 2026-04-26): SLC-101 Foundation, SLC-102 Brand Profile (FEAT-008, 12-Sektionen-JSONB-Singleton), SLC-103 Content Asset Production (FEAT-009, 7 Output-Typen mit Skill-Quellbezug), SLC-104 ICP & Segment (FEAT-010), SLC-105 Lead Research (FEAT-015, Firecrawl Self-Host + Clay-CSV — depends on BL-028), SLC-106 Messaging-Variation (FEAT-016, 4-Level + Psychology-Booster), SLC-107 Campaign LITE (FEAT-011, Parent-only), SLC-108 Lead Handoff (FEAT-014, Pipeline-Push Flag-gated) + Performance-Capture-Loop + Few-shot scharf. Pre-V1-Release-Bridges: BL-027 (Business-Sprint POST /api/internal/deals) + BL-028 (Firecrawl Self-Host). Ist Lead-Generator fuer StrategAIze selbst — schliesst Marketing-Schleife minimal mit Pipeline-Push ans Business System. **Repositionierung 2026-05-02 (RPT-013):** V1-V5 werden kuenftig als eigenstaendiges Produkt 'Market Launcher' verstanden (Marketing-Foundation, vermarktbar in Kombi mit Business System). Kein Bau-Eingriff — nur Marketing-/PRD-Wording.",
       "order": 1
     },
     {
       "id": "v2",
       "name": "V2",
       "status": "planned",
-      "summary": "E-Mail-Versand-Adapter mit Open-Tracking — Postmark EU primaer (DEC-013), Versand-Queue mit Scheduling, Open/Click-Tracking via Pixel + Link-Wrapper, Bounce/Complaint-Verarbeitung, DSGVO-Opt-out-Handling. V1 erzeugt nur Asset, V2 schaltet den Versand frei.",
+      "summary": "E-Mail-Versand-Adapter mit Open-Tracking — Postmark EU primaer (DEC-013), Versand-Queue mit Scheduling, Open/Click-Tracking via Pixel + Link-Wrapper, Bounce/Complaint-Verarbeitung, DSGVO-Opt-out-Handling. V1 erzeugt nur Asset, V2 schaltet den Versand frei. Teil des Market-Launcher-Produktstrangs (V1-V5, vgl. RPT-013).",
       "order": 2
     },
     {
       "id": "v3",
       "name": "V3",
       "status": "planned",
-      "summary": "Voll-Lead-Research + Lead-Scoring — FEAT-013 Lead Scoring (regelbasiert + Disqualifier-Logik), Voll-Firecrawl-Adapter (Webhook + API-Pull), Auto-Disqualifier-Regeln vor Pitch-Generierung. Erweitert V1-Lead-Research-Pull-on-Demand zu automatischem Inbound-Stream.",
+      "summary": "Voll-Lead-Research + Lead-Scoring — FEAT-013 Lead Scoring (regelbasiert + Disqualifier-Logik), Voll-Firecrawl-Adapter (Webhook + API-Pull), Auto-Disqualifier-Regeln vor Pitch-Generierung. Erweitert V1-Lead-Research-Pull-on-Demand zu automatischem Inbound-Stream. Teil des Market-Launcher-Produktstrangs (V1-V5, vgl. RPT-013).",
       "order": 3
     },
     {
       "id": "v4",
       "name": "V4",
       "status": "planned",
-      "summary": "LinkedIn-Publishing + Multi-Channel-Distribution — FEAT-011 Voll-Variant (Channel-Segments + Variants fuer A/B-Vorbereitung), LinkedIn-Adapter (Creator-API primaer, Buffer/Hootsuite als Fallback gemaess DEC-014), High-Attention-Outreach (physischer Brief + Call) als Channel-Variante. V4 macht Multi-Channel-Distribution scharf.",
+      "summary": "LinkedIn-Publishing + Multi-Channel-Distribution — FEAT-011 Voll-Variant (Channel-Segments + Variants fuer A/B-Vorbereitung), LinkedIn-Adapter (Creator-API primaer, Buffer/Hootsuite als Fallback gemaess DEC-014), High-Attention-Outreach (physischer Brief + Call) als Channel-Variante. V4 macht Multi-Channel-Distribution scharf. Teil des Market-Launcher-Produktstrangs (V1-V5, vgl. RPT-013).",
       "order": 4
     },
     {
       "id": "v5",
       "name": "V5",
       "status": "planned",
-      "summary": "Voll-Tracking + KI-Scoring + A/B-Statistik — Tracking-Event-Schema Hybrid (Core-Felder + kanalspezifisches JSON-Payload, DEC-015), konsolidiertes Performance-Cockpit, KI-Scoring (loest regelbasiertes Scoring aus V3 ab), Auto-Variant-Generierung, A/B-Statistik mit Signifikanz-Test. Attribution auf Kampagnen-Ebene, Deal-Attribution V9+.",
+      "summary": "Voll-Tracking + KI-Scoring + A/B-Statistik — Tracking-Event-Schema Hybrid (Core-Felder + kanalspezifisches JSON-Payload, DEC-015), konsolidiertes Performance-Cockpit, KI-Scoring (loest regelbasiertes Scoring aus V3 ab), Auto-Variant-Generierung, A/B-Statistik mit Signifikanz-Test. Attribution auf Kampagnen-Ebene, Deal-Attribution V12+. **Abschluss des Market-Launcher-Produktstrangs.** Mit V5 ist die Marketing-Foundation eigenstaendig vermarktbar (RPT-013).",
       "order": 5
     },
     {
       "id": "v6",
       "name": "V6",
       "status": "planned",
-      "summary": "Wissensverdichtungs-Backbone (ehemals V1) — FEAT-001 Ingest-Layer Onboarding, FEAT-002 Ingest-Layer Business, FEAT-003 Portfolio-Monitor, FEAT-004 Insight-Layer (KU-Liste mit Tags/Clustering/Volltext), FEAT-005 Opportunity & Decision basic (4+7 Dimensionen, KI-Bewertung), FEAT-006 Cross-Kunden-Learnings basic (manuelle Freigabe + Anonymisierung), FEAT-007 Customer Deployment Registry. Pivot 2026-04-25: verschoben weil ohne Customer-Cases (die Marketing Launcher V1 erst erzeugt) leerer Speicher.",
+      "summary": "Wissensverdichtungs-Backbone (ehemals V1) — FEAT-001 Ingest-Layer Onboarding, FEAT-002 Ingest-Layer Business, FEAT-003 Portfolio-Monitor, FEAT-004 Insight-Layer (KU-Liste mit Tags/Clustering/Volltext), FEAT-006 Cross-Kunden-Learnings basic (manuelle Freigabe + Anonymisierung), FEAT-007 Customer Deployment Registry. **Modifikation 2026-05-02 (RPT-013):** FEAT-005 'Opportunity & Decision basic' wird aus V6 entfernt — geht auf in V7 Venture Layer Foundation als haerteres und breiteres Pruefungssystem (Lebenskompat, Direction Fit, 5 Kern-Eval-Blocks, Kill Rules, Quick-Capture). V6 bleibt die Foundation, die der Venture-Layer benoetigt (Ingest, Insight, Portfolio).",
       "order": 6
     },
     {
       "id": "v7",
       "name": "V7",
       "status": "planned",
-      "summary": "Validation & Idea Testing — Experiment-Entitaet (Hypothese, Kill-Kriterien, Erfolgssignale, Budget, Zeitfenster), KI-Vorschlag von Experiment-Designs aus Opportunities (V6+ verfuegbar), Research-Task-Erweiterung mit 6 Research-Typen aus archiviertem alten FEAT-012, strukturierte Ergebnis-Dokumentation und Folgeentscheidung.",
+      "summary": "**NEU (RPT-013, scharfgeschaltet 2026-05-02) — Venture Layer Foundation.** Opportunity Intake (Quick-Capture, ~6 Pflichtfelder), Lifecycle (5 Status: New / Capturing / In Review / Decided / Closed), Decision Tags (orthogonal: Reject / Park / Watchlist / Test Approved / Direction-1-Candidate / Direction-2-Candidate), 5 Kern-Eval-Blocks (Lebenskompat, Problemrealitaet, Customer Access, Speed-to-Test, Wirtschaftslogik), Ampel + Freitext pro Block, Kill Rules 1+2 als Eskalations-Vorschlag mit User-Bestaetigung (kein Auto-Kill), Direction Fit binaer (R1/R2/beide/keiner), Action Outputs MVP. Ersetzt das ehemalige FEAT-005 aus V6 mit haerterem System. Erwartung: ~3-4 Wochen Implementation, ~5-8 Slices.",
       "order": 7
     },
     {
       "id": "v8",
       "name": "V8",
       "status": "planned",
-      "summary": "Orchestration & Decision Layer — Hybrid-Cockpit (Priority-Felder in Listen + leichtgewichtiges Top-5-Dashboard, DEC-007), manuelle Flags + Sortierung, Learning-Rueckfluesse an Onboarding (Fragenkataloge) und Business (Argumente). KI-Auto-Priorisierung = V9+.",
+      "summary": "**NEU (RPT-013, scharfgeschaltet 2026-05-02) — Venture Layer Erweitert.** Restliche Eval-Blocks (Marktbestaendigkeit, Wettbewerb, Menschenunabhaengigkeit, Skalierbarkeit, Innovation/Timing, Kapital-Story, Strategischer Fit) — Konsolidierung auf 6-8 trennscharfe Blocks gemaess OQ-D-06 RPT-013. Override mit Pflichtfeldern (Warum/Bewertung-Ignoriert/Annahme-Pruefen/Maximalbudget/Maximalzeitfenster/Abbruchkriterium), optional 24h-Cooldown-Modus zum Schutz vor Affekt-Decisions. Red Flag als eigenes Objekt (Severity, Resolved-Flag). Operator Profile Object (Star-Vermeidung, Standardisierbarkeit, Track Record, Lebenskompat des Operators selbst). Capital Story Draft Object. Research Task Typisierung (Desk / Structured Human / Internal Hypothesis).",
       "order": 8
     },
     {
-      "id": "v9plus",
-      "name": "V9+",
+      "id": "v9",
+      "name": "V9",
       "status": "planned",
-      "summary": "Multi-Tenant + Voice-API + Erweiterungen — Template-Modus fuer externe Kundenunternehmen (Multi-Instanz-Aktivierung), Custom-Brand-Profile pro Kunde (loest V1-Singleton ab), SMAO-Partner-API mit Auth + Rate-Limiting (Knowledge Packaging), Auto-Anonymisierung via Bedrock fuer Cross-Kunden-Learnings, KI-Auto-Clustering, KI-Auto-Priorisierung, Deal-Ebene-Attribution (Kampagne -> Deal-Abschluss), weitere Publishing-Kanaele (X, YouTube/Short-Video, Paid-Ads).",
+      "summary": "**NEU (RPT-013, scharfgeschaltet 2026-05-02) — Cross-System Integration des Venture-Layer.** Onboarding-Trigger fuer External Validation (aus IS-Knopfdruck Capture-Sessions in Onboarding-Plattform anlegen mit Templates Founder-Assessment / Operator-Assessment / Marktteilnehmer-Interview / Branchen-Experte-Interview), Onboarding-Pull mit Mode-Filter `external_validation` (analog FEAT-001), Market-Launcher-Trigger ('Test Approved -> Pilot-Marktung-Test' erzeugt Lead-Research-Task im V1-V5-Bereich mit ICP/Segment vorausgefuellt), Business-System lesend (Pull Deal-Status fuer Direction-2-Candidates als Validation-Signal). Erst sinnvoll nach 4-8 Wochen V7+V8-Praxis mit echten Ideen-Throughput.",
       "order": 9
+    },
+    {
+      "id": "v10",
+      "name": "V10",
+      "status": "planned",
+      "summary": "**Re-Nummeriert von V7 nach V10 (RPT-013, scharfgeschaltet 2026-05-02) — Validation & Idea Testing.** Experiment-Entitaet (Hypothese, Kill-Kriterien, Erfolgssignale, Budget, Zeitfenster), KI-Vorschlag von Experiment-Designs aus Opportunities (V6+ verfuegbar, V8+ erweitert), Research-Task-Erweiterung mit 6 Research-Typen aus archiviertem alten FEAT-012, strukturierte Ergebnis-Dokumentation und Folgeentscheidung. Ist die natuerliche Verlaengerung des Venture-Layer-Outputs 'Test Approved' aus V7 — d.h. wenn Venture-Layer eine Idee fuer einen kleinen Test freischaltet, lebt der Test als Experiment-Entitaet hier.",
+      "order": 10
+    },
+    {
+      "id": "v11",
+      "name": "V11",
+      "status": "planned",
+      "summary": "**Re-Nummeriert von V8 nach V11 (RPT-013, scharfgeschaltet 2026-05-02) — Orchestration & Decision Layer + Venture-Portfolio.** Hybrid-Cockpit (Priority-Felder in Listen + leichtgewichtiges Top-5-Dashboard, DEC-007), manuelle Flags + Sortierung, Learning-Rueckfluesse an Onboarding (Fragenkataloge) und Business (Argumente). **Erweitert um Venture-Portfolio-Sicht (RPT-013):** Pattern-Erkennung ueber mehrere Opportunities, Vergleich aehnlicher Opportunities, Scoring-Historie ueber Zeit, Portfolio-Heatmaps Richtung 1 / Richtung 2, Operator-Fit-Templates aus Cross-Kunden-Learnings (verbindet V6 FEAT-006 mit V8-Operator-Profile). KI-Auto-Priorisierung = V12+.",
+      "order": 11
+    },
+    {
+      "id": "v12plus",
+      "name": "V12+",
+      "status": "planned",
+      "summary": "**Re-Nummeriert von V9+ nach V12+ (RPT-013, scharfgeschaltet 2026-05-02) — Multi-Tenant + Voice-API + Erweiterungen.** Template-Modus fuer externe Kundenunternehmen (Multi-Instanz-Aktivierung), Custom-Brand-Profile pro Kunde (loest V1-Singleton ab), SMAO-Partner-API mit Auth + Rate-Limiting (Knowledge Packaging), Auto-Anonymisierung via Bedrock fuer Cross-Kunden-Learnings, KI-Auto-Clustering, KI-Auto-Priorisierung, Deal-Ebene-Attribution (Kampagne -> Deal-Abschluss), weitere Publishing-Kanaele (X, YouTube/Short-Video, Paid-Ads). **Plus aus RPT-013:** Multi-Tenant Venture-Layer (Beteiligungs-Partner als Mit-Reviewer), Voice-Capture fuer Opportunity Intake (analog Whisper im Onboarding), Markt-/Wettbewerbsdaten-Anreicherung via externer Provider, Dealflow-/Opportunity-Heatmaps, KI-basierte Capital-Story-Generators.",
+      "order": 12
     }
   ]
 }
