@@ -8,8 +8,10 @@ import { createClient } from "@/lib/supabase/server";
 import {
   saveBrandProfile,
   getActiveBrandProfile,
+  listChangelog,
   BrandProfileValidationError,
   type BrandProfileRow,
+  type ChangelogEntry,
 } from "./repository";
 import type { BrandProfileData } from "@/lib/brand/schema";
 
@@ -19,6 +21,14 @@ export interface SaveActionResult {
   error?: string;
   fieldErrors?: Record<string, string[]>;
 }
+
+export type LoadActionResult =
+  | { success: true; profile: BrandProfileRow | null }
+  | { success: false; error: string };
+
+export type ChangelogActionResult =
+  | { success: true; entries: ChangelogEntry[] }
+  | { success: false; error: string };
 
 /**
  * Server Action: speichert Brand Profile.
@@ -56,17 +66,54 @@ export async function saveBrandProfileAction(
 
 /**
  * Server Action: liest aktives Brand Profile.
- * Gibt null zurueck wenn noch kein Profile existiert.
+ *
+ * Result-Pattern (ISSUE-009): konsistent mit `saveBrandProfileAction`.
+ * `profile=null` bedeutet "noch kein Profile angelegt".
  */
-export async function getActiveBrandProfileAction(): Promise<BrandProfileRow | null> {
+export async function getActiveBrandProfileAction(): Promise<LoadActionResult> {
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
   if (!user) {
-    throw new Error("Nicht eingeloggt");
+    return { success: false, error: "Nicht eingeloggt" };
   }
 
-  return getActiveBrandProfile();
+  try {
+    const profile = await getActiveBrandProfile();
+    return { success: true, profile };
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : "Unbekannter Fehler";
+    return { success: false, error: msg };
+  }
+}
+
+/**
+ * Server Action: listet Changelog-Eintraege fuer das aktive Brand Profile.
+ * Result-Pattern (ISSUE-009).
+ */
+export async function listBrandProfileChangelogAction(
+  limit = 50
+): Promise<ChangelogActionResult> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return { success: false, error: "Nicht eingeloggt" };
+  }
+
+  try {
+    const profile = await getActiveBrandProfile();
+    if (!profile) {
+      return { success: true, entries: [] };
+    }
+    const entries = await listChangelog(profile.id, limit);
+    return { success: true, entries };
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : "Unbekannter Fehler";
+    return { success: false, error: msg };
+  }
 }

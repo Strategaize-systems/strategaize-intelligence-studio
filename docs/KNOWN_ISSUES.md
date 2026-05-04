@@ -75,19 +75,39 @@
 - Next Action: V1.1+ Atomicity-Hardening: entweder PL/pgSQL RPC `save_brand_profile_atomic(jsonb, uuid)` mit Transaktion, oder DB-Trigger `brand_profile_changelog_on_update`. Erst nach ersten Live-Daten oder bei Multi-User-Pflicht. Quelle: RPT-014 Finding M1.
 
 ### ISSUE-009 — API-Inkonsistenz Brand Profile Server Actions
-- Status: open
+- Status: resolved
 - Severity: Low
 - Area: Backend / Server Actions
 - Summary: `saveBrandProfileAction` liefert `SaveActionResult` mit `{ success, error, fieldErrors }` (Result-Pattern). `getActiveBrandProfileAction` wirft `Error("Nicht eingeloggt")` bei fehlendem Auth (Throw-Pattern). Mixed API-Shape ist fuer Client-Component-Aufruf unschoen.
 - Impact: UI-Pattern-Frage fuer /frontend SLC-102 MT-3. Komponente muss zwei verschiedene Aufruf-Patterns implementieren.
 - Workaround: RSC kann Throw via Error Boundary fangen, akzeptabel fuer aktuellen Use-Case.
-- Next Action: In /frontend SLC-102 MT-3 entscheiden, ob `getActiveBrandProfileAction` auf Result-Pattern umgestellt wird (Konsistenz) oder ob beide Server-Actions throw werden. Quelle: RPT-014 Finding L1.
+- Resolution: 2026-05-04 in /frontend SLC-102: `getActiveBrandProfileAction` auf Result-Pattern (`LoadActionResult`) umgestellt; zusaetzliche `listBrandProfileChangelogAction` mit identischem Pattern (`ChangelogActionResult`) neu eingefuehrt. Alle drei Brand-Server-Actions liefern jetzt konsistent `{ success, ... } | { success: false, error }`. Source: RPT-014 Finding L1.
+- Next Action: Erledigt.
 
 ### ISSUE-010 — BrandProfileValidationError fieldErrors ohne Sektion-Summary
-- Status: open
+- Status: resolved
 - Severity: Low
 - Area: Backend / Validation Error Mapping
 - Summary: `BrandProfileValidationError.fieldErrors` ist `Record<string, string[]>` mit Zod-Issue-Pfaden (z.B. `"sections.painPoints.costs.money": ["Pflichtfeld"]`). Ideal fuer React-Hook-Form `setError`. Fuer Toast-Anzeige muss UI selbst aufloesen via `SECTION_LABEL_DE`.
 - Impact: Keine. UI-Verantwortung in /frontend MT-3.
 - Workaround: UI implementiert Helper `summarizeSectionErrors(fieldErrors): SectionKey[]` und nutzt `SECTION_LABEL_DE` fuer User-facing Messages.
-- Next Action: In /frontend SLC-102 MT-3 implementieren. Kein Backend-Change noetig. Quelle: RPT-014 Finding L2.
+- Resolution: 2026-05-04 in /frontend SLC-102: `src/lib/brand/errors.ts` mit `summarizeSectionErrors()` + `formatSectionErrorList()` neu angelegt; `BrandProfileForm` zeigt aggregierten deutschen Section-Summary in Toast und Inline-Alert. Source: RPT-014 Finding L2.
+- Next Action: Erledigt.
+
+### ISSUE-011 — RHF-Resolver-Type-Cast bei BrandProfileForm
+- Status: open
+- Severity: Low
+- Area: Frontend / Tech-Debt
+- Summary: `brandProfileDataSchema` hat divergente Zod-Input-/Output-Typen wegen `.default([])` auf optionalen Arrays in Sections 5/9/11. `useForm<BrandProfileData>` mit `zodResolver(...)` weigert sich zu typen — Loesung war `as unknown as Resolver<BrandProfileData>`-Cast.
+- Impact: Kein Runtime-Risiko, Validation laeuft korrekt durch das Schema. Nur Type-Sauberkeit leidet.
+- Workaround: Cast bleibt drin, ist im Code kommentiert.
+- Next Action: V1.1+ Tech-Debt-Slice: 3-Generics-Variante `useForm<z.input<typeof Schema>, unknown, BrandProfileData>` einfuehren, alle 12 Section-Komponenten + Field-Helper auf Input-Type umstellen. Quelle: RPT-015 Finding F1.
+
+### ISSUE-012 — Brand-UI-Strings nicht ueber next-intl messages lokalisiert
+- Status: open
+- Severity: Low
+- Area: Frontend / i18n / Tech-Debt
+- Summary: Alle UI-Labels in Brand-Komponenten (`"Speichere ..."`, `"Erfasst"`, `"Pflichtfeld"`, Sektion-Titel etc.) sind inline auf Deutsch. `messages/de.json` + `en.json` werden nicht erweitert.
+- Impact: Keine fuer V1 (Internal-Tool, deutsch-only). EN-Pfad zeigt deutsche Labels bei `/en/settings/brand`.
+- Workaround: V1 ist deutsch-only.
+- Next Action: V2+ Polish-Slice: alle inline-Strings in `messages/{de,en}.json` migrieren, `useTranslations("BrandProfile")` in den Komponenten verwenden. Quelle: RPT-015 Finding F2.

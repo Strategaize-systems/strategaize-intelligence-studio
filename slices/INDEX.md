@@ -2,7 +2,9 @@
 
 ## Status
 
-**SLC-102 Backend QA PASS 2026-05-04 (RPT-014).** Backend-Anteil verifiziert: 81 Unit-Tests + 9 DB-Integration-Tests via node:20 gegen Hetzner-Coolify-DB gruen, Build/Lint/Typecheck clean, Stub-Scan clean, Schema-Realitaet 1:1 zu Code, alle Backend-ACs erfuellt (RLS-Rolle DEC-023 als bewusste V1-Drift dokumentiert). 1 Medium + 2 Low Findings (ISSUE-008..010), alle non-blocking. Branch: `worktree/slc-102-brand-profile`. Naechster Schritt: `/frontend SLC-102` im selben Worktree.
+**SLC-102 Frontend done 2026-05-04 (RPT-015).** UI-Tasks (MT-3 12-Sektionen-Accordion, MT-4 Changelog-Tab, MT-5 PromptSnippetPreview) implementiert mit Style Guide V2 Komponenten. ISSUE-009 (Action-API-Inkonsistenz) und ISSUE-010 (Sektion-Summary-Helper) im Zuge der Implementation aufgeloest: `getActiveBrandProfileAction` + neuer `listBrandProfileChangelogAction` auf Result-Pattern; neuer Helper `summarizeSectionErrors` + `formatSectionErrorList` in `src/lib/brand/errors.ts`. Build/Lint/Typecheck clean, 81/81 Unit-Tests gruen. Browser-Smoke ausstehend (gehoert in `/qa SLC-102`). Branch: `worktree/slc-102-brand-profile`. Naechster Schritt: `/qa SLC-102` (Frontend + Komplett-Smoke).
+
+**SLC-102 Backend QA PASS 2026-05-04 (RPT-014).** Backend-Anteil verifiziert: 81 Unit-Tests + 9 DB-Integration-Tests via node:20 gegen Hetzner-Coolify-DB gruen, Build/Lint/Typecheck clean, Stub-Scan clean, Schema-Realitaet 1:1 zu Code, alle Backend-ACs erfuellt (RLS-Rolle DEC-023 als bewusste V1-Drift dokumentiert). 1 Medium + 2 Low Findings (ISSUE-008..010), alle non-blocking. Branch: `worktree/slc-102-brand-profile`.
 
 **SLC-102 Backend done 2026-05-01 (RPT-013).** 5 von 7 Micro-Tasks im /backend-Scope implementiert (MT-1 Schema, MT-2 Repository+Actions, MT-5 Prompt-Builder, MT-6 Completeness, MT-7 RLS). UI-Tasks (MT-3 Accordion, MT-4 Changelog-Tab, MT-5 PromptSnippetPreview) bleiben fuer `/frontend SLC-102`.
 
