@@ -64,3 +64,30 @@
 - Impact: Build-Warning bei jedem Build. In zukuenftigen Next-Major-Versions (Next 17?) wird middleware.ts vermutlich entfernt.
 - Workaround: Aktuell keine — middleware.ts funktioniert noch in Next 16.x.
 - Next Action: V1.1+ Tech-Debt-Slice: middleware.ts → proxy.ts migrieren. Pattern aus next-intl Docs fuer Next 16+ uebernehmen. Nicht-blocking fuer V1.
+
+### ISSUE-008 — saveBrandProfile ist nicht atomar (UPDATE + Changelog-INSERT separat)
+- Status: open
+- Severity: Medium
+- Area: Backend / Atomicity
+- Summary: `saveBrandProfile` (`src/server/brand/repository.ts`) fuehrt zwei separate Supabase-Calls aus: (1) UPDATE brand_profile mit version-Inkrement + neuen Daten, (2) INSERT INTO brand_profile_changelog mit Diff-Eintraegen. Laeuft nicht in einer DB-Transaktion. Bei Failure von Step 2 (Connection-Drop, RLS-Block, Constraint-Violation) ist Profile auf neuer Version, aber ohne zugehoerigen Changelog-Eintrag.
+- Impact: Audit-Trail wird inkonsistent — Versions-Sprung ohne Diff-Spur. Slice-Spec verspricht "Versions-Snapshot pro Aenderung mit Changelog-Audit" — Versprechen kann theoretisch brechen. V1 single-tenant + Internal-Tool + niedriger Traffic minimiert reale Failure-Wahrscheinlichkeit.
+- Workaround: User sieht eine Fehlermeldung wenn Changelog-INSERT failt (Action wirft `Error("saveBrandProfile changelog: ...")`) — kein silent-fail. Validation-Errors werden vor jedem DB-Touch abgefangen.
+- Next Action: V1.1+ Atomicity-Hardening: entweder PL/pgSQL RPC `save_brand_profile_atomic(jsonb, uuid)` mit Transaktion, oder DB-Trigger `brand_profile_changelog_on_update`. Erst nach ersten Live-Daten oder bei Multi-User-Pflicht. Quelle: RPT-014 Finding M1.
+
+### ISSUE-009 — API-Inkonsistenz Brand Profile Server Actions
+- Status: open
+- Severity: Low
+- Area: Backend / Server Actions
+- Summary: `saveBrandProfileAction` liefert `SaveActionResult` mit `{ success, error, fieldErrors }` (Result-Pattern). `getActiveBrandProfileAction` wirft `Error("Nicht eingeloggt")` bei fehlendem Auth (Throw-Pattern). Mixed API-Shape ist fuer Client-Component-Aufruf unschoen.
+- Impact: UI-Pattern-Frage fuer /frontend SLC-102 MT-3. Komponente muss zwei verschiedene Aufruf-Patterns implementieren.
+- Workaround: RSC kann Throw via Error Boundary fangen, akzeptabel fuer aktuellen Use-Case.
+- Next Action: In /frontend SLC-102 MT-3 entscheiden, ob `getActiveBrandProfileAction` auf Result-Pattern umgestellt wird (Konsistenz) oder ob beide Server-Actions throw werden. Quelle: RPT-014 Finding L1.
+
+### ISSUE-010 — BrandProfileValidationError fieldErrors ohne Sektion-Summary
+- Status: open
+- Severity: Low
+- Area: Backend / Validation Error Mapping
+- Summary: `BrandProfileValidationError.fieldErrors` ist `Record<string, string[]>` mit Zod-Issue-Pfaden (z.B. `"sections.painPoints.costs.money": ["Pflichtfeld"]`). Ideal fuer React-Hook-Form `setError`. Fuer Toast-Anzeige muss UI selbst aufloesen via `SECTION_LABEL_DE`.
+- Impact: Keine. UI-Verantwortung in /frontend MT-3.
+- Workaround: UI implementiert Helper `summarizeSectionErrors(fieldErrors): SectionKey[]` und nutzt `SECTION_LABEL_DE` fuer User-facing Messages.
+- Next Action: In /frontend SLC-102 MT-3 implementieren. Kein Backend-Change noetig. Quelle: RPT-014 Finding L2.
